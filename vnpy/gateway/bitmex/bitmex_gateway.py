@@ -322,7 +322,8 @@ class BitmexRestApi(RestClient):
             return
 
         history = []
-        count = 750
+        # 12h for 1m
+        count = 720
         start_time = req.start.isoformat()
 
         while True:
@@ -338,6 +339,7 @@ class BitmexRestApi(RestClient):
             if req.end:
                 params["endTime"] = req.end.isoformat()
 
+            timer = datetime.now()
             # Get response from server
             resp = self.request(
                 "GET",
@@ -379,11 +381,15 @@ class BitmexRestApi(RestClient):
                 self.gateway.write_log(msg)
 
                 # Break if total data count less than 750 (latest date collected)
-                if len(data) < 750:
+                if len(data) < count:
                     break
 
                 # Update start time
                 start_time = bar.datetime + TIMEDELTA_MAP[req.interval]
+
+                delta_time = datetime.now() - timer
+                if delta_time < timedelta(seconds=1):
+                    time.sleep(1.1)
 
         return history
 
