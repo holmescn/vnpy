@@ -93,9 +93,12 @@ class AtrRsiStrategy(CtaTemplate):
 
             if self.atr_value > self.atr_ma:
                 if self.rsi_value > self.rsi_buy:
-                    self.buy(bar.close_price + 5, self.fixed_size)
+                    # self.buy(bar.close_price + 5, self.fixed_size)
+                    self.short(bar.close_price, self.fixed_size)
+
                 elif self.rsi_value < self.rsi_sell:
-                    self.short(bar.close_price - 5, self.fixed_size)
+                    # self.short(bar.close_price - 5, self.fixed_size)
+                    self.buy(bar.close_price, self.fixed_size)
 
         elif self.pos > 0:
             self.intra_trade_high = max(self.intra_trade_high, bar.high_price)
