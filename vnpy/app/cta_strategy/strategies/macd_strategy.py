@@ -19,8 +19,9 @@ class MacdStrategy(CtaTemplate):
     slow_period = 26
     signal_period = 9
     fixed_size = 1
+    fixed_money = 10000.0
 
-    parameters = ["fast_period", "slow_period", "signal_period", 'fixed_size']
+    parameters = ["fast_period", "slow_period", "signal_period"]
     variables = []
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
@@ -71,21 +72,18 @@ class MacdStrategy(CtaTemplate):
 
         price = bar.close_price
         if self.pos == 0:
+            size = int(self.fixed_money / price)
             if macd_array[-2] < signal_array[-2] and macd_array[-1] > signal_array[-1]:
-                self.buy(price, self.fixed_size)
+                self.buy(price, size)
             elif macd_array[-2] > signal_array[-2] and macd_array[-1] < signal_array[-1]:
-                self.short(price, self.fixed_size)
+                self.short(price, size)
 
         elif self.pos > 0:
-            if macd_array[-2] < signal_array[-2] and macd_array[-1] > signal_array[-1]:
+            if macd_array[-2] > signal_array[-2] and macd_array[-1] < signal_array[-1]:
                 self.sell(price, abs(self.pos))
-            elif macd_array[-2] > signal_array[-2] and macd_array[-1] < signal_array[-1]:
-                self.cover(price, abs(self.pos), stop=True)
 
         elif self.pos < 0:
             if macd_array[-2] < signal_array[-2] and macd_array[-1] > signal_array[-1]:
-                self.sell(price, abs(self.pos))
-            elif macd_array[-2] > signal_array[-2] and macd_array[-1] < signal_array[-1]:
                 self.cover(price, abs(self.pos))
 
         self.put_event()

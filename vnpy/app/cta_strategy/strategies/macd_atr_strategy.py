@@ -29,7 +29,7 @@ class MacdAtrStrategy(CtaTemplate):
     intra_trade_high = 0
     intra_trade_low = 0
 
-    parameters = ["atr_length", "atr_ma_length", "fast_period", "slow_period"
+    parameters = ["atr_length", "atr_ma_length", "fast_period", "slow_period",
                   "signal_period", "trailing_percent", "fixed_size"]
     variables = ["atr_value", "atr_ma", "fast_period", "slow_period"
                  "signal_period"]
