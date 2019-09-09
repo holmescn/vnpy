@@ -9,12 +9,15 @@ from vnpy.app.cta_strategy import (
     BarGenerator,
     ArrayManager,
 )
+from vnpy.trader.object import Offset, Direction, Status
+from vnpy.app.cta_strategy.submit_trade_mixin import SubmitTradeMixin
 
 
-class DualThrustStrategy(CtaTemplate):
+class DualThrustStrategy(CtaTemplate, SubmitTradeMixin):
     """"""
 
     author = "用Python的交易员"
+    model_id = "ETHUSD_m1_DualThrust_UNK_v1.0"
 
     fixed_size = 1
     k1 = 0.4
@@ -35,7 +38,7 @@ class DualThrustStrategy(CtaTemplate):
     short_entered = False
 
     parameters = ["k1", "k2", "fixed_size"]
-    variables = ["range", "long_entry", "short_entry", "exit_time"]
+    variables = ["range", "long_entry", "short_entry"]
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
         """"""
@@ -142,12 +145,14 @@ class DualThrustStrategy(CtaTemplate):
         """
         Callback of new order data update.
         """
-        pass
+        self.print_order(order)
 
     def on_trade(self, trade: TradeData):
         """
         Callback of new trade data update.
         """
+        self.submit_trade(trade)
+        self.print_trade(trade)
         self.put_event()
 
     def on_stop_order(self, stop_order: StopOrder):

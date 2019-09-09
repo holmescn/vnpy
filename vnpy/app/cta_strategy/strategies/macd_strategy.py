@@ -9,17 +9,19 @@ from vnpy.app.cta_strategy import (
     BarGenerator,
     ArrayManager
 )
+from vnpy.trader.object import Offset, Direction, Status
+from vnpy.app.cta_strategy.submit_trade_mixin import SubmitTradeMixin
 
 
-class MacdStrategy(CtaTemplate):
+class MacdStrategy(CtaTemplate, SubmitTradeMixin):
     """MACD Strategy"""
     author = "用Python的交易员"
+    model_id = "ETHUSD_m1_MACD_MACD_v1.0"
 
     fast_period = 12
     slow_period = 26
     signal_period = 9
     fixed_size = 1
-    fixed_money = 10000.0
 
     parameters = ["fast_period", "slow_period", "signal_period"]
     variables = []
@@ -72,7 +74,7 @@ class MacdStrategy(CtaTemplate):
 
         price = bar.close_price
         if self.pos == 0:
-            size = int(self.fixed_money / price)
+            size = self.fixed_size
             if macd_array[-2] < signal_array[-2] and macd_array[-1] > signal_array[-1]:
                 self.buy(price, size)
             elif macd_array[-2] > signal_array[-2] and macd_array[-1] < signal_array[-1]:
@@ -92,12 +94,14 @@ class MacdStrategy(CtaTemplate):
         """
         Callback of new order data update.
         """
-        pass
+        self.print_order(order)
 
     def on_trade(self, trade: TradeData):
         """
         Callback of new trade data update.
         """
+        self.submit_trade(trade)
+        self.print_trade(trade)        
         self.put_event()
 
     def on_stop_order(self, stop_order: StopOrder):

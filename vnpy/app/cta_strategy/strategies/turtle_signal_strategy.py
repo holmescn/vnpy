@@ -9,11 +9,14 @@ from vnpy.app.cta_strategy import (
     BarGenerator,
     ArrayManager,
 )
+from vnpy.trader.object import Offset, Direction, Status
+from vnpy.app.cta_strategy.submit_trade_mixin import SubmitTradeMixin
 
 
-class TurtleSignalStrategy(CtaTemplate):
+class TurtleSignalStrategy(CtaTemplate, SubmitTradeMixin):
     """"""
     author = "用Python的交易员"
+    model_id = "ETHUSD_m1_Turtle_UNK_v1.0"
 
     entry_window = 20
     exit_window = 10
@@ -116,11 +119,15 @@ class TurtleSignalStrategy(CtaTemplate):
             self.short_entry = trade.price
             self.short_stop = self.short_entry + 2 * self.atr_value
 
+        self.submit_trade(trade)
+        self.print_trade(trade)
+        self.put_event()
+
     def on_order(self, order: OrderData):
         """
         Callback of new order data update.
         """
-        pass
+        self.print_order(order)
 
     def on_stop_order(self, stop_order: StopOrder):
         """

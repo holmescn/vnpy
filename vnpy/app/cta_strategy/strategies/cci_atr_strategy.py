@@ -8,19 +8,21 @@ from vnpy.app.cta_strategy import (
     BarGenerator,
     ArrayManager,
 )
+from vnpy.trader.object import Offset, Direction, Status
+from vnpy.app.cta_strategy.submit_trade_mixin import SubmitTradeMixin
 
 
-class CciAtrStrategy(CtaTemplate):
+class CciAtrStrategy(CtaTemplate, SubmitTradeMixin):
     """CCI/ATR Strategy"""
 
     author = "用Python的交易员"
+    model_id = "ETHUSD_m1_CCI_ATR_v1.0"
 
     atr_length = 22
     atr_ma_length = 10
     cci_length = 5
     trailing_percent = 0.8
     fixed_size = 1
-    fixed_money = 10000.0
 
     atr_value = 0
     atr_ma = 0
@@ -88,7 +90,7 @@ class CciAtrStrategy(CtaTemplate):
             self.intra_trade_low = bar.low_price
 
             if self.atr_value > self.atr_ma:
-                size = int(self.fixed_money / bar.close_price)
+                size = self.fixed_size
                 if self.cci_value > self.cci_buy:
                     # self.buy(bar.close_price + 5, self.fixed_size)
                     self.short(bar.close_price, size)
@@ -118,12 +120,14 @@ class CciAtrStrategy(CtaTemplate):
         """
         Callback of new order data update.
         """
-        pass
+        self.print_order(order)
 
     def on_trade(self, trade: TradeData):
         """
         Callback of new trade data update.
         """
+        self.submit_trade(trade)
+        self.print_trade(trade)
         self.put_event()
 
     def on_stop_order(self, stop_order: StopOrder):

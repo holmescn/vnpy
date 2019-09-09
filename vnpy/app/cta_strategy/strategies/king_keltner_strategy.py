@@ -8,12 +8,15 @@ from vnpy.app.cta_strategy import (
     BarGenerator,
     ArrayManager,
 )
+from vnpy.trader.object import Offset, Direction, Status
+from vnpy.app.cta_strategy.submit_trade_mixin import SubmitTradeMixin
 
 
-class KingKeltnerStrategy(CtaTemplate):
+class KingKeltnerStrategy(CtaTemplate, SubmitTradeMixin):
     """"""
 
     author = '用Python的交易员'
+    model_id = "ETHUSD_m1_KingKeltner_UNK_v1.0"
 
     kk_length = 11
     kk_dev = 1.6
@@ -112,7 +115,7 @@ class KingKeltnerStrategy(CtaTemplate):
         """
         Callback of new order data update.
         """
-        pass
+        self.print_order(order)
 
     def on_trade(self, trade: TradeData):
         """
@@ -131,6 +134,8 @@ class KingKeltnerStrategy(CtaTemplate):
                 if orderid in self.vt_orderids:
                     self.vt_orderids.remove(orderid)
 
+        self.submit_trade(trade)
+        self.print_trade(trade)
         self.put_event()
 
     def send_oco_order(self, buy_price, short_price, volume):

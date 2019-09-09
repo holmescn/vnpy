@@ -8,11 +8,14 @@ from vnpy.app.cta_strategy import (
     BarGenerator,
     ArrayManager,
 )
+from vnpy.trader.object import Offset, Direction, Status
+from vnpy.app.cta_strategy.submit_trade_mixin import SubmitTradeMixin
 
 
-class MultiTimeframeStrategy(CtaTemplate):
+class MultiTimeframeStrategy(CtaTemplate, SubmitTradeMixin):
     """"""
     author = "用Python的交易员"
+    model_id = "ETHUSD_m1_MultiTimeframe_UNK_v1.0"
 
     rsi_signal = 20
     rsi_window = 14
@@ -128,12 +131,14 @@ class MultiTimeframeStrategy(CtaTemplate):
         """
         Callback of new order data update.
         """
-        pass
+        self.pritn_order(order)
 
     def on_trade(self, trade: TradeData):
         """
         Callback of new trade data update.
         """
+        self.submit_trade(trade)
+        self.print_trade(trade)
         self.put_event()
 
     def on_stop_order(self, stop_order: StopOrder):

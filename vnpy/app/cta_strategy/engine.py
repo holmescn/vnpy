@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any, Callable
 from datetime import datetime, timedelta
 from threading import Thread
-from queue import Queue
+from queue import Queue, Empty
 from copy import copy
 
 from vnpy.event import Event, EventEngine
@@ -361,7 +361,7 @@ class CtaEngine(BaseEngine):
             OrderType.LIMIT,
             lock
         )
-    
+
     def send_server_stop_order(
         self,
         strategy: CtaTemplate,
@@ -431,7 +431,7 @@ class CtaEngine(BaseEngine):
         """
         order = self.main_engine.get_order(vt_orderid)
         if not order:
-            self.write_log(f"撤单失败，找不到委托{vt_orderid}", strategy)
+            self.write_log(f"撤单失败，找不到委托 {vt_orderid}", strategy)
             return
 
         req = order.create_cancel_request()
@@ -617,8 +617,12 @@ class CtaEngine(BaseEngine):
         """
         Init strategies in queue.
         """
-        while not self.init_queue.empty():
-            strategy_name = self.init_queue.get()
+        while True:
+            try:
+                strategy_name = self.init_queue.get(timeout=10)
+            except Empty:
+                break
+
             strategy = self.strategies[strategy_name]
 
             if strategy.inited:

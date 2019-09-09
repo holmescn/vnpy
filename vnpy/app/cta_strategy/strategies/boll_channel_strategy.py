@@ -8,12 +8,15 @@ from vnpy.app.cta_strategy import (
     BarGenerator,
     ArrayManager,
 )
+from vnpy.trader.object import Offset, Direction, Status
+from vnpy.app.cta_strategy.submit_trade_mixin import SubmitTradeMixin
 
 
-class BollChannelStrategy(CtaTemplate):
+class BollChannelStrategy(CtaTemplate, SubmitTradeMixin):
     """"""
 
     author = "用Python的交易员"
+    model_id = "ETHUSD_m1_BOLL_CHN_v1.0"
 
     boll_window = 18
     boll_dev = 3.4
@@ -119,12 +122,14 @@ class BollChannelStrategy(CtaTemplate):
         """
         Callback of new order data update.
         """
-        pass
+        self.print_order(order)
 
     def on_trade(self, trade: TradeData):
         """
         Callback of new trade data update.
         """
+        self.submit_trade(trade)
+        self.print_trade(trade)
         self.put_event()
 
     def on_stop_order(self, stop_order: StopOrder):
