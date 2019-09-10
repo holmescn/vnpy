@@ -33,6 +33,9 @@ class MacdStrategy(CtaTemplate, SubmitTradeMixin):
         )
         self.bg = BarGenerator(self.on_bar)
         self.am = ArrayManager()
+        self.reverse = setting.get('reverse', False)
+        if self.reverse:
+            self.model_id += 'r'
 
     def on_init(self):
         """
@@ -76,16 +79,26 @@ class MacdStrategy(CtaTemplate, SubmitTradeMixin):
         if self.pos == 0:
             size = self.fixed_size
             if macd_array[-2] < signal_array[-2] and macd_array[-1] > signal_array[-1]:
-                self.buy(price, size)
+                if not self.reverse:
+                    self.buy(price, size)
+                else:
+                    self.short(price, size)
             elif macd_array[-2] > signal_array[-2] and macd_array[-1] < signal_array[-1]:
-                self.short(price, size)
+                if not self.reverse:
+                    self.short(price, size)
+                else:
+                    self.buy(price, size)
 
         elif self.pos > 0:
-            if macd_array[-2] > signal_array[-2] and macd_array[-1] < signal_array[-1]:
+            cond1 = not self.reverse and macd_array[-2] > signal_array[-2] and macd_array[-1] < signal_array[-1]
+            cond2 = self.reverse and macd_array[-2] < signal_array[-2] and macd_array[-1] > signal_array[-1]
+            if cond1 or cond2:
                 self.sell(price, abs(self.pos))
 
         elif self.pos < 0:
-            if macd_array[-2] < signal_array[-2] and macd_array[-1] > signal_array[-1]:
+            cond1 = not self.reverse and macd_array[-2] > signal_array[-2] and macd_array[-1] < signal_array[-1]
+            cond2 = self.reverse and macd_array[-2] < signal_array[-2] and macd_array[-1] > signal_array[-1]
+            if cond1 or cond2:
                 self.cover(price, abs(self.pos))
 
         self.put_event()

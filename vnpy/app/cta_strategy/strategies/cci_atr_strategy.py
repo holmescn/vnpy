@@ -21,7 +21,7 @@ class CciAtrStrategy(CtaTemplate, SubmitTradeMixin):
     atr_length = 22
     atr_ma_length = 10
     cci_length = 5
-    trailing_percent = 0.8
+    trailing_percent = 0.9
     fixed_size = 1
 
     atr_value = 0
@@ -43,6 +43,9 @@ class CciAtrStrategy(CtaTemplate, SubmitTradeMixin):
         )
         self.bg = BarGenerator(self.on_bar)
         self.am = ArrayManager()
+        self.reverse = setting.get('reverse', False)
+        if self.reverse:
+            self.model_id += 'r'
 
     def on_init(self):
         """
@@ -92,11 +95,15 @@ class CciAtrStrategy(CtaTemplate, SubmitTradeMixin):
             if self.atr_value > self.atr_ma:
                 size = self.fixed_size
                 if self.cci_value > self.cci_buy:
-                    # self.buy(bar.close_price + 5, self.fixed_size)
-                    self.short(bar.close_price, size)
+                    if not self.reverse:
+                        self.buy(bar.close_price, size)
+                    else:
+                        self.short(bar.close_price, size)
                 elif self.cci_value < self.cci_sell:
-                    # self.short(bar.close_price - 5, self.fixed_size)
-                    self.buy(bar.close_price, size)
+                    if not self.reverse:
+                        self.short(bar.close_price, size)
+                    else:
+                        self.buy(bar.close_price, size)
 
         elif self.pos > 0:
             self.intra_trade_high = max(self.intra_trade_high, bar.high_price)

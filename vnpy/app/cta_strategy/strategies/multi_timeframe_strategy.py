@@ -51,6 +51,9 @@ class MultiTimeframeStrategy(CtaTemplate, SubmitTradeMixin):
 
         self.bg15 = BarGenerator(self.on_bar, 15, self.on_15min_bar)
         self.am15 = ArrayManager()
+        self.reverse = setting.get('reverse', False)
+        if self.reverse:
+            self.model_id += 'r'
 
     def on_init(self):
         """
@@ -99,17 +102,27 @@ class MultiTimeframeStrategy(CtaTemplate, SubmitTradeMixin):
 
         if self.pos == 0:
             if self.ma_trend > 0 and self.rsi_value >= self.rsi_long:
-                self.buy(bar.close_price + 5, self.fixed_size)
+                if not self.reverse:
+                    self.buy(bar.close_price, self.fixed_size)
+                else:
+                    self.short(bar.close_price, self.fixed_size)
             elif self.ma_trend < 0 and self.rsi_value <= self.rsi_short:
-                self.short(bar.close_price - 5, self.fixed_size)
+                if not self.reverse:
+                    self.short(bar.close_price, self.fixed_size)
+                else:
+                    self.buy(bar.close_price, self.fixed_size)
 
         elif self.pos > 0:
-            if self.ma_trend < 0 or self.rsi_value < 50:
-                self.sell(bar.close_price - 5, abs(self.pos))
+            cond1 = not self.reverse and (self.ma_trend < 0 or self.rsi_value < 50)
+            cond2 = self.reverse and (self.ma_trend > 0 or self.rsi_value > 50)
+            if cond1 or cond2:
+                self.sell(bar.close_price, abs(self.pos))
 
         elif self.pos < 0:
-            if self.ma_trend > 0 or self.rsi_value > 50:
-                self.cover(bar.close_price + 5, abs(self.pos))
+            cond1 = self.reverse and (self.ma_trend < 0 or self.rsi_value < 50)
+            cond2 = not self.reverse and (self.ma_trend > 0 or self.rsi_value > 50)
+            if cond1 or cond2:
+                self.cover(bar.close_price, abs(self.pos))
 
         self.put_event()
 
@@ -131,7 +144,7 @@ class MultiTimeframeStrategy(CtaTemplate, SubmitTradeMixin):
         """
         Callback of new order data update.
         """
-        self.pritn_order(order)
+        self.print_order(order)
 
     def on_trade(self, trade: TradeData):
         """

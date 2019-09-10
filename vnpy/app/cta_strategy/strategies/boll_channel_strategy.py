@@ -48,6 +48,9 @@ class BollChannelStrategy(CtaTemplate, SubmitTradeMixin):
 
         self.bg = BarGenerator(self.on_bar, 15, self.on_15min_bar)
         self.am = ArrayManager()
+        self.reverse = setting.get('reverse', False)
+        if self.reverse:
+            self.model_id += 'r'
 
     def on_init(self):
         """
@@ -98,9 +101,15 @@ class BollChannelStrategy(CtaTemplate, SubmitTradeMixin):
             self.intra_trade_low = bar.low_price
 
             if self.cci_value > 0:
-                self.buy(self.boll_up, self.fixed_size, True)
+                if not self.reverse:
+                    self.buy(self.boll_up, self.fixed_size, True)
+                else:
+                    self.sell(self.boll_up, self.fixed_size, True)
             elif self.cci_value < 0:
-                self.short(self.boll_down, self.fixed_size, True)
+                if not self.reverse:
+                    self.short(self.boll_down, self.fixed_size, True)
+                else:
+                    self.buy(self.boll_down, self.fixed_size, True)
 
         elif self.pos > 0:
             self.intra_trade_high = max(self.intra_trade_high, bar.high_price)

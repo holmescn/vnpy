@@ -43,8 +43,8 @@ class SubmitTradeMixin(object):
         else:
             self.write_log("找不到开仓记录")
         
-        if trade_list:
-            rv = submit_trade_data(trade_list)
+        if False and trade_list:
+            # rv = submit_trade_data(trade_list)
             if rv is not None:
                 self.write_log("提交失败: {}".format(rv))
 
