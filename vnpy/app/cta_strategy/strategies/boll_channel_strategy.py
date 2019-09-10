@@ -16,7 +16,7 @@ class BollChannelStrategy(CtaTemplate, SubmitTradeMixin):
     """"""
 
     author = "用Python的交易员"
-    model_id = "ETHUSD_m1_BOLL_CHN_v1.0"
+    model_id = "m1_BOLL_CHN_v1.0"
 
     boll_window = 18
     boll_dev = 3.4
@@ -49,8 +49,7 @@ class BollChannelStrategy(CtaTemplate, SubmitTradeMixin):
         self.bg = BarGenerator(self.on_bar, 15, self.on_15min_bar)
         self.am = ArrayManager()
         self.reverse = setting.get('reverse', False)
-        if self.reverse:
-            self.model_id += 'r'
+        self.model_id = '{}_{}{}'.format(self.vt_symbol, self.model_id, 'r' if self.reverse else '')
 
     def on_init(self):
         """

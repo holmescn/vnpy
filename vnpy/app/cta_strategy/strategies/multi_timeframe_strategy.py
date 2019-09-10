@@ -15,7 +15,7 @@ from vnpy.app.cta_strategy.submit_trade_mixin import SubmitTradeMixin
 class MultiTimeframeStrategy(CtaTemplate, SubmitTradeMixin):
     """"""
     author = "用Python的交易员"
-    model_id = "ETHUSD_m1_MultiTimeframe_UNK_v1.0"
+    model_id = "MultiTimeframe_v1.0"
 
     rsi_signal = 20
     rsi_window = 14
@@ -51,9 +51,7 @@ class MultiTimeframeStrategy(CtaTemplate, SubmitTradeMixin):
 
         self.bg15 = BarGenerator(self.on_bar, 15, self.on_15min_bar)
         self.am15 = ArrayManager()
-        self.reverse = setting.get('reverse', False)
-        if self.reverse:
-            self.model_id += 'r'
+        self.model_id = '{}_{}{}'.format(self.vt_symbol, self.model_id)
 
     def on_init(self):
         """
@@ -102,26 +100,16 @@ class MultiTimeframeStrategy(CtaTemplate, SubmitTradeMixin):
 
         if self.pos == 0:
             if self.ma_trend > 0 and self.rsi_value >= self.rsi_long:
-                if not self.reverse:
-                    self.buy(bar.close_price, self.fixed_size)
-                else:
-                    self.short(bar.close_price, self.fixed_size)
+                self.buy(bar.close_price, self.fixed_size)
             elif self.ma_trend < 0 and self.rsi_value <= self.rsi_short:
-                if not self.reverse:
-                    self.short(bar.close_price, self.fixed_size)
-                else:
-                    self.buy(bar.close_price, self.fixed_size)
+                self.short(bar.close_price, self.fixed_size)
 
         elif self.pos > 0:
-            cond1 = not self.reverse and (self.ma_trend < 0 or self.rsi_value < 50)
-            cond2 = self.reverse and (self.ma_trend > 0 or self.rsi_value > 50)
-            if cond1 or cond2:
+            if self.ma_trend < 0 or self.rsi_value < 50:
                 self.sell(bar.close_price, abs(self.pos))
 
         elif self.pos < 0:
-            cond1 = self.reverse and (self.ma_trend < 0 or self.rsi_value < 50)
-            cond2 = not self.reverse and (self.ma_trend > 0 or self.rsi_value > 50)
-            if cond1 or cond2:
+            if self.ma_trend > 0 or self.rsi_value > 50:
                 self.cover(bar.close_price, abs(self.pos))
 
         self.put_event()

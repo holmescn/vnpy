@@ -16,7 +16,7 @@ from vnpy.app.cta_strategy.submit_trade_mixin import SubmitTradeMixin
 class TurtleSignalStrategy(CtaTemplate, SubmitTradeMixin):
     """"""
     author = "用Python的交易员"
-    model_id = "ETHUSD_m1_Turtle_UNK_v1.0"
+    model_id = "Turtle_v1.0"
 
     entry_window = 20
     exit_window = 10
@@ -45,6 +45,7 @@ class TurtleSignalStrategy(CtaTemplate, SubmitTradeMixin):
 
         self.bg = BarGenerator(self.on_bar)
         self.am = ArrayManager()
+        self.model_id = '{}_{}'.format(self.vt_symbol, self.model_id)
 
     def on_init(self):
         """

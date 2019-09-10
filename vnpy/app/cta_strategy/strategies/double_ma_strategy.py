@@ -14,7 +14,7 @@ from vnpy.app.cta_strategy.submit_trade_mixin import SubmitTradeMixin
 
 class DoubleMaStrategy(CtaTemplate, SubmitTradeMixin):
     author = "用Python的交易员"
-    model_id = "ETHUSD_m1_DoubleMA_UNK_v1.0"
+    model_id = "m1_DoubleMA_UNK_v1.0"
 
     fast_window = 10
     slow_window = 20
@@ -37,8 +37,7 @@ class DoubleMaStrategy(CtaTemplate, SubmitTradeMixin):
         self.bg = BarGenerator(self.on_bar)
         self.am = ArrayManager()
         self.reverse = setting.get('reverse', False)
-        if self.reverse:
-            self.model_id += 'r'
+        self.model_id = '{}_{}{}'.format(self.vt_symbol, self.model_id, 'r' if self.reverse else '')
 
     def on_init(self):
         """

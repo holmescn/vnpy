@@ -16,7 +16,7 @@ class BollAtrStrategy(CtaTemplate, SubmitTradeMixin):
     """BOLL/ATR Strategy"""
 
     author = "用Python的交易员"
-    model_id = "ETHUSD_m1_BOLL_ATR_v1.0"
+    model_id = "m1_BOLL_ATR_v1.0"
 
     atr_length = 22
     atr_ma_length = 10
@@ -43,8 +43,7 @@ class BollAtrStrategy(CtaTemplate, SubmitTradeMixin):
         self.bg = BarGenerator(self.on_bar)
         self.am = ArrayManager()
         self.reverse = setting.get('reverse', False)
-        if self.reverse:
-            self.model_id += 'r'
+        self.model_id = '{}_{}{}'.format(self.vt_symbol, self.model_id, 'r' if self.reverse else '')
 
     def on_init(self):
         """

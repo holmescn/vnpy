@@ -16,7 +16,7 @@ class KingKeltnerStrategy(CtaTemplate, SubmitTradeMixin):
     """"""
 
     author = '用Python的交易员'
-    model_id = "ETHUSD_m1_KingKeltner_UNK_v1.0"
+    model_id = "m1_KingKeltner_UNK_v1.0"
 
     kk_length = 11
     kk_dev = 1.6
@@ -43,6 +43,7 @@ class KingKeltnerStrategy(CtaTemplate, SubmitTradeMixin):
 
         self.bg = BarGenerator(self.on_bar, 5, self.on_5min_bar)
         self.am = ArrayManager()
+        self.model_id = '{}_{}'.format(self.vt_symbol, self.model_id)
 
     def on_init(self):
         """
