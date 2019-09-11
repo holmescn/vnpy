@@ -24,7 +24,7 @@ class MacdAtrStrategy(CtaTemplate, SubmitTradeMixin):
     slow_period = 20
     signal_period = 9
     trailing_percent = 0.9
-    fixed_size = 1
+    fixed_size = 100
 
     atr_value = 0
     atr_ma = 0
@@ -45,6 +45,7 @@ class MacdAtrStrategy(CtaTemplate, SubmitTradeMixin):
         self.am = ArrayManager()
         self.reverse = setting.get('reverse', False)
         self.model_id = '{}_{}{}'.format(self.vt_symbol, self.model_id, 'r' if self.reverse else '')
+        self.date_str = None
 
     def on_init(self):
         """
@@ -76,6 +77,7 @@ class MacdAtrStrategy(CtaTemplate, SubmitTradeMixin):
         Callback of new bar data update.
         """
         self.cancel_all()
+        self.date_str = bar.datetime.strftime('%F')
 
         am = self.am
         am.update_bar(bar)
@@ -132,7 +134,8 @@ class MacdAtrStrategy(CtaTemplate, SubmitTradeMixin):
         """
         Callback of new trade data update.
         """
-        self.submit_trade(trade)
+        if self.date_str:
+            self.submit_trade(self.date_str, trade)
         self.print_trade(trade)
         self.put_event()
 

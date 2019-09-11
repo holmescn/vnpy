@@ -19,7 +19,7 @@ class DualThrustStrategy(CtaTemplate, SubmitTradeMixin):
     author = "用Python的交易员"
     model_id = "m1_DualThrust_UNK_v1.0"
 
-    fixed_size = 1
+    fixed_size = 100
     k1 = 0.4
     k2 = 0.6
 
@@ -50,6 +50,7 @@ class DualThrustStrategy(CtaTemplate, SubmitTradeMixin):
         self.am = ArrayManager()
         self.bars = []
         self.model_id = '{}_{}'.format(self.vt_symbol, self.model_id)
+        self.date_str = None
 
     def on_init(self):
         """
@@ -81,6 +82,7 @@ class DualThrustStrategy(CtaTemplate, SubmitTradeMixin):
         Callback of new bar data update.
         """
         self.cancel_all()
+        self.date_str = bar.datetime.strftime("%F")
 
         self.bars.append(bar)
         if len(self.bars) <= 2:
@@ -152,7 +154,8 @@ class DualThrustStrategy(CtaTemplate, SubmitTradeMixin):
         """
         Callback of new trade data update.
         """
-        self.submit_trade(trade)
+        if self.date_str:
+            self.submit_trade(self.date_str, trade)
         self.print_trade(trade)
         self.put_event()
 

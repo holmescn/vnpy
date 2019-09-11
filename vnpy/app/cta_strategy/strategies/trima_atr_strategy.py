@@ -10,40 +10,39 @@ from vnpy.app.cta_strategy import (
 )
 from vnpy.trader.object import Offset, Direction, Status
 from vnpy.app.cta_strategy.submit_trade_mixin import SubmitTradeMixin
+import talib
 
 
-class KingKeltnerStrategy(CtaTemplate, SubmitTradeMixin):
-    """"""
+class TrimaAtrStrategy(CtaTemplate, SubmitTradeMixin):
+    """TriMA/ATR Strategy"""
 
-    author = '用Python的交易员'
-    model_id = "m1_KingKeltner_UNK_v1.0"
+    author = "用Python的交易员"
+    model_id = "m1_TriMA_ATR_v1.0"
 
-    kk_length = 11
-    kk_dev = 1.6
-    trailing_percent = 0.8
+    atr_length = 22
+    atr_ma_length = 10
+    trima_length = 15
+    trailing_percent = 0.9
     fixed_size = 100
 
-    kk_up = 0
-    kk_down = 0
+    atr_value = 0
+    atr_ma = 0
     intra_trade_high = 0
     intra_trade_low = 0
 
-    long_vt_orderids = []
-    short_vt_orderids = []
-    vt_orderids = []
-
-    parameters = ['kk_length', 'kk_dev', 'fixed_size']
-    variables = ['kk_up', 'kk_down']
+    parameters = ["atr_length", "atr_ma_length", "trima_length",
+                  "trailing_percent"]
+    variables = ["atr_value", "atr_ma"]
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
         """"""
-        super(KingKeltnerStrategy, self).__init__(
+        super(TrimaAtrStrategy, self).__init__(
             cta_engine, strategy_name, vt_symbol, setting
         )
-
-        self.bg = BarGenerator(self.on_bar, 5, self.on_5min_bar)
+        self.bg = BarGenerator(self.on_bar)
         self.am = ArrayManager()
-        self.model_id = '{}_{}'.format(self.vt_symbol, self.model_id)
+        self.reverse = setting.get('reverse', False)
+        self.model_id = '{}_{}{}'.format(self.vt_symbol, self.model_id, 'r' if self.reverse else '')
         self.date_str = None
 
     def on_init(self):
@@ -75,42 +74,49 @@ class KingKeltnerStrategy(CtaTemplate, SubmitTradeMixin):
         """
         Callback of new bar data update.
         """
-        self.bg.update_bar(bar)
+        self.cancel_all()
         self.date_str = bar.datetime.strftime('%F')
-
-    def on_5min_bar(self, bar: BarData):
-        """"""
-        for orderid in self.vt_orderids:
-            self.cancel_order(orderid)
-        self.vt_orderids.clear()
 
         am = self.am
         am.update_bar(bar)
         if not am.inited:
             return
 
-        self.kk_up, self.kk_down = am.keltner(self.kk_length, self.kk_dev)
+        atr_array = am.atr(self.atr_length, array=True)
+        self.atr_value = atr_array[-1]
+        self.atr_ma = atr_array[-self.atr_ma_length:].mean()
+        trima_array = talib.TRIMA(am.close, self.trima_length)
 
         if self.pos == 0:
             self.intra_trade_high = bar.high_price
             self.intra_trade_low = bar.low_price
-            self.send_oco_order(self.kk_up, self.kk_down, self.fixed_size)
+
+            if self.atr_value > self.atr_ma:
+                size = self.fixed_size
+                if trima_array[-3] > trima_array[-2] < trima_array[-1]:
+                    if not self.reverse:
+                        self.buy(bar.close_price, size)
+                    else:
+                        self.short(bar.close_price, size)
+                elif trima_array[-3] < trima_array[-2] > trima_array[-1]:
+                    if not self.reverse:
+                        self.short(bar.close_price, size)
+                    else:
+                        self.buy(bar.close_price, size)
 
         elif self.pos > 0:
             self.intra_trade_high = max(self.intra_trade_high, bar.high_price)
             self.intra_trade_low = bar.low_price
 
-            vt_orderids = self.sell(self.intra_trade_high * (1 - self.trailing_percent / 100),
-                                    abs(self.pos), True)
-            self.vt_orderids.extend(vt_orderids)
+            long_stop = self.intra_trade_high * (1 - self.trailing_percent / 100)
+            self.sell(long_stop, abs(self.pos), stop=True)
 
         elif self.pos < 0:
-            self.intra_trade_high = bar.high_price
             self.intra_trade_low = min(self.intra_trade_low, bar.low_price)
+            self.intra_trade_high = bar.high_price
 
-            vt_orderids = self.cover(self.intra_trade_low * (1 + self.trailing_percent / 100),
-                                     abs(self.pos), True)
-            self.vt_orderids.extend(vt_orderids)
+            short_stop = self.intra_trade_low * (1 + self.trailing_percent / 100)
+            self.cover(short_stop, abs(self.pos), stop=True)
 
         self.put_event()
 
@@ -124,31 +130,10 @@ class KingKeltnerStrategy(CtaTemplate, SubmitTradeMixin):
         """
         Callback of new trade data update.
         """
-        if self.pos != 0:
-            if self.pos > 0:
-                for short_orderid in self.short_vt_orderids:
-                    self.cancel_order(short_orderid)
-
-            elif self.pos < 0:
-                for buy_orderid in self.long_vt_orderids:
-                    self.cancel_order(buy_orderid)
-
-            for orderid in (self.long_vt_orderids + self.short_vt_orderids):
-                if orderid in self.vt_orderids:
-                    self.vt_orderids.remove(orderid)
-
         if self.date_str:
             self.submit_trade(self.date_str, trade)
         self.print_trade(trade)
         self.put_event()
-
-    def send_oco_order(self, buy_price, short_price, volume):
-        """"""
-        self.long_vt_orderids = self.buy(buy_price, volume, True)
-        self.short_vt_orderids = self.short(short_price, volume, True)
-
-        self.vt_orderids.extend(self.long_vt_orderids)
-        self.vt_orderids.extend(self.short_vt_orderids)
 
     def on_stop_order(self, stop_order: StopOrder):
         """

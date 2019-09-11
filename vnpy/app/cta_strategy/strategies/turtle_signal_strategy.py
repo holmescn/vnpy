@@ -21,7 +21,7 @@ class TurtleSignalStrategy(CtaTemplate, SubmitTradeMixin):
     entry_window = 20
     exit_window = 10
     atr_window = 20
-    fixed_size = 1
+    fixed_size = 100
 
     entry_up = 0
     entry_down = 0
@@ -46,6 +46,7 @@ class TurtleSignalStrategy(CtaTemplate, SubmitTradeMixin):
         self.bg = BarGenerator(self.on_bar)
         self.am = ArrayManager()
         self.model_id = '{}_{}'.format(self.vt_symbol, self.model_id)
+        self.date_str = None
 
     def on_init(self):
         """
@@ -77,6 +78,7 @@ class TurtleSignalStrategy(CtaTemplate, SubmitTradeMixin):
         Callback of new bar data update.
         """
         self.cancel_all()
+        self.date_str = bar.datetime.strftime("%F")
 
         self.am.update_bar(bar)
         if not self.am.inited:
@@ -120,7 +122,8 @@ class TurtleSignalStrategy(CtaTemplate, SubmitTradeMixin):
             self.short_entry = trade.price
             self.short_stop = self.short_entry + 2 * self.atr_value
 
-        self.submit_trade(trade)
+        if self.date_str:
+            self.submit_trade(self.date_str, trade)
         self.print_trade(trade)
         self.put_event()
 

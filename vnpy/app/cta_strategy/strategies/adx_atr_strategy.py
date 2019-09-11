@@ -22,7 +22,7 @@ class AdxAtrStrategy(CtaTemplate, SubmitTradeMixin):
     atr_ma_length = 10
     adx_length = 5
     trailing_percent = 0.9
-    fixed_size = 1
+    fixed_size = 100
 
     atr_value = 0
     atr_ma = 0
@@ -43,6 +43,7 @@ class AdxAtrStrategy(CtaTemplate, SubmitTradeMixin):
         self.am = ArrayManager()
         self.reverse = setting.get('reverse', False)
         self.model_id = '{}_{}{}'.format(self.vt_symbol, self.model_id, 'r' if self.reverse else '')
+        self.date_str = None
 
     def on_init(self):
         """
@@ -74,6 +75,7 @@ class AdxAtrStrategy(CtaTemplate, SubmitTradeMixin):
         Callback of new bar data update.
         """
         self.cancel_all()
+        self.date_str = bar.datetime.strftime('%F')
 
         am = self.am
         am.update_bar(bar)
@@ -102,20 +104,19 @@ class AdxAtrStrategy(CtaTemplate, SubmitTradeMixin):
                         self.short(bar.close_price, size)
                     else:
                         self.buy(bar.close_price, size)
+
         elif self.pos > 0:
             self.intra_trade_high = max(self.intra_trade_high, bar.high_price)
             self.intra_trade_low = bar.low_price
 
-            long_stop = self.intra_trade_high * \
-                (1 - self.trailing_percent / 100)
+            long_stop = self.intra_trade_high * (1 - self.trailing_percent / 100)
             self.sell(long_stop, abs(self.pos), stop=True)
 
         elif self.pos < 0:
             self.intra_trade_low = min(self.intra_trade_low, bar.low_price)
             self.intra_trade_high = bar.high_price
 
-            short_stop = self.intra_trade_low * \
-                (1 + self.trailing_percent / 100)
+            short_stop = self.intra_trade_low * (1 + self.trailing_percent / 100)
             self.cover(short_stop, abs(self.pos), stop=True)
 
         self.put_event()
@@ -130,7 +131,8 @@ class AdxAtrStrategy(CtaTemplate, SubmitTradeMixin):
         """
         Callback of new trade data update.
         """
-        self.submit_trade(trade)
+        if self.date_str:
+            self.submit_trade(self.date_str, trade)
         self.print_trade(trade)
         self.put_event()
 

@@ -10,31 +10,34 @@ from vnpy.app.cta_strategy import (
 )
 from vnpy.trader.object import Offset, Direction, Status
 from vnpy.app.cta_strategy.submit_trade_mixin import SubmitTradeMixin
+import talib
 
 
-class DoubleMaStrategy(CtaTemplate, SubmitTradeMixin):
+class HtAtrStrategy(CtaTemplate, SubmitTradeMixin):
+    """HT Trendline/ATR Strategy"""
+
     author = "用Python的交易员"
-    model_id = "m1_DoubleMA_UNK_v1.0"
+    model_id = "m1_HT_ATR_v1.0"
 
-    fast_window = 10
-    slow_window = 20
+    atr_length = 22
+    atr_ma_length = 10
+    trailing_percent = 0.9
     fixed_size = 100
 
-    fast_ma0 = 0.0
-    fast_ma1 = 0.0
+    atr_value = 0
+    atr_ma = 0
+    intra_trade_high = 0
+    intra_trade_low = 0
 
-    slow_ma0 = 0.0
-    slow_ma1 = 0.0
-
-    parameters = ["fast_window", "slow_window"]
-    variables = ["fast_ma0", "fast_ma1", "slow_ma0", "slow_ma1"]
+    parameters = ["atr_length", "atr_ma_length",
+                  "trailing_percent"]
+    variables = ["atr_value", "atr_ma"]
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
         """"""
-        super(DoubleMaStrategy, self).__init__(
+        super(HtAtrStrategy, self).__init__(
             cta_engine, strategy_name, vt_symbol, setting
         )
-
         self.bg = BarGenerator(self.on_bar)
         self.am = ArrayManager()
         self.reverse = setting.get('reverse', False)
@@ -53,15 +56,12 @@ class DoubleMaStrategy(CtaTemplate, SubmitTradeMixin):
         Callback when strategy is started.
         """
         self.write_log("策略启动")
-        self.put_event()
 
     def on_stop(self):
         """
         Callback when strategy is stopped.
         """
         self.write_log("策略停止")
-
-        self.put_event()
 
     def on_tick(self, tick: TickData):
         """
@@ -73,6 +73,7 @@ class DoubleMaStrategy(CtaTemplate, SubmitTradeMixin):
         """
         Callback of new bar data update.
         """
+        self.cancel_all()
         self.date_str = bar.datetime.strftime('%F')
 
         am = self.am
@@ -80,30 +81,41 @@ class DoubleMaStrategy(CtaTemplate, SubmitTradeMixin):
         if not am.inited:
             return
 
-        fast_ma = am.sma(self.fast_window, array=True)
-        self.fast_ma0 = fast_ma[-1]
-        self.fast_ma1 = fast_ma[-2]
+        atr_array = am.atr(self.atr_length, array=True)
+        self.atr_value = atr_array[-1]
+        self.atr_ma = atr_array[-self.atr_ma_length:].mean()
+        ht_array = talib.HT_TRENDLINE(am.close)
 
-        slow_ma = am.sma(self.slow_window, array=True)
-        self.slow_ma0 = slow_ma[-1]
-        self.slow_ma1 = slow_ma[-2]
+        if self.pos == 0:
+            self.intra_trade_high = bar.high_price
+            self.intra_trade_low = bar.low_price
 
-        cross_over = self.fast_ma0 > self.slow_ma0 and self.fast_ma1 < self.slow_ma1
-        cross_below = self.fast_ma0 < self.slow_ma0 and self.fast_ma1 > self.slow_ma1
+            if self.atr_value > self.atr_ma:
+                size = self.fixed_size
+                if ht_array[-3] > ht_array[-2] < ht_array[-1]:
+                    if not self.reverse:
+                        self.buy(bar.close_price, size)
+                    else:
+                        self.short(bar.close_price, size)
+                elif ht_array[-3] < ht_array[-2] > ht_array[-1]:
+                    if not self.reverse:
+                        self.short(bar.close_price, size)
+                    else:
+                        self.buy(bar.close_price, size)
 
-        if cross_over:
-            if self.pos == 0:
-                self.buy(bar.close_price, self.fixed_size)
-            elif self.pos < 0:
-                self.cover(bar.close_price, self.fixed_size)
-                self.buy(bar.close_price, self.fixed_size)
+        elif self.pos > 0:
+            self.intra_trade_high = max(self.intra_trade_high, bar.high_price)
+            self.intra_trade_low = bar.low_price
 
-        elif cross_below:
-            if self.pos == 0:
-                self.short(bar.close_price, self.fixed_size)
-            elif self.pos > 0:
-                self.sell(bar.close_price, self.fixed_size)
-                self.short(bar.close_price, self.fixed_size)
+            long_stop = self.intra_trade_high * (1 - self.trailing_percent / 100)
+            self.sell(long_stop, abs(self.pos), stop=True)
+
+        elif self.pos < 0:
+            self.intra_trade_low = min(self.intra_trade_low, bar.low_price)
+            self.intra_trade_high = bar.high_price
+
+            short_stop = self.intra_trade_low * (1 + self.trailing_percent / 100)
+            self.cover(short_stop, abs(self.pos), stop=True)
 
         self.put_event()
 

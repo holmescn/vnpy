@@ -13,8 +13,10 @@ from vnpy.trader.engine import MainEngine
 from vnpy.gateway.bitmex import BitmexGateway
 from vnpy.app.cta_strategy import CtaStrategyApp
 from vnpy.app.cta_strategy.base import EVENT_CTA_LOG
-from vnpy.app.cta_strategy.base import Offset, Direction, OrderType
 from vnpy.trader.object import (
+    Offset,
+    Direction,
+    OrderType,
     Status,
     OrderType,
     TickData,
@@ -146,7 +148,7 @@ def main():
     event_engine.register(EVENT_CTA_LOG, log_engine.process_log_event)
     main_engine.write_log("注册日志事件监听")
 
-    with open('./.vntrader/connect_bitmex_real.json', 'r', encoding='utf-8') as f:
+    with open(os.path.abspath('./.vntrader/connect_bitmex_real.json'), 'r', encoding='utf-8') as f:
         connect_setting = json.load(f)
 
     main_engine.connect(connect_setting, "BITMEX")

@@ -23,7 +23,7 @@ class BollChannelStrategy(CtaTemplate, SubmitTradeMixin):
     cci_window = 10
     atr_window = 30
     sl_multiplier = 5.2
-    fixed_size = 1
+    fixed_size = 100
 
     boll_up = 0
     boll_down = 0
@@ -50,6 +50,7 @@ class BollChannelStrategy(CtaTemplate, SubmitTradeMixin):
         self.am = ArrayManager()
         self.reverse = setting.get('reverse', False)
         self.model_id = '{}_{}{}'.format(self.vt_symbol, self.model_id, 'r' if self.reverse else '')
+        self.date_str = None
 
     def on_init(self):
         """
@@ -81,6 +82,7 @@ class BollChannelStrategy(CtaTemplate, SubmitTradeMixin):
         Callback of new bar data update.
         """
         self.bg.update_bar(bar)
+        self.date_str = bar.datetime.strftime('%F')
 
     def on_15min_bar(self, bar: BarData):
         """"""
@@ -136,7 +138,8 @@ class BollChannelStrategy(CtaTemplate, SubmitTradeMixin):
         """
         Callback of new trade data update.
         """
-        self.submit_trade(trade)
+        if self.date_str:
+            self.submit_trade(self.date_str, trade)
         self.print_trade(trade)
         self.put_event()
 

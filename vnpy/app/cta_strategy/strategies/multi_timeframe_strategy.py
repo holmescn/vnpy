@@ -21,7 +21,7 @@ class MultiTimeframeStrategy(CtaTemplate, SubmitTradeMixin):
     rsi_window = 14
     fast_window = 5
     slow_window = 20
-    fixed_size = 1
+    fixed_size = 100
 
     rsi_value = 0
     rsi_long = 0
@@ -52,6 +52,7 @@ class MultiTimeframeStrategy(CtaTemplate, SubmitTradeMixin):
         self.bg15 = BarGenerator(self.on_bar, 15, self.on_15min_bar)
         self.am15 = ArrayManager()
         self.model_id = '{}_{}{}'.format(self.vt_symbol, self.model_id)
+        self.date_str = None
 
     def on_init(self):
         """
@@ -84,6 +85,7 @@ class MultiTimeframeStrategy(CtaTemplate, SubmitTradeMixin):
         """
         self.bg5.update_bar(bar)
         self.bg15.update_bar(bar)
+        self.date_str = bar.datetime.strftime('%F')
 
     def on_5min_bar(self, bar: BarData):
         """"""
@@ -138,7 +140,8 @@ class MultiTimeframeStrategy(CtaTemplate, SubmitTradeMixin):
         """
         Callback of new trade data update.
         """
-        self.submit_trade(trade)
+        if self.date_str:
+            self.submit_trade(self.date_str, trade)
         self.print_trade(trade)
         self.put_event()
 
