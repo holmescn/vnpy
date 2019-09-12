@@ -9,21 +9,18 @@ from vnpy.app.cta_strategy import (
     ArrayManager,
 )
 from vnpy.trader.object import Offset, Direction, Status
-from vnpy.app.cta_strategy.submit_trade_mixin import SubmitTradeMixin
+from vnpy.app.cta_strategy.base_strategy import BaseStrategy
 
 
-class BollChannelStrategy(CtaTemplate, SubmitTradeMixin):
-    """"""
-
-    author = "用Python的交易员"
-    model_id = "m1_BOLL_CHN_v1.0"
+class BollChannelStrategy(BaseStrategy):
+    """Boll Channel Strategy"""
+    model_id = "m1_BOLLCCI_ATR_v1.0"
 
     boll_window = 18
     boll_dev = 3.4
     cci_window = 10
     atr_window = 30
     sl_multiplier = 5.2
-    fixed_size = 100
 
     boll_up = 0
     boll_down = 0
@@ -48,28 +45,6 @@ class BollChannelStrategy(CtaTemplate, SubmitTradeMixin):
 
         self.bg = BarGenerator(self.on_bar, 15, self.on_15min_bar)
         self.am = ArrayManager()
-        self.reverse = setting.get('reverse', False)
-        self.model_id = '{}_{}{}'.format(self.vt_symbol, self.model_id, 'r' if self.reverse else '')
-        self.date_str = None
-
-    def on_init(self):
-        """
-        Callback when strategy is inited.
-        """
-        self.write_log("策略初始化")
-        self.load_bar(10)
-
-    def on_start(self):
-        """
-        Callback when strategy is started.
-        """
-        self.write_log("策略启动")
-
-    def on_stop(self):
-        """
-        Callback when strategy is stopped.
-        """
-        self.write_log("策略停止")
 
     def on_tick(self, tick: TickData):
         """
@@ -102,15 +77,9 @@ class BollChannelStrategy(CtaTemplate, SubmitTradeMixin):
             self.intra_trade_low = bar.low_price
 
             if self.cci_value > 0:
-                if not self.reverse:
-                    self.buy(self.boll_up, self.fixed_size, True)
-                else:
-                    self.sell(self.boll_up, self.fixed_size, True)
+                self.buy(self.boll_up, self.fixed_size, True)
             elif self.cci_value < 0:
-                if not self.reverse:
-                    self.short(self.boll_down, self.fixed_size, True)
-                else:
-                    self.buy(self.boll_down, self.fixed_size, True)
+                self.short(self.boll_down, self.fixed_size, True)
 
         elif self.pos > 0:
             self.intra_trade_high = max(self.intra_trade_high, bar.high_price)
@@ -127,24 +96,3 @@ class BollChannelStrategy(CtaTemplate, SubmitTradeMixin):
             self.cover(self.short_stop, abs(self.pos), True)
 
         self.put_event()
-
-    def on_order(self, order: OrderData):
-        """
-        Callback of new order data update.
-        """
-        self.print_order(order)
-
-    def on_trade(self, trade: TradeData):
-        """
-        Callback of new trade data update.
-        """
-        if self.date_str:
-            self.submit_trade(self.date_str, trade)
-        self.print_trade(trade)
-        self.put_event()
-
-    def on_stop_order(self, stop_order: StopOrder):
-        """
-        Callback of stop order update.
-        """
-        pass

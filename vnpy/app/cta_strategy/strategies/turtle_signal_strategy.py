@@ -10,12 +10,11 @@ from vnpy.app.cta_strategy import (
     ArrayManager,
 )
 from vnpy.trader.object import Offset, Direction, Status
-from vnpy.app.cta_strategy.submit_trade_mixin import SubmitTradeMixin
+from vnpy.app.cta_strategy.base_strategy import BaseStrategy
 
 
-class TurtleSignalStrategy(CtaTemplate, SubmitTradeMixin):
-    """"""
-    author = "用Python的交易员"
+class TurtleSignalStrategy(BaseStrategy):
+    """Turtle Strategy"""
     model_id = "Turtle_v1.0"
 
     entry_window = 20
@@ -45,27 +44,6 @@ class TurtleSignalStrategy(CtaTemplate, SubmitTradeMixin):
 
         self.bg = BarGenerator(self.on_bar)
         self.am = ArrayManager()
-        self.model_id = '{}_{}'.format(self.vt_symbol, self.model_id)
-        self.date_str = None
-
-    def on_init(self):
-        """
-        Callback when strategy is inited.
-        """
-        self.write_log("策略初始化")
-        self.load_bar(20)
-
-    def on_start(self):
-        """
-        Callback when strategy is started.
-        """
-        self.write_log("策略启动")
-
-    def on_stop(self):
-        """
-        Callback when strategy is stopped.
-        """
-        self.write_log("策略停止")
 
     def on_tick(self, tick: TickData):
         """
@@ -126,18 +104,6 @@ class TurtleSignalStrategy(CtaTemplate, SubmitTradeMixin):
             self.submit_trade(self.date_str, trade)
         self.print_trade(trade)
         self.put_event()
-
-    def on_order(self, order: OrderData):
-        """
-        Callback of new order data update.
-        """
-        self.print_order(order)
-
-    def on_stop_order(self, stop_order: StopOrder):
-        """
-        Callback of stop order update.
-        """
-        pass
 
     def send_buy_orders(self, price):
         """"""

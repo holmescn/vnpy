@@ -9,19 +9,17 @@ from vnpy.app.cta_strategy import (
     ArrayManager,
 )
 from vnpy.trader.object import Offset, Direction, Status
-from vnpy.app.cta_strategy.submit_trade_mixin import SubmitTradeMixin
+from vnpy.app.cta_strategy.base_strategy import BaseStrategy
 
 
-class MultiTimeframeStrategy(CtaTemplate, SubmitTradeMixin):
-    """"""
-    author = "用Python的交易员"
+class MultiTimeframeStrategy(BaseStrategy):
+    """MultiTimeframe Strategy"""
     model_id = "MultiTimeframe_v1.0"
 
     rsi_signal = 20
     rsi_window = 14
     fast_window = 5
     slow_window = 20
-    fixed_size = 100
 
     rsi_value = 0
     rsi_long = 0
@@ -51,27 +49,6 @@ class MultiTimeframeStrategy(CtaTemplate, SubmitTradeMixin):
 
         self.bg15 = BarGenerator(self.on_bar, 15, self.on_15min_bar)
         self.am15 = ArrayManager()
-        self.model_id = '{}_{}{}'.format(self.vt_symbol, self.model_id)
-        self.date_str = None
-
-    def on_init(self):
-        """
-        Callback when strategy is inited.
-        """
-        self.write_log("策略初始化")
-        self.load_bar(10)
-
-    def on_start(self):
-        """
-        Callback when strategy is started.
-        """
-        self.write_log("策略启动")
-
-    def on_stop(self):
-        """
-        Callback when strategy is stopped.
-        """
-        self.write_log("策略停止")
 
     def on_tick(self, tick: TickData):
         """
@@ -83,9 +60,9 @@ class MultiTimeframeStrategy(CtaTemplate, SubmitTradeMixin):
         """
         Callback of new bar data update.
         """
+        self.date_str = bar.datetime.strftime('%F')
         self.bg5.update_bar(bar)
         self.bg15.update_bar(bar)
-        self.date_str = bar.datetime.strftime('%F')
 
     def on_5min_bar(self, bar: BarData):
         """"""
@@ -129,24 +106,3 @@ class MultiTimeframeStrategy(CtaTemplate, SubmitTradeMixin):
             self.ma_trend = 1
         else:
             self.ma_trend = -1
-
-    def on_order(self, order: OrderData):
-        """
-        Callback of new order data update.
-        """
-        self.print_order(order)
-
-    def on_trade(self, trade: TradeData):
-        """
-        Callback of new trade data update.
-        """
-        if self.date_str:
-            self.submit_trade(self.date_str, trade)
-        self.print_trade(trade)
-        self.put_event()
-
-    def on_stop_order(self, stop_order: StopOrder):
-        """
-        Callback of stop order update.
-        """
-        pass

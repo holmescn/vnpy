@@ -1,3 +1,4 @@
+import talib
 from vnpy.app.cta_strategy import (
     CtaTemplate,
     StopOrder,
@@ -9,136 +10,31 @@ from vnpy.app.cta_strategy import (
     ArrayManager,
 )
 from vnpy.trader.object import Offset, Direction, Status
-from vnpy.app.cta_strategy.submit_trade_mixin import SubmitTradeMixin
-import talib
+from vnpy.app.cta_strategy.base_strategy import BaseAtrStrategy
 
 
-class CmoAtrStrategy(CtaTemplate, SubmitTradeMixin):
+class CmoAtrStrategy(BaseAtrStrategy):
     """CMO/ATR Strategy"""
-
-    author = "用Python的交易员"
     model_id = "m1_CMO_ATR_v1.0"
 
+    cmo_length = 20
     atr_length = 22
     atr_ma_length = 10
-    cmo_length = 20
     trailing_percent = 0.9
-    fixed_size = 100
 
-    atr_value = 0
-    atr_ma = 0
+    cmo_value = 0
     cmo_buy = 5
     cmo_sell = -5
-    intra_trade_high = 0
-    intra_trade_low = 0
 
     parameters = ["atr_length", "atr_ma_length", "cmo_length",
                   "trailing_percent", "fixed_size"]
-    variables = ["atr_value", "atr_ma", "cmo_buy", "cmo_sell"]
+    variables = ["atr_value", "atr_ma", "cmo_value", "cmo_buy", "cmo_sell"]
 
-    def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
-        """"""
-        super(CmoAtrStrategy, self).__init__(
-            cta_engine, strategy_name, vt_symbol, setting
-        )
-        self.bg = BarGenerator(self.on_bar)
-        self.am = ArrayManager()
-        self.reverse = setting.get('reverse', False)
-        self.model_id = '{}_{}{}'.format(self.vt_symbol, self.model_id, 'r' if self.reverse else '')
-        self.date_str = None
-
-    def on_init(self):
-        """
-        Callback when strategy is inited.
-        """
-        self.write_log("策略初始化")
-        self.load_bar(10)
-
-    def on_start(self):
-        """
-        Callback when strategy is started.
-        """
-        self.write_log("策略启动")
-
-    def on_stop(self):
-        """
-        Callback when strategy is stopped.
-        """
-        self.write_log("策略停止")
-
-    def on_tick(self, tick: TickData):
-        """
-        Callback of new tick data update.
-        """
-        self.bg.update_tick(tick)
-
-    def on_bar(self, bar: BarData):
-        """
-        Callback of new bar data update.
-        """
-        self.cancel_all()
-        self.date_str = bar.datetime.strftime("%F")
-
-        am = self.am
-        am.update_bar(bar)
-        if not am.inited:
-            return
-
-        atr_array = am.atr(self.atr_length, array=True)
-        self.atr_value = atr_array[-1]
-        self.atr_ma = atr_array[-self.atr_ma_length:].mean()
-        cmo_array = talib.CMO(am.close, self.cmo_length)
-
-        if self.pos == 0:
-            self.intra_trade_high = bar.high_price
-            self.intra_trade_low = bar.low_price
-
-            if self.atr_value > self.atr_ma:
-                size = self.fixed_size
-                if cmo_array[-1] > self.cmo_buy and cmo_array[-1] > cmo_array[-2]:
-                    if not self.reverse:
-                        self.buy(bar.close_price, size)
-                    else:
-                        self.short(bar.close_price, size)
-                elif cmo_array[-1] < self.cmo_buy and cmo_array[-1] < cmo_array[-2]:
-                    if not self.reverse:
-                        self.short(bar.close_price, size)
-                    else:
-                        self.buy(bar.close_price, size)
-
-        elif self.pos > 0:
-            self.intra_trade_high = max(self.intra_trade_high, bar.high_price)
-            self.intra_trade_low = bar.low_price
-
-            long_stop = self.intra_trade_high * (1 - self.trailing_percent / 100)
-            self.sell(long_stop, abs(self.pos), stop=True)
-
-        elif self.pos < 0:
-            self.intra_trade_low = min(self.intra_trade_low, bar.low_price)
-            self.intra_trade_high = bar.high_price
-
-            short_stop = self.intra_trade_low * (1 + self.trailing_percent / 100)
-            self.cover(short_stop, abs(self.pos), stop=True)
-
-        self.put_event()
-
-    def on_order(self, order: OrderData):
-        """
-        Callback of new order data update.
-        """
-        self.print_order(order)
-
-    def on_trade(self, trade: TradeData):
-        """
-        Callback of new trade data update.
-        """
-        if self.date_str:
-            self.submit_trade(self.date_str, trade)
-        self.print_trade(trade)
-        self.put_event()
-
-    def on_stop_order(self, stop_order: StopOrder):
-        """
-        Callback of stop order update.
-        """
-        pass
+    def on_pos_zero(self, bar: BarData):
+        cmo_array = talib.CMO(self.am.close, self.cmo_length)
+        self.cmo_value = cmo_array[-1]
+        if self.atr_value > self.atr_ma:
+            if self.cmo_value > self.cmo_buy and cmo_array[-1] > cmo_array[-2]:
+                self.buy(bar.close_price, self.fixed_size)
+            elif self.cmo_value < self.cmo_buy and cmo_array[-1] < cmo_array[-2]:
+                self.short(bar.close_price, self.fixed_size)
