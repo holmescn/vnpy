@@ -108,7 +108,7 @@ class TushareGateway(BaseGateway):
         super(TushareGateway, self).__init__(event_engine, "TUSHARE")
         event_engine.register(EVENT_TIMER, self.process_timer_event)
         self.ts_api = None
-        self._subscribed = set()
+        self._subscribed = dict()
         self._orders = dict()
         self.orderid_counter_lock = Lock()
 
@@ -150,7 +150,11 @@ class TushareGateway(BaseGateway):
     def subscribe(self, req: SubscribeRequest):
         """"""
         if req.vt_symbol not in self._subscribed:
-            self._subscribed.add(req.vt_symbol)
+            self._subscribed[req.vt_symbol] = {
+                'exchange': req.exchange,
+                'symbol': req.symbol,
+                'datetime': datetime.now() - timedelta(hours=1),
+            }
 
     def send_order(self, req: OrderRequest):
         orderid = self._new_order_id(req.vt_symbol)
@@ -249,6 +253,67 @@ class TushareGateway(BaseGateway):
     def process_timer_event(self, event: Event):
         with self.orderid_counter_lock:
             self.orderid_counter = 0
+
+        for it in self._subscribed.values():
+            df = self.ts_api.coin_mins(
+                exchange='future_%s' % it['exchange'].value.lower(),
+                symbol=it['symbol'],
+                trade_date=it['datetime'].strftime('%Y-%m-%d'),
+                freq='1min',
+                fields='date,open,high,low,close,vol,contract_type'
+            )
+
+            if it['exchange'] == Exchange.OKEX:
+                df = df[df.contract_type == 'this_week']
+            elif it['exchange'] == Exchange.BITMEX:
+                df = df[df.contract_type == 'monthly']
+
+            if len(df) == 0:
+                continue
+
+            dt = datetime.strptime(df.iloc[-1, 0], "%Y-%m-%d %H:%M:%S")
+            if dt > it['datetime']:
+                self.emit_tick(it, dt, df.iloc[-1, :])
+                self.emit_bar(it, dt, df.iloc[-1, :])
+            it['datetime'] = dt
+
+    def emit_tick(self, it, dt, row):
+        tick = TickData(
+            symbol=it['symbol'],
+            exchange=it['exchange'],
+            name=it['symbol'],
+            datetime=dt - timedelta(seconds=50),
+            gateway_name=self.gateway_name,
+            price=row.open,
+        )
+        self.on_tick(copy(tick))
+
+        tick.price = row.high
+        tick.datetime = dt - timedelta(seconds=35)
+        self.on_tick(copy(tick))
+        
+        tick.price = row.low
+        tick.datetime = dt - timedelta(seconds=10)
+        self.on_tick(copy(tick))
+
+        tick.price = row.close
+        tick.datetime = dt
+        self.on_tick(copy(tick))
+
+    def emit_bar(self, it, dt, row):
+        bar = BarData(
+            symbol=it['symbol'],
+            exchange=it['exchange'],
+            datetime=dt,
+            interval=Interval.MINUTE,
+            volume=row["vol"],
+            open_price=row["open"],
+            high_price=row["high"],
+            low_price=row["low"],
+            close_price=row["close"],
+            gateway_name=self.gateway_name
+        )
+        self.on_bar(bar)
 
     def query_history(self, req: HistoryRequest):
         self.write_log(f"准备下载 {req.symbol} - {req.interval.value} 从 {req.start} 到 {req.end} 的历史数据")

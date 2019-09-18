@@ -23,6 +23,7 @@ class BaseStrategy(CtaTemplate):
     model_id = ''
     fixed_size = 1
     last_trade_id = None
+    trade_list = []
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
         """"""
@@ -34,7 +35,6 @@ class BaseStrategy(CtaTemplate):
 
     def submit_trade(self, trade: TradeData):
         direction = "buy" if trade.direction == Direction.LONG else 'sell'
-        trade_list = []
         item = {
             "broker_id": trade.exchange.value,
             "investor_id": "000000",
@@ -51,17 +51,17 @@ class BaseStrategy(CtaTemplate):
 
         if trade.offset == Offset.OPEN:
             self.last_trade_id = item['trade_id']
-            trade_list.append(item)
+            self.trade_list.append(item)
         elif self.last_trade_id and trade.offset in (Offset.CLOSE, Offset.CLOSEYESTERDAY, Offset.CLOSETODAY):
             item["close_trade_id"] = self.last_trade_id
-            trade_list.append(item)    
+            self.trade_list.append(item)    
             self.last_trade_id = None
+            if self.should_send_trade and len(self.trade_list) >= 8:
+                submit_trade_data(self.trade_list)
+                sleep(0.05)
+                self.trade_list = []
         else:
             self.write_log("找不到开仓记录")
-
-        if self.should_send_trade and trade_list:
-            submit_trade_data(trade_list)
-            sleep(0.05)
 
     def print_order(self, order):
         if order.status in (Status.SUBMITTING, Status.ALLTRADED):
@@ -89,6 +89,8 @@ class BaseStrategy(CtaTemplate):
         """
         Callback when strategy is stopped.
         """
+        if self.should_send_trade and self.trade_list and len(self.trade_list) % 2 == 0:
+            submit_trade_data(self.trade_list)
         self.write_log("策略停止")
 
     def on_order(self, order: OrderData):
