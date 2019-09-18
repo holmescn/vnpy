@@ -13,7 +13,7 @@ from vnpy.app.cta_strategy.submit_trade_data import submit_trade_data
 
 
 class BaseStrategy(CtaTemplate):
-    debug = False
+    should_send_trade = False
 
     author = "用Python的交易员"
 
@@ -57,7 +57,7 @@ class BaseStrategy(CtaTemplate):
         else:
             self.write_log("找不到开仓记录")
 
-        if not self.debug and trade_list:
+        if self.should_send_trade and trade_list:
             submit_trade_data(trade_list)
 
     def print_order(self, order):
@@ -74,7 +74,7 @@ class BaseStrategy(CtaTemplate):
         Callback when strategy is inited.
         """
         self.write_log("策略初始化")
-        self.load_bar(10)
+        self.load_bar(3)
 
     def on_start(self):
         """
@@ -133,6 +133,7 @@ class BaseAtrStrategy(BaseStrategy):
         )
         self.bg = BarGenerator(self.on_bar)
         self.am = ArrayManager()
+        self.fixed_size = setting.get('fixed_size', 1)
 
     def on_tick(self, tick: TickData):
         """
