@@ -48,43 +48,43 @@ INTERVAL_VT2TS = {
 
 CONTRACT_INFO = {
     'future_okex/btc_usdt': {
-        'tickSize': 1,
+        'tickSize': 0.01,
         "lotSize": 1,
     },
     'future_okex/btc_usdk': {
-        'tickSize': 1,
+        'tickSize': 0.01,
         "lotSize": 1,
     },
     'future_okex/bch_usdt': {
-        'tickSize': 1,
+        'tickSize': 0.01,
         "lotSize": 1,
     },
     'future_okex/bch_usdk': {
-        'tickSize': 1,
+        'tickSize': 0.01,
         "lotSize": 1,
     },
     'future_okex/ltc_usdt': {
-        'tickSize': 1,
+        'tickSize': 0.001,
         "lotSize": 1,
     },
     'future_okex/ltc_usdk': {
-        'tickSize': 1,
+        'tickSize': 0.001,
         "lotSize": 1,
     },
     'future_okex/eth_usdt': {
-        'tickSize': 1,
+        'tickSize': 0.001,
         "lotSize": 1,
     },
     'future_okex/eth_usdk': {
-        'tickSize': 1,
+        'tickSize': 0.001,
         "lotSize": 1,
     },
     'future_okex/eos_usdt': {
-        'tickSize': 1,
+        'tickSize': 0.001,
         "lotSize": 1,
     },
     'future_okex/eos_usdk': {
-        'tickSize': 1,
+        'tickSize': 0.001,
         "lotSize": 1,
     },
 }
@@ -94,14 +94,14 @@ class TushareGateway(BaseGateway):
     """
     VN Trader Gateway for Tushare.
     """
-    datetime: datetime = None
-    orderid_counter = 0
-
     default_setting = {
         "Token": ""
     }
 
     exchanges = [Exchange.BITMEX, Exchange.OKEX]
+
+    datetime: datetime = None
+    orderid_counter = 0
 
     def __init__(self, event_engine):
         """Constructor"""

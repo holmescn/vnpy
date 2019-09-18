@@ -10,16 +10,18 @@ from vnpy.app.cta_strategy import (
 )
 from vnpy.trader.object import Offset, Direction, Status
 from vnpy.app.cta_strategy.submit_trade_data import submit_trade_data
+from datetime import datetime
+from time import sleep
 
 
 class BaseStrategy(CtaTemplate):
-    should_send_trade = False
+    should_send_trade = True
 
     author = "用Python的交易员"
 
-    date_str = None
+    datetime: datetime = None
     model_id = ''
-    fixed_size = 500
+    fixed_size = 1
     last_trade_id = None
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
@@ -28,21 +30,21 @@ class BaseStrategy(CtaTemplate):
             cta_engine, strategy_name, vt_symbol, setting
         )
         self.reverse = setting.get('reverse', False)
-        self.model_id = '{}_{}{}'.format(self.vt_symbol, self.model_id, 'r' if self.reverse else '')
+        self.model_id = '{}_{}{}'.format(self.vt_symbol, self.model_id, '_rev' if self.reverse else '')
 
-    def submit_trade(self, date: str, trade: TradeData):
+    def submit_trade(self, trade: TradeData):
         direction = "buy" if trade.direction == Direction.LONG else 'sell'
         trade_list = []
         item = {
-            "broker_id": "BITMEX",
+            "broker_id": trade.exchange.value,
             "investor_id": "000000",
             "direction": direction,
             "instrument_id": trade.symbol,
             "instrument_name": trade.vt_symbol,
             "model_id": self.model_id,
             "price": trade.price,
-            "trade_id": '%s_%s' % (self.model_id, trade.tradeid),
-            "trade_time": '%s %s' % (date, trade.time),
+            "trade_id": '%s_%s_%s' % (self.model_id, self.datetime.strftime('%Y%m%d'), trade.tradeid),
+            "trade_time": self.datetime.strftime("%Y-%m-%d %H:%M:%S"),
             "volume": trade.volume,
             "category": "digital"
         }
@@ -59,6 +61,7 @@ class BaseStrategy(CtaTemplate):
 
         if self.should_send_trade and trade_list:
             submit_trade_data(trade_list)
+            sleep(0.05)
 
     def print_order(self, order):
         if order.status in (Status.SUBMITTING, Status.ALLTRADED):
@@ -98,8 +101,7 @@ class BaseStrategy(CtaTemplate):
         """
         Callback of new trade data update.
         """
-        if self.date_str:
-            self.submit_trade(self.date_str, trade)
+        self.submit_trade(trade)
         self.print_trade(trade)
         self.put_event()
 
