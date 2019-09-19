@@ -2,13 +2,14 @@
 
 import sys
 import time
+import pandas as pd
 import tushare as ts
 from copy import copy
 from datetime import datetime, timedelta
-from threading import Lock
+from threading import Lock, Thread
+from time import sleep
 
 from vnpy.event import Event
-from vnpy.api.rest import Request, RestClient
 from vnpy.trader.event import EVENT_TIMER
 from vnpy.trader.constant import (
     Direction,
@@ -37,7 +38,6 @@ from vnpy.app.cta_strategy.backtesting import BacktestingEngine
 
 
 EXCHANGE_NAME2VT = {
-    'bitmex': Exchange.BITMEX,
     'okex': Exchange.OKEX,
 }
 
@@ -98,31 +98,106 @@ class TushareGateway(BaseGateway):
         "Token": ""
     }
 
-    exchanges = [Exchange.BITMEX, Exchange.OKEX]
+    exchanges = [Exchange.OKEX]
 
-    datetime: datetime = None
+    rt_datetime: datetime = None
     orderid_counter = 0
+    initialized = False
 
     def __init__(self, event_engine):
         """Constructor"""
         super(TushareGateway, self).__init__(event_engine, "TUSHARE")
-        event_engine.register(EVENT_TIMER, self.process_timer_event)
         self.ts_api = None
         self._subscribed = dict()
         self._orders = dict()
         self.orderid_counter_lock = Lock()
+        self.orders_lock = Lock()
+        self.thread = Thread(target=self.data_thread)
+
+    def data_thread(self):
+        while True:
+            if not self.initialized:
+                sleep(1.0)
+                continue
+
+            for it in self._subscribed.values():
+                self.write_log(f"{it['datetime'].strftime('%Y%m%d')} {it['exchange']} {it['symbol']}")
+                df = self.ts_api.coin_mins(
+                    exchange='future_%s' % it['exchange'].value.lower(),
+                    symbol=it['symbol'].lower(),
+                    trade_date=it['datetime'].strftime('%Y%m%d'),
+                    freq='1min',
+                    fields='date,open,high,low,close,vol,contract_type'
+                )
+
+                if len(df) == 0:
+                    continue
+
+                df['datetime'] = pd.to_datetime(df.date)
+                df.set_index('datetime', inplace=True)
+                if it['exchange'] == Exchange.OKEX:
+                    df = df[df.contract_type == 'this_week']
+
+                for t, row in df[it['datetime']:].iterrows():
+                    if t > self.rt_datetime:
+                        self.rt_datetime = t
+                    self.emit_tick(it, t, row)
+                    self.emit_bar(it, t, row)
+                    sleep(0.1)
+
+                it['datetime'] = df.index[-1] + timedelta(minutes=1)
+
+            sleep(30.0)
+
+    def emit_tick(self, it, dt, row):
+        tick = TickData(
+            symbol=it['symbol'],
+            exchange=it['exchange'],
+            name=it['symbol'],
+            datetime=dt - timedelta(seconds=50),
+            gateway_name=self.gateway_name,
+            last_price=row.open,
+        )
+        self.on_tick(copy(tick))
+
+        tick.last_price = row.high
+        tick.datetime = dt - timedelta(seconds=35)
+        self.on_tick(copy(tick))
+        
+        tick.last_price = row.low
+        tick.datetime = dt - timedelta(seconds=10)
+        self.on_tick(copy(tick))
+
+        tick.last_price = row.close
+        tick.datetime = dt
+        self.on_tick(copy(tick))
+
+    def emit_bar(self, it, dt, row):
+        bar = BarData(
+            symbol=it['symbol'],
+            exchange=it['exchange'],
+            datetime=dt,
+            interval=Interval.MINUTE,
+            volume=row["vol"],
+            open_price=row["open"],
+            high_price=row["high"],
+            low_price=row["low"],
+            close_price=row["close"],
+            gateway_name=self.gateway_name
+        )
+        self.on_bar(bar)
 
     def _new_order_id(self, vt_symbol):
         with self.orderid_counter_lock:
             self.orderid_counter += 1
-            timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+            timestamp = self.rt_datetime.strftime('%Y%m%d%H%M%S')
             return '%s_%s_%d' % (vt_symbol, timestamp, self.orderid_counter)
 
     def connect(self, setting: dict):
         if self.ts_api is None:
             token = setting["Token"]
             self.ts_api = ts.pro_api(token)
-            self.write_log("PRO API 启动成功")
+            self.write_log("Tushare API 启动成功")
 
             for ex in self.exchanges:
                 df = self.ts_api.coinpair(exchange=f'future_{ex.value.lower()}')
@@ -147,87 +222,79 @@ class TushareGateway(BaseGateway):
                     )
                     self.on_contract(contract)
 
+            self.thread.start()
+
     def subscribe(self, req: SubscribeRequest):
-        """"""
         if req.vt_symbol not in self._subscribed:
             self._subscribed[req.vt_symbol] = {
                 'exchange': req.exchange,
                 'symbol': req.symbol,
-                'datetime': datetime.now() - timedelta(hours=1),
+                'datetime': self.rt_datetime,
             }
 
-    def send_order(self, req: OrderRequest):
+    def send_order(self, req: OrderRequest):        
         orderid = self._new_order_id(req.vt_symbol)
         order: OrderData = req.create_order_data(orderid, self.gateway_name)
-        if self.datetime:
-            order.time = self.datetime.strftime("%T")
+        order.time = self.rt_datetime.strftime("%T")
+        order.status = Status.SUBMITTING
         self.on_order(copy(order))
-        self._orders[orderid] = order
+        with self.orders_lock:
+            self._orders[orderid] = order
         return order.vt_orderid
 
     def cancel_order(self, req: CancelRequest):
         if req.orderid in self._orders:
             order: OrderData = self._orders[req.orderid]
-            if self.datetime:
-                order.time = self.datetime.strftime("%T")
+            order.time = self.rt_datetime.strftime("%T")
             order.status = Status.CANCELLED
             self.on_order(copy(order))
-            self._orders.pop(req.orderid)
+
+        with self.orders_lock:
+            self._orders = {orderid: o for orderid, o in self._orders.items() if o.is_active()}
 
     def on_bar(self, bar: BarData):
-        self.datetime = bar.datetime
-
-        time_str = bar.datetime.strftime('%F %T.000')
-        print("{} 1MIN {} {:.2f} {}".format(time_str, bar.symbol, bar.close_price, bar.volume))
-
         limit_long_cross_price = bar.low_price
         limit_short_cross_price = bar.high_price
         stop_long_cross_price = bar.high_price
         stop_short_cross_price = bar.low_price
 
-        closed_orders = []
-        for orderid, o in self._orders.items():
-            if o.vt_symbol != bar.vt_symbol:
-                continue
+        with self.orders_lock:
+            for orderid, o in self._orders.items():
+                if o.vt_symbol != bar.vt_symbol:
+                    continue
 
-            if o.status == Status.SUBMITTING:
-                o.status = Status.NOTTRADED
-                o.time = self.datetime.strftime('%T')
-                self.on_order(copy(o))
+                if not o.is_active():
+                    continue
 
-            if not o.is_active():
-                closed_orders.append(orderid)
-                continue
+                if o.status == Status.SUBMITTING:
+                    o.status = Status.NOTTRADED
+                    o.time = self.rt_datetime.strftime('%T')
+                    self.on_order(copy(o))
 
-            if o.type == OrderType.LIMIT:
-                long_cross = (
-                    limit_long_cross_price > 0
-                    and o.direction == Direction.LONG 
-                    and o.price >= limit_long_cross_price 
-                )
-                short_cross = (
-                    limit_short_cross_price > 0
-                    and o.price <= limit_short_cross_price 
-                    and o.direction == Direction.SHORT 
-                )
-                if long_cross or short_cross:
-                    self.on_deal(orderid, o, bar, o.volume)
-                    closed_orders.append(orderid)
-            elif o.type == OrderType.STOP:
-                long_cross = (
-                    o.direction == Direction.LONG 
-                    and o.price <= stop_long_cross_price
-                )
-                short_cross = (
-                    o.direction == Direction.SHORT 
-                    and o.price >= stop_short_cross_price
-                )
-                if long_cross or short_cross:
-                    self.on_deal(orderid, o, bar, o.volume)
-                    closed_orders.append(orderid)
-
-        for orderid in closed_orders:
-            self._orders.pop(orderid)
+                if o.type == OrderType.LIMIT:
+                    long_cross = (
+                        limit_long_cross_price > 0
+                        and o.direction == Direction.LONG 
+                        and o.price >= limit_long_cross_price 
+                    )
+                    short_cross = (
+                        limit_short_cross_price > 0
+                        and o.price <= limit_short_cross_price 
+                        and o.direction == Direction.SHORT 
+                    )
+                    if long_cross or short_cross:
+                        self.on_deal(orderid, o, bar, o.volume)
+                elif o.type == OrderType.STOP:
+                    long_cross = (
+                        o.direction == Direction.LONG 
+                        and o.price <= stop_long_cross_price
+                    )
+                    short_cross = (
+                        o.direction == Direction.SHORT 
+                        and o.price >= stop_short_cross_price
+                    )
+                    if long_cross or short_cross:
+                        self.on_deal(orderid, o, bar, o.volume)
 
     def on_deal(self, orderid, o: OrderData, bar: BarData, volume):
         o.time = bar.datetime.strftime("%T")
@@ -249,71 +316,6 @@ class TushareGateway(BaseGateway):
             gateway_name=self.gateway_name,
         )
         self.on_trade(trade)
-
-    def process_timer_event(self, event: Event):
-        with self.orderid_counter_lock:
-            self.orderid_counter = 0
-
-        for it in self._subscribed.values():
-            df = self.ts_api.coin_mins(
-                exchange='future_%s' % it['exchange'].value.lower(),
-                symbol=it['symbol'],
-                trade_date=it['datetime'].strftime('%Y-%m-%d'),
-                freq='1min',
-                fields='date,open,high,low,close,vol,contract_type'
-            )
-
-            if it['exchange'] == Exchange.OKEX:
-                df = df[df.contract_type == 'this_week']
-            elif it['exchange'] == Exchange.BITMEX:
-                df = df[df.contract_type == 'monthly']
-
-            if len(df) == 0:
-                continue
-
-            dt = datetime.strptime(df.iloc[-1, 0], "%Y-%m-%d %H:%M:%S")
-            if dt > it['datetime']:
-                self.emit_tick(it, dt, df.iloc[-1, :])
-                self.emit_bar(it, dt, df.iloc[-1, :])
-            it['datetime'] = dt
-
-    def emit_tick(self, it, dt, row):
-        tick = TickData(
-            symbol=it['symbol'],
-            exchange=it['exchange'],
-            name=it['symbol'],
-            datetime=dt - timedelta(seconds=50),
-            gateway_name=self.gateway_name,
-            price=row.open,
-        )
-        self.on_tick(copy(tick))
-
-        tick.price = row.high
-        tick.datetime = dt - timedelta(seconds=35)
-        self.on_tick(copy(tick))
-        
-        tick.price = row.low
-        tick.datetime = dt - timedelta(seconds=10)
-        self.on_tick(copy(tick))
-
-        tick.price = row.close
-        tick.datetime = dt
-        self.on_tick(copy(tick))
-
-    def emit_bar(self, it, dt, row):
-        bar = BarData(
-            symbol=it['symbol'],
-            exchange=it['exchange'],
-            datetime=dt,
-            interval=Interval.MINUTE,
-            volume=row["vol"],
-            open_price=row["open"],
-            high_price=row["high"],
-            low_price=row["low"],
-            close_price=row["close"],
-            gateway_name=self.gateway_name
-        )
-        self.on_bar(bar)
 
     def query_history(self, req: HistoryRequest):
         self.write_log(f"准备下载 {req.symbol} - {req.interval.value} 从 {req.start} 到 {req.end} 的历史数据")

@@ -10,7 +10,6 @@ from vnpy.app.cta_strategy import (
     TargetPosTemplate
 )
 from vnpy.trader.object import Offset, Direction, Status
-from vnpy.app.cta_strategy.submit_trade_mixin import SubmitTradeMixin
 
 
 class RsiSignal(CtaSignal):
@@ -133,11 +132,10 @@ class MaSignal(CtaSignal):
             self.set_signal_pos(0)
 
 
-class MultiSignalStrategy(TargetPosTemplate, SubmitTradeMixin):
+class MultiSignalStrategy(TargetPosTemplate):
     """"""
 
     author = "用Python的交易员"
-    model_id = "ETHUSD_m1_MultiSignal_UNK_v1.0"
 
     rsi_window = 14
     rsi_level = 20
@@ -228,14 +226,11 @@ class MultiSignalStrategy(TargetPosTemplate, SubmitTradeMixin):
         Callback of new order data update.
         """
         super(MultiSignalStrategy, self).on_order(order)
-        self.print_order(order)
 
     def on_trade(self, trade: TradeData):
         """
         Callback of new trade data update.
         """
-        self.submit_trade(trade)
-        self.print_trade(trade)
         self.put_event()
 
     def on_stop_order(self, stop_order: StopOrder):

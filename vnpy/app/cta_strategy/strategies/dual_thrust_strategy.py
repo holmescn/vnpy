@@ -57,8 +57,8 @@ class DualThrustStrategy(BaseStrategy):
         """
         Callback of new bar data update.
         """
+        super(DualThrustStrategy, self).on_bar(bar)
         self.cancel_all()
-        self.date_str = bar.datetime.strftime("%F")
 
         self.bars.append(bar)
         if len(self.bars) <= 2:

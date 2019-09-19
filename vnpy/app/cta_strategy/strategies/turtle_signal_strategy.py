@@ -55,8 +55,8 @@ class TurtleSignalStrategy(BaseStrategy):
         """
         Callback of new bar data update.
         """
+        super(TurtleSignalStrategy, self).on_bar(bar)
         self.cancel_all()
-        self.date_str = bar.datetime.strftime("%F")
 
         self.am.update_bar(bar)
         if not self.am.inited:
@@ -100,8 +100,7 @@ class TurtleSignalStrategy(BaseStrategy):
             self.short_entry = trade.price
             self.short_stop = self.short_entry + 2 * self.atr_value
 
-        if self.date_str:
-            self.submit_trade(self.date_str, trade)
+        self.submit_trade(trade)
         self.print_trade(trade)
         self.put_event()
 

@@ -60,7 +60,7 @@ class MultiTimeframeStrategy(BaseStrategy):
         """
         Callback of new bar data update.
         """
-        self.date_str = bar.datetime.strftime('%F')
+        super(MultiTimeframeStrategy, self).on_bar(bar)
         self.bg5.update_bar(bar)
         self.bg15.update_bar(bar)
 

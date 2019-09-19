@@ -64,18 +64,19 @@ from vnpy.app.cta_strategy.strategies.king_keltner_strategy import (
 from vnpy.app.cta_strategy.strategies.multi_timeframe_strategy import (
     MultiTimeframeStrategy,
 )
-from vnpy.app.cta_strategy.strategies.turtle_signal_strategy import (
-    TurtleSignalStrategy,
-)
 
 
-SETTINGS["log.active"] = True
-SETTINGS["log.level"] = INFO
-SETTINGS["log.console"] = True
-SETTINGS["log.file"] = True
-
-if sys.platform == 'win32':
-    SETTINGS["database.database"] = "D:\\coin-database.sqlite"
+def make_pair(it, s, reverse):
+    key = '{} {}{}'.format(it['vt_symbol'], s.model_id, ' REV' if reverse else '')
+    value = {
+        "class_name": s.__name__,
+        "vt_symbol": it['vt_symbol'],
+        "setting": {
+            "reverse": reverse,
+            "fixed_size": it['fixed_size']
+        }
+    }
+    return key, value
 
 
 def main():
@@ -135,47 +136,23 @@ def main():
         KingKeltnerStrategy, MultiTimeframeStrategy
     ]
 
+    settings = dict()
     # (5 + 28) * 10 = 330
-    for it in instruments[3:]:
-        engine = BacktestingEngine()
-        engine.set_parameters(
-            vt_symbol=it['vt_symbol'],
-            interval="1m",
-            start=datetime(2019, 8, 1),
-            end=datetime(2019, 9, 17),
-            slippage=it['price_tick'],
-            rate=0.001 * 0.0,
-            size=1,
-            pricetick=it['price_tick'],
-            capital=1_000_000,
-        )
-        engine.load_data()
-
+    for it in instruments:
         for s in revertable_strategies:
-            engine.add_strategy(s, dict(reverse=False, fixed_size=it['fixed_size']))
-            print(engine.strategy.model_id)
-            engine.run_backtesting()
-            engine.strategy.on_stop()
-            engine.calculate_result()
-            engine.calculate_statistics()
-            engine.clear_data()
-            
-            engine.add_strategy(s, dict(reverse=True, fixed_size=it['fixed_size']))
-            print(engine.strategy.model_id)
-            engine.run_backtesting()
-            engine.strategy.on_stop()
-            engine.calculate_result()
-            engine.calculate_statistics()
-            engine.clear_data()
+            k, v = make_pair(it, s, False)
+            settings[k] = v
+
+            k, v = make_pair(it, s, True)
+            settings[k] = v
 
         for s in other_strategies:
-            engine.add_strategy(s, dict(fixed_size=it['fixed_size']))
-            print(engine.strategy.model_id)
-            engine.run_backtesting()
-            engine.strategy.on_stop()
-            engine.calculate_result()
-            engine.calculate_statistics()
-            engine.clear_data()
+            k, v = make_pair(it, s, False)
+            settings[k] = v
+
+    print(f"Total {len(settings)} strategies")
+    with open('cta_strategy_setting.json', 'w', encoding='utf-8') as f:
+        json.dump(settings, f, indent=2)
 
 
 if __name__ == "__main__":

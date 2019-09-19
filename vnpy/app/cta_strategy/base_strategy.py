@@ -12,17 +12,18 @@ from vnpy.trader.object import Offset, Direction, Status
 from vnpy.app.cta_strategy.submit_trade_data import submit_trade_data
 from datetime import datetime
 from time import sleep
+from tqdm import tqdm
 
 
 class BaseStrategy(CtaTemplate):
     should_send_trade = True
+    sent_on_trading = False
 
     author = "用Python的交易员"
 
     datetime: datetime = None
     model_id = ''
     fixed_size = 1
-    last_trade_id = None
     trade_list = []
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
@@ -32,9 +33,15 @@ class BaseStrategy(CtaTemplate):
         )
         self.reverse = setting.get('reverse', False)
         self.model_id = '{}_{}{}'.format(self.vt_symbol, self.model_id, '_rev' if self.reverse else '')
+        self.trade_list = []
 
     def submit_trade(self, trade: TradeData):
         direction = "buy" if trade.direction == Direction.LONG else 'sell'
+        if trade.tradeid.startswith('TRADE'):
+            trade_id = '%s_%s' % (trade.tradeid, self.model_id)
+        else:
+            trade_id = '%s_%s_%s' % (self.model_id, self.datetime.strftime('%Y%m%d'), trade.tradeid)
+
         item = {
             "broker_id": trade.exchange.value,
             "investor_id": "000000",
@@ -43,34 +50,35 @@ class BaseStrategy(CtaTemplate):
             "instrument_name": trade.vt_symbol,
             "model_id": self.model_id,
             "price": trade.price,
-            "trade_id": '%s_%s_%s' % (self.model_id, self.datetime.strftime('%Y%m%d'), trade.tradeid),
+            "trade_id": trade_id,
             "trade_time": self.datetime.strftime("%Y-%m-%d %H:%M:%S"),
             "volume": trade.volume,
             "category": "digital"
         }
 
         if trade.offset == Offset.OPEN:
-            self.last_trade_id = item['trade_id']
             self.trade_list.append(item)
-        elif self.last_trade_id and trade.offset in (Offset.CLOSE, Offset.CLOSEYESTERDAY, Offset.CLOSETODAY):
-            item["close_trade_id"] = self.last_trade_id
-            self.trade_list.append(item)    
-            self.last_trade_id = None
-            if self.should_send_trade and len(self.trade_list) >= 8:
+        elif trade.offset in (Offset.CLOSE, Offset.CLOSEYESTERDAY, Offset.CLOSETODAY):
+            if not self.trade_list:
+                self.write_log("找不到开仓记录")
+                return
+
+            item["close_trade_id"] = self.trade_list[-1]['trade_id']
+            self.trade_list.append(item)
+
+            if self.should_send_trade and self.sent_on_trading and len(self.trade_list) >= 8:
                 submit_trade_data(self.trade_list)
-                sleep(0.05)
                 self.trade_list = []
-        else:
-            self.write_log("找不到开仓记录")
+                sleep(0.05)
 
     def print_order(self, order):
         if order.status in (Status.SUBMITTING, Status.ALLTRADED):
             action = '{} {}'.format(order.offset.value, order.direction.value)
-            self.write_log("{} {:.3f} x {}".format(action, order.price, order.volume))
+            # self.write_log("{} {:.3f} x {}".format(action, order.price, order.volume))
 
     def print_trade(self, trade):
         action = '{} {}'.format(trade.offset.value, trade.direction.value)
-        self.write_log("成交：{} {:.2f} x {}".format(action, trade.price, trade.volume))
+        self.write_log("成交：{} {:.2f} x {} {}".format(action, trade.price, trade.volume, self.datetime))
 
     def on_init(self):
         """
@@ -89,9 +97,29 @@ class BaseStrategy(CtaTemplate):
         """
         Callback when strategy is stopped.
         """
-        if self.should_send_trade and self.trade_list and len(self.trade_list) % 2 == 0:
-            submit_trade_data(self.trade_list)
+        if self.should_send_trade and self.trade_list:
+            pbar = tqdm(total=len(self.trade_list), ncols=60)
+            sent_list = []
+            while len(self.trade_list) > 1:
+                sent_list.extend(self.trade_list[:2])
+                self.trade_list = self.trade_list[2:]
+                if len(sent_list) == 8:
+                    submit_trade_data(sent_list)
+                    pbar.update(len(sent_list))
+                    sent_list = []
+                    sleep(0.05)
+
+            if sent_list:
+                submit_trade_data(sent_list)
+                pbar.update(len(sent_list))
+
+            pbar.close()
+
         self.write_log("策略停止")
+
+    def on_bar(self, bar):
+        super(BaseStrategy, self).on_bar(bar)
+        self.datetime = bar.datetime
 
     def on_order(self, order: OrderData):
         """
@@ -149,8 +177,8 @@ class BaseAtrStrategy(BaseStrategy):
         """
         Callback of new bar data update.
         """
+        super(BaseAtrStrategy, self).on_bar(bar)
         self.cancel_all()
-        self.date_str = bar.datetime.strftime('%F')
 
         am = self.am
         am.update_bar(bar)

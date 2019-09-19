@@ -46,7 +46,7 @@ class DoubleMaStrategy(BaseStrategy):
         """
         Callback of new bar data update.
         """
-        self.date_str = bar.datetime.strftime('%F')
+        super(DoubleMaStrategy, self).on_bar(bar)
 
         am = self.am
         am.update_bar(bar)

@@ -51,8 +51,8 @@ class KingKeltnerStrategy(BaseStrategy):
         """
         Callback of new bar data update.
         """
+        super(KingKeltnerStrategy, self).on_bar(bar)
         self.bg.update_bar(bar)
-        self.date_str = bar.datetime.strftime('%F')
 
     def on_5min_bar(self, bar: BarData):
         """"""
@@ -107,8 +107,7 @@ class KingKeltnerStrategy(BaseStrategy):
                 if orderid in self.vt_orderids:
                     self.vt_orderids.remove(orderid)
 
-        if self.date_str:
-            self.submit_trade(self.date_str, trade)
+        self.submit_trade(trade)
         self.print_trade(trade)
         self.put_event()
 

@@ -12,7 +12,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from pandas import DataFrame
 from deap import creator, base, tools, algorithms
-from tqdm import tqdm
 
 from vnpy.trader.constant import (Direction, Offset, Exchange, 
                                   Interval, Status)
@@ -291,7 +290,7 @@ class BacktestingEngine:
         self.output("开始回放历史数据")
 
         # Use the rest of history data for running backtesting
-        for data in tqdm(self.history_data[ix:], ncols=60):
+        for data in self.history_data[ix:]:
             func(data)
 
         self.output("历史数据回放结束")

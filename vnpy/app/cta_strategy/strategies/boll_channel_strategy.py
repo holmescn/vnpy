@@ -56,8 +56,8 @@ class BollChannelStrategy(BaseStrategy):
         """
         Callback of new bar data update.
         """
+        super(BollChannelStrategy, self).on_bar(bar)
         self.bg.update_bar(bar)
-        self.date_str = bar.datetime.strftime('%F')
 
     def on_15min_bar(self, bar: BarData):
         """"""
