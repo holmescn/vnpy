@@ -257,7 +257,7 @@ def write_request_log(level, msg):
 class LogMgr:
     def __init__(self):
         LOG_FORMAT = "[%(levelname)s] - %(asctime)s - %(message)s"
-        dir_name = 'submit_logs'
+        dir_name = get_folder_path('submit_logs')
 
         if not os.path.exists(dir_name):
             os.mkdir(dir_name)
