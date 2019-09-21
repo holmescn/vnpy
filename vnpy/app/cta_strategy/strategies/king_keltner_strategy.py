@@ -30,7 +30,7 @@ class KingKeltnerStrategy(BaseStrategy):
     vt_orderids = []
 
     parameters = ['kk_length', 'kk_dev', 'fixed_size']
-    variables = ['kk_up', 'kk_down']
+    variables = ['kk_up', 'kk_down', 'timestamp']
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
         """"""
@@ -64,6 +64,11 @@ class KingKeltnerStrategy(BaseStrategy):
         am.update_bar(bar)
         if not am.inited:
             return
+
+        if self.timestamp > bar.datetime.timestamp():
+            self.pos = 0
+            return
+        self.timestamp = bar.datetime.timestamp()
 
         self.kk_up, self.kk_down = am.keltner(self.kk_length, self.kk_dev)
 

@@ -27,7 +27,7 @@ class CciAtrStrategy(BaseAtrStrategy):
 
     parameters = ["atr_length", "atr_ma_length", "cci_length",
                   "trailing_percent"]
-    variables = ["atr_value", "atr_ma", "cci_value", "cci_buy", "cci_sell"]
+    variables = ["atr_value", "atr_ma", "cci_value", "cci_buy", "cci_sell", "timestamp"]
 
     def on_pos_zero(self, bar: BarData):
         self.cci_value = self.am.cci(self.cci_length)

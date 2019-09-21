@@ -52,9 +52,6 @@ from vnpy.app.cta_strategy.strategies.trima_atr_strategy import (
 from vnpy.app.cta_strategy.strategies.boll_channel_strategy import (
     BollChannelStrategy,
 )
-from vnpy.app.cta_strategy.strategies.double_ma_strategy import (
-    DoubleMaStrategy,
-)
 from vnpy.app.cta_strategy.strategies.dual_thrust_strategy import (
     DualThrustStrategy,
 )
@@ -132,7 +129,7 @@ def main():
 
     # 5
     other_strategies = [
-        BollChannelStrategy, DoubleMaStrategy, DualThrustStrategy,
+        BollChannelStrategy, DualThrustStrategy,
         KingKeltnerStrategy, MultiTimeframeStrategy
     ]
 

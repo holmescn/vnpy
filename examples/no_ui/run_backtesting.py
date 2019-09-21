@@ -123,20 +123,23 @@ def main():
 
     # 14 * 2 = 28
     revertable_strategies = [
-        AdxAtrStrategy, BollAtrStrategy, CciAtrStrategy, CmoAtrStrategy,
-        DemaAtrStrategy, DonchianAtrStrategy, HtAtrStrategy,
-        KamaAtrStrategy, KeltnerAtrStrategy, MacdAtrStrategy, RsiAtrStrategy,
-        SarAtrStrategy, TemaAtrStrategy, TrimaAtrStrategy
+        AdxAtrStrategy, BollAtrStrategy,
+        CciAtrStrategy, CmoAtrStrategy,
+        DemaAtrStrategy, DonchianAtrStrategy,
+        HtAtrStrategy, KamaAtrStrategy,
+        KeltnerAtrStrategy, MacdAtrStrategy,
+        RsiAtrStrategy, SarAtrStrategy,
+        TemaAtrStrategy, TrimaAtrStrategy
     ]
 
     # 5
     other_strategies = [
-        BollChannelStrategy, DoubleMaStrategy, DualThrustStrategy,
+        BollChannelStrategy, DualThrustStrategy,
         KingKeltnerStrategy, MultiTimeframeStrategy
     ]
 
-    # (5 + 28) * 10 = 330
-    for it in instruments[3:]:
+    # (4 + 28) * 10 = 320
+    for it in instruments[7:]:
         engine = BacktestingEngine()
         engine.set_parameters(
             vt_symbol=it['vt_symbol'],
@@ -155,26 +158,26 @@ def main():
             engine.add_strategy(s, dict(reverse=False, fixed_size=it['fixed_size']))
             print(engine.strategy.model_id)
             engine.run_backtesting()
-            engine.strategy.on_stop()
             engine.calculate_result()
             engine.calculate_statistics()
+            engine.strategy.on_stop()
             engine.clear_data()
             
             engine.add_strategy(s, dict(reverse=True, fixed_size=it['fixed_size']))
             print(engine.strategy.model_id)
             engine.run_backtesting()
-            engine.strategy.on_stop()
             engine.calculate_result()
             engine.calculate_statistics()
+            engine.strategy.on_stop()
             engine.clear_data()
 
         for s in other_strategies:
             engine.add_strategy(s, dict(fixed_size=it['fixed_size']))
             print(engine.strategy.model_id)
             engine.run_backtesting()
-            engine.strategy.on_stop()
             engine.calculate_result()
             engine.calculate_statistics()
+            engine.strategy.on_stop()
             engine.clear_data()
 
 

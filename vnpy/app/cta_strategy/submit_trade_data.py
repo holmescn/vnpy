@@ -11,7 +11,7 @@ from vnpy.trader.utility import get_folder_path
 
 
 # 提交成交记录，这是主要调用的方法
-def submit_trade_data(trade_list, after_submit_event=None, ip_port_str=None, isDebug=True):
+def submit_trade_data(trade_list, after_submit_event=None, ip_port_str=None, isDebug=False):
     '''
     主要功能：提交成交数据到统计系统
     实现逻辑：使用多线程的方式提交，不影响主流程，可以设置回调方法处理，添加日志功能，方便跟踪，主要以日期格式为文件名，即每天会产生一个新的日志文件
@@ -265,7 +265,7 @@ class LogMgr:
         filename = '%s/submit_trade_data_%s.log' % (dir_name, datetime.datetime.now().strftime('%Y-%m-%d'))
 
         self.LOG = logging.getLogger('submit_logs')
-        loghdlr1 = logging.handlers.RotatingFileHandler(filename, "a", 0, 1)
+        loghdlr1 = logging.handlers.RotatingFileHandler(filename, "a", 0, 1, encoding='utf-8')
         fmt1 = logging.Formatter(LOG_FORMAT, "%Y-%m-%d %H:%M:%S")
         loghdlr1.setFormatter(fmt1)
         self.LOG.addHandler(loghdlr1)

@@ -35,7 +35,7 @@ class DualThrustStrategy(BaseStrategy):
     short_entered = False
 
     parameters = ["k1", "k2", "fixed_size"]
-    variables = ["range", "long_entry", "short_entry"]
+    variables = ["range", "long_entry", "short_entry", 'timestamp']
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
         """"""
@@ -66,6 +66,10 @@ class DualThrustStrategy(BaseStrategy):
         else:
             self.bars.pop(0)
         last_bar = self.bars[-2]
+
+        if self.timestamp > bar.datetime.timestamp():
+            return
+        self.timestamp = bar.datetime.timestamp()
 
         if last_bar.datetime.date() != bar.datetime.date():
             if self.day_high:

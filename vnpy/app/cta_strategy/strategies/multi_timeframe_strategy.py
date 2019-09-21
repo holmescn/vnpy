@@ -33,7 +33,7 @@ class MultiTimeframeStrategy(BaseStrategy):
                   "fixed_size"]
 
     variables = ["rsi_value", "rsi_long", "rsi_short",
-                 "fast_ma", "slow_ma", "ma_trend"]
+                 "fast_ma", "slow_ma", "ma_trend", "timestamp"]
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
         """"""
@@ -71,6 +71,11 @@ class MultiTimeframeStrategy(BaseStrategy):
         self.am5.update_bar(bar)
         if not self.am5.inited:
             return
+
+        if self.timestamp > bar.datetime.timestamp():
+            self.pos = 0
+            return
+        self.timestamp = bar.datetime.timestamp()
 
         if not self.ma_trend:
             return

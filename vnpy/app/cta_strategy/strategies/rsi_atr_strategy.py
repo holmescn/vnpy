@@ -28,7 +28,7 @@ class RsiAtrStrategy(BaseAtrStrategy):
 
     parameters = ["atr_length", "atr_ma_length", "rsi_length",
                   "rsi_entry", "trailing_percent", "fixed_size"]
-    variables = ["atr_value", "atr_ma", "rsi_value", "rsi_buy", "rsi_sell"]
+    variables = ["atr_value", "atr_ma", "rsi_value", "rsi_buy", "rsi_sell", "timestamp"]
 
     def on_pos_zero(self, bar: BarData):
         self.rsi_value = self.am.rsi(self.rsi_length)

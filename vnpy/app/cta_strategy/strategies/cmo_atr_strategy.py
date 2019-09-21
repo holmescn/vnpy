@@ -28,7 +28,7 @@ class CmoAtrStrategy(BaseAtrStrategy):
 
     parameters = ["atr_length", "atr_ma_length", "cmo_length",
                   "trailing_percent", "fixed_size"]
-    variables = ["atr_value", "atr_ma", "cmo_value", "cmo_buy", "cmo_sell"]
+    variables = ["atr_value", "atr_ma", "cmo_value", "cmo_buy", "cmo_sell", "timestamp"]
 
     def on_pos_zero(self, bar: BarData):
         cmo_array = talib.CMO(self.am.close, self.cmo_length)

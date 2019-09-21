@@ -16,11 +16,12 @@ from tqdm import tqdm
 
 
 class BaseStrategy(CtaTemplate):
-    should_send_trade = True
+    should_send_trade = False
     sent_on_trading = False
 
     author = "用Python的交易员"
 
+    timestamp = 0.0
     datetime: datetime = None
     model_id = ''
     fixed_size = 1
@@ -69,7 +70,6 @@ class BaseStrategy(CtaTemplate):
             if self.should_send_trade and self.sent_on_trading and len(self.trade_list) >= 8:
                 submit_trade_data(self.trade_list)
                 self.trade_list = []
-                sleep(0.05)
 
     def print_order(self, order):
         if order.status in (Status.SUBMITTING, Status.ALLTRADED):
@@ -107,7 +107,7 @@ class BaseStrategy(CtaTemplate):
                     submit_trade_data(sent_list)
                     pbar.update(len(sent_list))
                     sent_list = []
-                    sleep(0.05)
+                    sleep(0.8)
 
             if sent_list:
                 submit_trade_data(sent_list)
@@ -117,7 +117,7 @@ class BaseStrategy(CtaTemplate):
 
         self.write_log("策略停止")
 
-    def on_bar(self, bar):
+    def on_bar(self, bar: BarData):
         super(BaseStrategy, self).on_bar(bar)
         self.datetime = bar.datetime
 
@@ -156,7 +156,7 @@ class BaseAtrStrategy(BaseStrategy):
     intra_trade_high = 0
     intra_trade_low = 0
 
-    variables = ["atr_value", "atr_ma"]
+    variables = ["atr_value", "atr_ma", "timestamp"]
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
         """"""
@@ -184,6 +184,11 @@ class BaseAtrStrategy(BaseStrategy):
         am.update_bar(bar)
         if not am.inited:
             return
+
+        if self.timestamp > bar.datetime.timestamp():
+            self.pos = 0
+            return
+        self.timestamp = bar.datetime.timestamp()
 
         atr_array = am.atr(self.atr_length, array=True)
         self.atr_value = atr_array[-1]

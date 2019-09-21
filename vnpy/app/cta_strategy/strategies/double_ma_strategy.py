@@ -53,6 +53,11 @@ class DoubleMaStrategy(BaseStrategy):
         if not am.inited:
             return
 
+        if self.timestamp > bar.datetime.timestamp():
+            self.pos = 0
+            return
+        self.timestamp = bar.datetime.timestamp()
+
         fast_ma = am.sma(self.fast_window, array=True)
         self.fast_ma0 = fast_ma[-1]
         self.fast_ma1 = fast_ma[-2]

@@ -35,6 +35,7 @@ from vnpy.trader.object import (
     HistoryRequest
 )
 from vnpy.app.cta_strategy.backtesting import BacktestingEngine
+from requests import exceptions as requests_exceptions
 
 
 EXCHANGE_NAME2VT = {
@@ -100,6 +101,7 @@ class TushareGateway(BaseGateway):
 
     exchanges = [Exchange.OKEX]
 
+    token = ''
     rt_datetime: datetime = None
     orderid_counter = 0
     initialized = False
@@ -122,15 +124,29 @@ class TushareGateway(BaseGateway):
 
             for it in self._subscribed.values():
                 self.write_log(f"{it['datetime'].strftime('%Y%m%d')} {it['exchange']} {it['symbol']}")
-                df = self.ts_api.coin_mins(
-                    exchange='future_%s' % it['exchange'].value.lower(),
-                    symbol=it['symbol'].lower(),
-                    trade_date=it['datetime'].strftime('%Y%m%d'),
-                    freq='1min',
-                    fields='date,open,high,low,close,vol,contract_type'
-                )
+                try:
+                    df = self.ts_api.coin_mins(
+                        exchange='future_%s' % it['exchange'].value.lower(),
+                        symbol=it['symbol'].lower(),
+                        trade_date=it['datetime'].strftime('%Y%m%d'),
+                        freq='1min',
+                        fields='date,open,high,low,close,vol,contract_type'
+                    )
+                except requests_exceptions.ConnectionError:
+                    self.ts_api = ts.pro_api(self.token)
+                    self.write_log("Connection Error, 重启 tushare API")
+                    continue
+                except requests_exceptions.ConnectTimeout:
+                    self.ts_api = ts.pro_api(self.token)
+                    self.write_log("Connection Timeout, 重启 tushare API")
+                    continue
+                except requests_exceptions.ReadTimeout:
+                    self.ts_api = ts.pro_api(self.token)
+                    self.write_log("Read Timeout, 重启 tushare API")
+                    continue
 
                 if len(df) == 0:
+                    sleep(1.0)
                     continue
 
                 df['datetime'] = pd.to_datetime(df.date)
@@ -143,7 +159,7 @@ class TushareGateway(BaseGateway):
                         self.rt_datetime = t
                     self.emit_tick(it, t, row)
                     self.emit_bar(it, t, row)
-                    sleep(0.1)
+                    sleep(0.125)
 
                 it['datetime'] = df.index[-1] + timedelta(minutes=1)
 
@@ -163,7 +179,7 @@ class TushareGateway(BaseGateway):
         tick.last_price = row.high
         tick.datetime = dt - timedelta(seconds=35)
         self.on_tick(copy(tick))
-        
+
         tick.last_price = row.low
         tick.datetime = dt - timedelta(seconds=10)
         self.on_tick(copy(tick))
@@ -195,8 +211,8 @@ class TushareGateway(BaseGateway):
 
     def connect(self, setting: dict):
         if self.ts_api is None:
-            token = setting["Token"]
-            self.ts_api = ts.pro_api(token)
+            self.token = setting["Token"]
+            self.ts_api = ts.pro_api(self.token)
             self.write_log("Tushare API 启动成功")
 
             for ex in self.exchanges:
