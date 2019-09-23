@@ -71,7 +71,7 @@ class BaseStrategy(CtaTemplate):
             item["close_trade_id"] = self.trade_list[-1]['trade_id']
             self.trade_list.append(item)
 
-            if self.should_send_trade and self.sent_on_trading and len(self.trade_list) >= 6:
+            if self.should_send_trade and self.sent_on_trading and len(self.trade_list) >= 4:
                 submit_trade_data(self.trade_list)
                 self.trade_list = []
 
