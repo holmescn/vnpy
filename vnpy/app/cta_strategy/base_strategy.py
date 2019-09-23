@@ -10,6 +10,8 @@ from vnpy.app.cta_strategy import (
 )
 from vnpy.trader.object import Offset, Direction, Status
 from vnpy.app.cta_strategy.submit_trade_data import submit_trade_data
+from vnpy.trader.setting import SETTINGS
+
 from datetime import datetime
 from time import sleep
 from tqdm import tqdm
@@ -35,6 +37,8 @@ class BaseStrategy(CtaTemplate):
         self.reverse = setting.get('reverse', False)
         self.model_id = '{}_{}{}'.format(self.vt_symbol, self.model_id, '_rev' if self.reverse else '')
         self.trade_list = []
+        self.should_send_trade = SETTINGS.get('submit_logs.should_send_trade', False)
+        self.sent_on_trading = SETTINGS.get('submit_logs.sent_on_trading', False)
 
     def submit_trade(self, trade: TradeData):
         direction = "buy" if trade.direction == Direction.LONG else 'sell'
