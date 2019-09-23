@@ -43,7 +43,7 @@ class BaseStrategy(CtaTemplate):
     def submit_trade(self, trade: TradeData):
         direction = "buy" if trade.direction == Direction.LONG else 'sell'
         if trade.tradeid.startswith('TRADE'):
-            trade_id = trade.tradeid.replace(trade_id.vt_symbol, self.model_id)
+            trade_id = trade.tradeid.replace(trade.vt_symbol, self.model_id)
         else:
             trade_id = '%s_%s_%s' % (self.model_id, self.datetime.strftime('%Y%m%d'), trade.tradeid)
 
