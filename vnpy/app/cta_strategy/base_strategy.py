@@ -133,11 +133,13 @@ class BaseStrategy(CtaTemplate):
         self.put_event()
 
     def buy(self, price: float, volume: float, stop: bool = False, lock: bool = False):
+        volume = volume * 5
         if self.reverse:
             return super(BaseStrategy, self).short(price, volume, stop, lock)
         return super(BaseStrategy, self).buy(price, volume, stop, lock)
 
     def short(self, price: float, volume: float, stop: bool = False, lock: bool = False):
+        volume = volume * 5
         if self.reverse:
             return super(BaseStrategy, self).buy(price, volume, stop, lock)
         return super(BaseStrategy, self).short(price, volume, stop, lock)
