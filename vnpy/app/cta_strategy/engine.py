@@ -754,7 +754,7 @@ class CtaEngine(BaseEngine):
         """
         Load strategy class from certain folder.
         """
-        for dirpath, dirnames, filenames in os.walk(str(path)):
+        for _, _, filenames in os.walk(str(path)):
             for filename in filenames:
                 if filename.endswith(".py"):
                     strategy_module_name = ".".join(

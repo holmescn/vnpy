@@ -27,7 +27,8 @@ class BaseStrategy(CtaTemplate):
     datetime: datetime = None
     model_id = ''
     fixed_size = 1
-    trade_list = []
+    long_trade_list = []
+    short_trade_list = []
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
         """"""
@@ -62,18 +63,28 @@ class BaseStrategy(CtaTemplate):
         }
 
         if trade.offset == Offset.OPEN:
-            self.trade_list.append(item)
+            if trade.direction == Direction.LONG:
+                self.long_trade_list.append(item)
+            elif trade.direction == Direction.SHORT:
+                self.short_trade_list.append(item)
         elif trade.offset in (Offset.CLOSE, Offset.CLOSEYESTERDAY, Offset.CLOSETODAY):
-            if not self.trade_list:
-                self.write_log("找不到开仓记录")
-                return
+            if trade.direction == Direction.LONG:
+                if not self.short_trade_list:
+                    return
 
-            item["close_trade_id"] = self.trade_list[-1]['trade_id']
-            self.trade_list.append(item)
+                item['close_trade_id'] = self.short_trade_list[0]['trade_id']
+                send_pair = [self.short_trade_list[0], item]
+                self.short_trade_list = self.short_trade_list[1:]
+                submit_trade_data(send_pair)
 
-            if self.should_send_trade and self.sent_on_trading and len(self.trade_list) >= 4:
-                submit_trade_data(self.trade_list)
-                self.trade_list = []
+            elif trade.direction == Direction.SHORT:
+                if not self.long_trade_list:
+                    return
+
+                item['close_trade_id'] = self.long_trade_list[0]['trade_id']
+                send_pair = [self.long_trade_list[0], item]
+                self.long_trade_list = self.long_trade_list[1:]
+                submit_trade_data(send_pair)
 
     def print_order(self, order):
         if order.status in (Status.SUBMITTING, Status.ALLTRADED):
@@ -82,14 +93,14 @@ class BaseStrategy(CtaTemplate):
 
     def print_trade(self, trade):
         action = '{} {}'.format(trade.offset.value, trade.direction.value)
-        self.write_log("成交：{} {:.2f} x {} {}".format(action, trade.price, trade.volume, self.datetime))
+        self.write_log("成交：{} {:.2f} x {} {}".format(action, trade.price, trade.volume, trade.tradeid))
 
     def on_init(self):
         """
         Callback when strategy is inited.
         """
         self.write_log("策略初始化")
-        self.load_bar(3)
+        self.load_bar(2)
 
     def on_start(self):
         """
@@ -101,24 +112,6 @@ class BaseStrategy(CtaTemplate):
         """
         Callback when strategy is stopped.
         """
-        if self.should_send_trade and self.trade_list:
-            pbar = tqdm(total=len(self.trade_list), ncols=60)
-            sent_list = []
-            while len(self.trade_list) > 1:
-                sent_list.extend(self.trade_list[:2])
-                self.trade_list = self.trade_list[2:]
-                if len(sent_list) == 8:
-                    submit_trade_data(sent_list)
-                    pbar.update(len(sent_list))
-                    sent_list = []
-                    sleep(0.8)
-
-            if sent_list:
-                submit_trade_data(sent_list)
-                pbar.update(len(sent_list))
-
-            pbar.close()
-
         self.write_log("策略停止")
 
     def on_bar(self, bar: BarData):

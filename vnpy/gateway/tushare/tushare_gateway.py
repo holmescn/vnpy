@@ -121,9 +121,9 @@ class TushareGateway(BaseGateway):
             if not self.initialized:
                 sleep(1.0)
                 continue
-
+            
             for it in self._subscribed.values():
-                self.write_log(f"{it['datetime'].strftime('%Y%m%d')} {it['exchange']} {it['symbol']}")
+                self.write_log(f"下载 {it['symbol']} {it['datetime'].date()} 的数据")
                 try:
                     df = self.ts_api.coin_mins(
                         exchange='future_%s' % it['exchange'].value.lower(),
@@ -132,6 +132,13 @@ class TushareGateway(BaseGateway):
                         freq='1min',
                         fields='date,open,high,low,close,vol,contract_type'
                     )
+                    if len(df) == 0:
+                        sleep(1.0)
+                    df['datetime'] = pd.to_datetime(df.date)
+                    df.set_index('datetime', inplace=True)
+                    df = df[df.contract_type == 'this_week']
+                    it['data'] = df
+                    it['iter'] = df.iterrows()
                 except requests_exceptions.ConnectionError:
                     self.ts_api = ts.pro_api(self.token)
                     self.write_log("Connection Error, 重启 tushare API")
@@ -145,23 +152,29 @@ class TushareGateway(BaseGateway):
                     self.write_log("Read Timeout, 重启 tushare API")
                     continue
 
-                if len(df) == 0:
-                    sleep(1.0)
-                    continue
+            n_iter = len(self._subscribed)
+            while n_iter > 0:
+                n_iter = len(self._subscribed)
+                for it in self._subscribed.values():
+                    if 'iter' not in it:
+                        n_iter -= 1
+                        continue
 
-                df['datetime'] = pd.to_datetime(df.date)
-                df.set_index('datetime', inplace=True)
-                if it['exchange'] == Exchange.OKEX:
-                    df = df[df.contract_type == 'this_week']
+                    try:
+                        t, row = next(it['iter'])
+                    except StopIteration:
+                        n_iter -= 1
+                        del it['iter']
+                        continue
 
-                for t, row in df[it['datetime']:].iterrows():
                     if t > self.rt_datetime:
                         self.rt_datetime = t
+
                     self.emit_tick(it, t, row)
                     self.emit_bar(it, t, row)
-                    sleep(0.125)
+                    it['datetime'] = t + timedelta(minutes=1)
 
-                it['datetime'] = df.index[-1] + timedelta(minutes=1)
+                sleep(0.25)
 
             sleep(30.0)
 
@@ -206,7 +219,7 @@ class TushareGateway(BaseGateway):
     def _new_order_id(self, vt_symbol):
         with self.orderid_counter_lock:
             self.orderid_counter += 1
-            timestamp = self.rt_datetime.strftime('%Y%m%d%H%M%S')
+            timestamp = self.rt_datetime.strftime('%Y%m%d_%H%M')
             return '%s_%s_%d' % (vt_symbol, timestamp, self.orderid_counter)
 
     def connect(self, setting: dict):
@@ -246,6 +259,7 @@ class TushareGateway(BaseGateway):
                 'exchange': req.exchange,
                 'symbol': req.symbol,
                 'datetime': self.rt_datetime,
+                'data': pd.DataFrame(),
             }
 
     def send_order(self, req: OrderRequest):        
@@ -284,7 +298,7 @@ class TushareGateway(BaseGateway):
 
                 if o.status == Status.SUBMITTING:
                     o.status = Status.NOTTRADED
-                    o.time = self.rt_datetime.strftime('%T')
+                    o.time = bar.datetime.strftime('%T')
                     self.on_order(copy(o))
 
                 if o.type == OrderType.LIMIT:
@@ -318,7 +332,7 @@ class TushareGateway(BaseGateway):
         o.traded = o.volume
         self.on_order(copy(o))
 
-        tradeid = 'TRADE_{}'.format(o.vt_orderid)
+        tradeid = 'DIGIT_{}'.format(o.orderid)
         trade = TradeData(
             symbol=bar.symbol,
             exchange=bar.exchange,

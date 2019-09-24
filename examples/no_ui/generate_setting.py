@@ -87,19 +87,19 @@ def main():
         'price_tick': 0.01,
     }, {
         'vt_symbol': 'BCHUSDT.OKEX',
-        'fixed_size': 200,
+        'fixed_size': 600,
         'price_tick': 0.01,
     }, {
         'vt_symbol': 'BCHUSDK.OKEX',
-        'fixed_size': 200,
+        'fixed_size': 600,
         'price_tick': 0.01,
     }, {
         'vt_symbol': 'LTCUSDT.OKEX',
-        'fixed_size': 200,
+        'fixed_size': 2000,
         'price_tick': 0.001,
     }, {
         'vt_symbol': 'LTCUSDK.OKEX',
-        'fixed_size': 200,
+        'fixed_size': 2000,
         'price_tick': 0.001,
     }, {
         'vt_symbol': 'ETHUSDT.OKEX',
@@ -111,11 +111,11 @@ def main():
         'price_tick': 0.001,
     }, {
         'vt_symbol': 'EOSUSDT.OKEX',
-        'fixed_size': 200,
+        'fixed_size': 40000,
         'price_tick': 0.001,
     }, {
         'vt_symbol': 'EOSUSDK.OKEX',
-        'fixed_size': 200,
+        'fixed_size': 40000,
         'price_tick': 0.001,
     }]
 
