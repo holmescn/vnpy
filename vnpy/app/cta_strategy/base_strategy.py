@@ -74,7 +74,7 @@ class BaseStrategy(CtaTemplate):
                 send_pair = [self.short_trade_list[0], item]
                 self.short_trade_list = self.short_trade_list[1:]
 
-                pprint(send_pair)
+                # pprint(send_pair)
                 if self.should_send_trade and self.sent_on_trading:
                     submit_trade_data(send_pair)
 
@@ -86,7 +86,7 @@ class BaseStrategy(CtaTemplate):
                 send_pair = [self.long_trade_list[0], item]
                 self.long_trade_list = self.long_trade_list[1:]
 
-                pprint(send_pair)
+                # pprint(send_pair)
                 if self.should_send_trade and self.sent_on_trading:
                     submit_trade_data(send_pair)
 
