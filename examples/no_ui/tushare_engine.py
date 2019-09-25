@@ -270,6 +270,10 @@ class TushareEngine(BaseEngine):
                 self.symbol = symbol
                 self.vt_symbol = vt_symbol
                 self.exchange = exchange
+                if symbol.startswith('BTC') or symbol.startswith('BCH'):
+                    self.pricetick = 0.01
+                else:
+                    self.pricetick = 0.001
 
                 for strategy in self.symbol_strategy_map[vt_symbol]:
                     self.strategy = strategy
