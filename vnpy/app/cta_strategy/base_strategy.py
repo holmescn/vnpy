@@ -28,8 +28,6 @@ class BaseStrategy(CtaTemplate):
     datetime: datetime = None
     model_id = ''
     fixed_size = 1
-    long_trade_list = []
-    short_trade_list = []
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
         """"""
@@ -41,12 +39,14 @@ class BaseStrategy(CtaTemplate):
         self.trade_list = []
         self.should_send_trade = SETTINGS.get('submit_logs.should_send_trade', False)
         self.sent_on_trading = SETTINGS.get('submit_logs.sent_on_trading', False)
+        self.buy_trade_list = []
+        self.sell_trade_list = []
 
     def submit_trade(self, trade: TradeData):
         direction = "buy" if trade.direction == Direction.LONG else 'sell'
         trade_id = trade.tradeid.replace(trade.vt_symbol, self.model_id)
 
-        item = {
+        current_trade = {
             "broker_id": trade.exchange.value,
             "investor_id": "000000",
             "direction": direction,
@@ -62,29 +62,33 @@ class BaseStrategy(CtaTemplate):
 
         if trade.offset == Offset.OPEN:
             if trade.direction == Direction.LONG:
-                self.long_trade_list.append(item)
+                self.buy_trade_list.append(current_trade)
             elif trade.direction == Direction.SHORT:
-                self.short_trade_list.append(item)
+                self.sell_trade_list.append(current_trade)
         elif trade.offset in (Offset.CLOSE, Offset.CLOSEYESTERDAY, Offset.CLOSETODAY):
             if trade.direction == Direction.LONG:
-                if not self.short_trade_list:
+                if not self.sell_trade_list:
                     return
 
-                item['close_trade_id'] = self.short_trade_list[0]['trade_id']
-                send_pair = [self.short_trade_list[0], item]
-                self.short_trade_list = self.short_trade_list[1:]
+                open_trade = self.sell_trade_list[0]
+                self.sell_trade_list = self.sell_trade_list[1:]
+
+                current_trade['close_trade_id'] = open_trade['trade_id']
+                send_pair = [open_trade, current_trade]
 
                 # pprint(send_pair)
                 if self.should_send_trade and self.sent_on_trading:
                     submit_trade_data(send_pair)
 
             elif trade.direction == Direction.SHORT:
-                if not self.long_trade_list:
+                if not self.buy_trade_list:
                     return
 
-                item['close_trade_id'] = self.long_trade_list[0]['trade_id']
-                send_pair = [self.long_trade_list[0], item]
-                self.long_trade_list = self.long_trade_list[1:]
+                open_trade = self.buy_trade_list[0]
+                self.buy_trade_list = self.buy_trade_list[1:]
+
+                current_trade['close_trade_id'] = open_trade['trade_id']
+                send_pair = [open_trade, current_trade]
 
                 # pprint(send_pair)
                 if self.should_send_trade and self.sent_on_trading:
