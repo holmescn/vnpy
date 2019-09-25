@@ -1,3 +1,4 @@
+from pprint import pprint
 from vnpy.app.cta_strategy import (
     CtaTemplate,
     StopOrder,
@@ -43,10 +44,7 @@ class BaseStrategy(CtaTemplate):
 
     def submit_trade(self, trade: TradeData):
         direction = "buy" if trade.direction == Direction.LONG else 'sell'
-        if trade.tradeid.startswith('TRADE'):
-            trade_id = trade.tradeid.replace(trade.vt_symbol, self.model_id)
-        else:
-            trade_id = '%s_%s_%s' % (self.model_id, self.datetime.strftime('%Y%m%d'), trade.tradeid)
+        trade_id = trade.tradeid.replace(trade.vt_symbol, self.model_id)
 
         item = {
             "broker_id": trade.exchange.value,
@@ -75,7 +73,10 @@ class BaseStrategy(CtaTemplate):
                 item['close_trade_id'] = self.short_trade_list[0]['trade_id']
                 send_pair = [self.short_trade_list[0], item]
                 self.short_trade_list = self.short_trade_list[1:]
-                submit_trade_data(send_pair)
+
+                pprint(send_pair)
+                if self.should_send_trade and self.sent_on_trading:
+                    submit_trade_data(send_pair)
 
             elif trade.direction == Direction.SHORT:
                 if not self.long_trade_list:
@@ -84,7 +85,10 @@ class BaseStrategy(CtaTemplate):
                 item['close_trade_id'] = self.long_trade_list[0]['trade_id']
                 send_pair = [self.long_trade_list[0], item]
                 self.long_trade_list = self.long_trade_list[1:]
-                submit_trade_data(send_pair)
+
+                pprint(send_pair)
+                if self.should_send_trade and self.sent_on_trading:
+                    submit_trade_data(send_pair)
 
     def print_order(self, order):
         if order.status in (Status.SUBMITTING, Status.ALLTRADED):

@@ -298,6 +298,8 @@ class TushareEngine(BaseEngine):
                         )
                         self.new_bar(bar)
 
+                    sleep(10.0)
+
             if empty_counter < len(self.symbol_strategy_map.keys()):
                 self.start += timedelta(days=1)
             else:
