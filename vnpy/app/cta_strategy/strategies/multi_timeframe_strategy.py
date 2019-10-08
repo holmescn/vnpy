@@ -28,12 +28,14 @@ class MultiTimeframeStrategy(BaseStrategy):
     slow_ma = 0
     ma_trend = 0
 
-    parameters = ["rsi_signal", "rsi_window",
-                  "fast_window", "slow_window",
-                  "fixed_size"]
+    parameters = list(BaseStrategy.parameters)
+    parameters.extend(["rsi_signal", "rsi_window", "fast_window", "slow_window"])
 
-    variables = ["rsi_value", "rsi_long", "rsi_short",
-                 "fast_ma", "slow_ma", "ma_trend", "timestamp"]
+    variables = list(BaseStrategy.variables)
+    variables.extend([
+        "rsi_value", "rsi_long", "rsi_short",
+        "fast_ma", "slow_ma", "ma_trend"
+    ])
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
         """"""
@@ -72,11 +74,6 @@ class MultiTimeframeStrategy(BaseStrategy):
         if not self.am5.inited:
             return
 
-        if self.timestamp > bar.datetime.timestamp():
-            self.pos = 0
-            return
-        self.timestamp = bar.datetime.timestamp()
-
         if not self.ma_trend:
             return
 
@@ -84,9 +81,9 @@ class MultiTimeframeStrategy(BaseStrategy):
 
         if self.pos == 0:
             if self.ma_trend > 0 and self.rsi_value >= self.rsi_long:
-                self.buy(bar.close_price, self.fixed_size)
+                self.buy(bar.close_price, self.volume)
             elif self.ma_trend < 0 and self.rsi_value <= self.rsi_short:
-                self.short(bar.close_price, self.fixed_size)
+                self.short(bar.close_price, self.volume)
 
         elif self.pos > 0:
             if self.ma_trend < 0 or self.rsi_value < 50:

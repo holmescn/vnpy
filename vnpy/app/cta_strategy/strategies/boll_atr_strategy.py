@@ -22,13 +22,13 @@ class BollAtrStrategy(BaseAtrStrategy):
     atr_ma_length = 10
     trailing_percent = 0.9
 
-    parameters = ["atr_length", "atr_ma_length", "boll_window", "boll_dev",
-                  "trailing_percent"]
+    parameters = list(BaseAtrStrategy.parameters)
+    parameters.extend(["boll_window", "boll_dev"])
 
     def on_pos_zero(self, bar: BarData):
         up, lo = self.am.boll(self.boll_window, self.boll_dev)
         if self.atr_value > self.atr_ma:
             if bar.close_price > up:
-                self.buy(bar.close_price, self.fixed_size)
+                self.buy(bar.close_price, self.volume)
             elif bar.close_price < lo:
-                self.short(bar.close_price, self.fixed_size)
+                self.short(bar.close_price, self.volume)

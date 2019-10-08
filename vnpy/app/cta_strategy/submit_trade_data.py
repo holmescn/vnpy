@@ -7,7 +7,37 @@ import threading
 import time
 
 import requests as req
+from concurrent.futures import ThreadPoolExecutor
 from vnpy.trader.utility import get_folder_path
+
+
+class Counter(object):
+    def __init__(self):
+        self._value = 0
+        self._lock = threading.Lock()
+
+    def inc(self):
+        with self._lock:
+            self._value += 1
+            return self._value
+
+    def dec(self):
+        with self._lock:
+            self._value += 1
+            return self._value
+
+    @property
+    def val(self):
+        return self._value
+
+
+executor = ThreadPoolExecutor(max_workers=5)
+task_counter = Counter()
+
+
+def done_callback(future):
+    global task_counter
+    write_request_log('info', '-------- 剩余任务数：{} --------'.format(task_counter.dec()))
 
 
 # 提交成交记录，这是主要调用的方法
@@ -35,11 +65,14 @@ def submit_trade_data(trade_list, after_submit_event=None, ip_port_str=None, isD
     ip_port_str = get_ip_str(ip_port_str)
 
     # 调用分线程
-    t1 = threading.Thread(target=submit_trade_data_thread_func, args=(trade_list, ip_port_str, after_submit_event,))
-    t1.start()
+    # t1 = threading.Thread(target=submit_trade_data_thread_func, args=(trade_list, ip_port_str, after_submit_event,))
+    # t1.start()
+    future = executor.submit(submit_trade_data_thread_func, trade_list, ip_port_str, after_submit_event)
+    task_counter.inc()
 
     if isDebug:
-        t1.join()    # 测试用，以后会去掉
+        # t1.join()    # 测试用，以后会去掉
+        future.result()
 
 
 # 提交账号金额，这是主要调用的方法
@@ -91,17 +124,19 @@ def submit_trade_data_thread_func(trade_list, ip_port_str, after_submit_event=No
     data_str = json.dumps(trade_list)
     # print(after_submit_event)
     try:
-        write_request_log('info', '-------- 提交【成交】数据，执行开始 time:%s --------' % datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S %f'))
+        tic = datetime.datetime.now()
+        write_request_log('info', '-------- 提交【成交】数据，执行开始 time:%s --------' % tic.strftime('%Y-%m-%d %H:%M:%S %f'))
 
-        ip_port_str_old = get_ip_str(None)
-        link_str_old = 'http://%s/daily/model/reciveTradeData?data_str=%s' % (ip_port_str_old, data_str)
-        response_old = req.get(link_str_old)
+        # ip_port_str_old = get_ip_str(None)
+        # link_str_old = 'http://%s/daily/model/reciveTradeData?data_str=%s' % (ip_port_str_old, data_str)
+        # response_old = req.get(link_str_old)
 
         ip_port_str = "nicemoney.nicemind.com:8006"
         link_str = 'http://%s/api/reciveTradeData?data_str=%s' % (ip_port_str, data_str)
         # print('link_str', link_str)
         write_request_log('info', link_str)
         response = req.get(link_str)
+
         # print('status_code', response.status_code)
         # print('status_code_type', type(response.status_code))
         # print('response_text', response.text)
@@ -126,13 +161,17 @@ def submit_trade_data_thread_func(trade_list, ip_port_str, after_submit_event=No
 
             write_request_log('info', '请求成功，返回信息：%s' % res_errMsg_str)
 
-
     except Exception as e:
         print('submit_trade_data', e)
         # 记录报错
         write_request_log('error', 'submit_trade_data:' + str(e))
 
-    write_request_log('info', '-------- 提交【成交】数据，执行完毕 time:%s --------' % datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S %f'))
+    toc = datetime.datetime.now()
+    duration = toc - tic
+    write_request_log('info', '-------- 提交【成交】数据，执行完毕 time:{} duration:{} --------'.format(
+        toc.strftime('%Y-%m-%d %H:%M:%S %f'),
+        duration
+    ))
 
 
 def submit_account_data_thread_func(date, broker_id, account, original_money, lastest_money, ip_port_str):

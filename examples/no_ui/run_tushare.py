@@ -12,7 +12,6 @@ from vnpy.trader.setting import SETTINGS
 from vnpy.trader.engine import MainEngine
 
 from tushare_engine import TushareEngine
-# from vnpy.gateway.tushare import TushareGateway
 from vnpy.app.cta_strategy import CtaStrategyApp
 from vnpy.app.cta_strategy.base import EVENT_CTA_LOG
 from vnpy.trader.event import EVENT_TIMER
@@ -37,9 +36,6 @@ def main(args):
     ts_engine: TushareEngine = main_engine.add_app(CtaStrategyApp)
     main_engine.write_log("主引擎创建成功")
 
-    # 设置开始时间
-    ts_engine.start = datetime.strptime(args.start_date, '%Y-%m-%d')
-
     log_engine = main_engine.get_engine("log")
     event_engine.register(EVENT_CTA_LOG, log_engine.process_log_event)
     main_engine.write_log("注册日志事件监听")
@@ -50,10 +46,13 @@ def main(args):
     ts_engine.init_all_strategies()
     main_engine.write_log("CTA策略全部初始化")
 
-    ts_engine.run()
+    start_date = datetime.strptime(args.start_date, '%Y-%m-%d')
+    end_date = datetime.strptime(args.end_date, '%Y-%m-%d')
+    ts_engine.run(start_date, end_date)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--start_date', default='2019-09-15')
+    parser.add_argument('--start_date', required=True)
+    parser.add_argument('--end_date', default=datetime.now().strftime("%Y-%m-%d"))
     main(parser.parse_args())

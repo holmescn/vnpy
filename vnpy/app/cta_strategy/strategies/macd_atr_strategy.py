@@ -23,13 +23,13 @@ class MacdAtrStrategy(BaseAtrStrategy):
     atr_ma_length = 10
     trailing_percent = 0.9
 
-    parameters = ["atr_length", "atr_ma_length", "fast_period", "slow_period",
-                  "signal_period", "trailing_percent", "fixed_size"]
+    parameters = list(BaseAtrStrategy.parameters)
+    parameters.extend(["fast_period", "slow_period", "signal_period"])
 
     def on_pos_zero(self, bar: BarData):
         macd, signal, _ = self.am.macd(self.fast_period, self.slow_period, self.signal_period, array=True)
         if self.atr_value > self.atr_ma:
             if macd[-2] < signal[-2] and macd[-1] > signal[-1]:
-                self.buy(bar.close_price, self.fixed_size)
+                self.buy(bar.close_price, self.volume)
             elif macd[-2] > signal[-2] and macd[-1] < signal[-1]:
-                self.short(bar.close_price, self.fixed_size)                
+                self.short(bar.close_price, self.volume)

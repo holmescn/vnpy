@@ -22,13 +22,13 @@ class KamaAtrStrategy(BaseAtrStrategy):
     atr_ma_length = 10
     trailing_percent = 0.9
 
-    parameters = ["atr_length", "atr_ma_length", "kama_length",
-                  "trailing_percent"]
+    parameters = list(BaseAtrStrategy.parameters)
+    parameters.extend(["kama_length"])
 
     def on_pos_zero(self, bar: BarData):
         kama_array = talib.KAMA(self.am.close, self.kama_length)
         if self.atr_value > self.atr_ma:
             if kama_array[-3] > kama_array[-2] < kama_array[-1]:
-                self.buy(bar.close_price, self.fixed_size)
+                self.buy(bar.close_price, self.volume)
             elif kama_array[-3] < kama_array[-2] > kama_array[-1]:
-                self.short(bar.close_price, self.fixed_size)
+                self.short(bar.close_price, self.volume)

@@ -26,13 +26,13 @@ class TemaAtrStrategy(BaseAtrStrategy):
     rsi_buy = 0
     rsi_sell = 0
 
-    parameters = ["atr_length", "atr_ma_length", "tema_length",
-                  "trailing_percent"]
+    parameters = list(BaseAtrStrategy.parameters)
+    parameters.extend(["tema_length"])
 
     def on_pos_zero(self, bar: BarData):
         tema_array = talib.TEMA(self.am.close, self.tema_length)
         if self.atr_value > self.atr_ma:
             if tema_array[-3] > tema_array[-2] < tema_array[-1]:
-                self.buy(bar.close_price, self.fixed_size)
+                self.buy(bar.close_price, self.volume)
             elif tema_array[-3] < tema_array[-2] > tema_array[-1]:
-                self.short(bar.close_price, self.fixed_size)
+                self.short(bar.close_price, self.volume)

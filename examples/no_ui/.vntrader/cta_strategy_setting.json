@@ -1,2562 +1,2690 @@
 {
-    "BTCUSDT.OKEX m1_ADX_ATR_v1.0": {
+    "BTC-USDT.OKEX m1_ADX_ATR_v1.0": {
         "class_name": "AdxAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDT.OKEX m1_ADX_ATR_v1.0 REV": {
+    "BTC-USDT.OKEX m1_ADX_ATR_v1.0 REV": {
         "class_name": "AdxAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDT.OKEX m1_BOLL_ATR_v1.0": {
+    "BTC-USDT.OKEX m1_BOLL_ATR_v1.0": {
         "class_name": "BollAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDT.OKEX m1_BOLL_ATR_v1.0 REV": {
+    "BTC-USDT.OKEX m1_BOLL_ATR_v1.0 REV": {
         "class_name": "BollAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDT.OKEX m1_CCI_ATR_v1.0": {
+    "BTC-USDT.OKEX m1_CCI_ATR_v1.0": {
         "class_name": "CciAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDT.OKEX m1_CCI_ATR_v1.0 REV": {
+    "BTC-USDT.OKEX m1_CCI_ATR_v1.0 REV": {
         "class_name": "CciAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDT.OKEX m1_CMO_ATR_v1.0": {
+    "BTC-USDT.OKEX m1_CMO_ATR_v1.0": {
         "class_name": "CmoAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDT.OKEX m1_CMO_ATR_v1.0 REV": {
+    "BTC-USDT.OKEX m1_CMO_ATR_v1.0 REV": {
         "class_name": "CmoAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDT.OKEX m1_DEMA_ATR_v1.0": {
+    "BTC-USDT.OKEX m1_DEMA_ATR_v1.0": {
         "class_name": "DemaAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDT.OKEX m1_DEMA_ATR_v1.0 REV": {
+    "BTC-USDT.OKEX m1_DEMA_ATR_v1.0 REV": {
         "class_name": "DemaAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDT.OKEX m1_Donchian_ATR_v1.0": {
+    "BTC-USDT.OKEX m1_Donchian_ATR_v1.0": {
         "class_name": "DonchianAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDT.OKEX m1_Donchian_ATR_v1.0 REV": {
+    "BTC-USDT.OKEX m1_Donchian_ATR_v1.0 REV": {
         "class_name": "DonchianAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDT.OKEX m1_HT_ATR_v1.0": {
+    "BTC-USDT.OKEX m1_HT_ATR_v1.0": {
         "class_name": "HtAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDT.OKEX m1_HT_ATR_v1.0 REV": {
+    "BTC-USDT.OKEX m1_HT_ATR_v1.0 REV": {
         "class_name": "HtAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDT.OKEX m1_KAMA_ATR_v1.0": {
+    "BTC-USDT.OKEX m1_KAMA_ATR_v1.0": {
         "class_name": "KamaAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDT.OKEX m1_KAMA_ATR_v1.0 REV": {
+    "BTC-USDT.OKEX m1_KAMA_ATR_v1.0 REV": {
         "class_name": "KamaAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDT.OKEX m1_Keltner_ATR_v1.0": {
+    "BTC-USDT.OKEX m1_Keltner_ATR_v1.0": {
         "class_name": "KeltnerAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDT.OKEX m1_Keltner_ATR_v1.0 REV": {
+    "BTC-USDT.OKEX m1_Keltner_ATR_v1.0 REV": {
         "class_name": "KeltnerAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDT.OKEX m1_MACD_ATR_v1.0": {
+    "BTC-USDT.OKEX m1_MACD_ATR_v1.0": {
         "class_name": "MacdAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDT.OKEX m1_MACD_ATR_v1.0 REV": {
+    "BTC-USDT.OKEX m1_MACD_ATR_v1.0 REV": {
         "class_name": "MacdAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDT.OKEX m1_RSI_ATR_v1.0": {
+    "BTC-USDT.OKEX m1_RSI_ATR_v1.0": {
         "class_name": "RsiAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDT.OKEX m1_RSI_ATR_v1.0 REV": {
+    "BTC-USDT.OKEX m1_RSI_ATR_v1.0 REV": {
         "class_name": "RsiAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDT.OKEX m1_SAR_ATR_v1.0": {
+    "BTC-USDT.OKEX m1_SAR_ATR_v1.0": {
         "class_name": "SarAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDT.OKEX m1_SAR_ATR_v1.0 REV": {
+    "BTC-USDT.OKEX m1_SAR_ATR_v1.0 REV": {
         "class_name": "SarAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDT.OKEX m1_TEMA_ATR_v1.0": {
+    "BTC-USDT.OKEX m1_TEMA_ATR_v1.0": {
         "class_name": "TemaAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDT.OKEX m1_TEMA_ATR_v1.0 REV": {
+    "BTC-USDT.OKEX m1_TEMA_ATR_v1.0 REV": {
         "class_name": "TemaAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDT.OKEX m1_TriMA_ATR_v1.0": {
+    "BTC-USDT.OKEX m1_TriMA_ATR_v1.0": {
         "class_name": "TrimaAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDT.OKEX m1_TriMA_ATR_v1.0 REV": {
+    "BTC-USDT.OKEX m1_TriMA_ATR_v1.0 REV": {
         "class_name": "TrimaAtrStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDT.OKEX m1_BOLLCCI_ATR_v1.0": {
+    "BTC-USDT.OKEX m1_BOLLCCI_ATR_v1.0": {
         "class_name": "BollChannelStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDT.OKEX m1_DualThrust_UNK_v1.0": {
+    "BTC-USDT.OKEX m1_DualThrust_UNK_v1.0": {
         "class_name": "DualThrustStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDT.OKEX m1_KingKeltner_v1.0": {
+    "BTC-USDT.OKEX m1_KingKeltner_v1.0": {
         "class_name": "KingKeltnerStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDT.OKEX MultiTimeframe_v1.0": {
+    "BTC-USDT.OKEX MultiTimeframe_v1.0": {
         "class_name": "MultiTimeframeStrategy",
-        "vt_symbol": "BTCUSDT.OKEX",
+        "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDK.OKEX m1_ADX_ATR_v1.0": {
+    "BCH-USDT.OKEX m1_ADX_ATR_v1.0": {
         "class_name": "AdxAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDK.OKEX m1_ADX_ATR_v1.0 REV": {
+    "BCH-USDT.OKEX m1_ADX_ATR_v1.0 REV": {
         "class_name": "AdxAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDK.OKEX m1_BOLL_ATR_v1.0": {
+    "BCH-USDT.OKEX m1_BOLL_ATR_v1.0": {
         "class_name": "BollAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDK.OKEX m1_BOLL_ATR_v1.0 REV": {
+    "BCH-USDT.OKEX m1_BOLL_ATR_v1.0 REV": {
         "class_name": "BollAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDK.OKEX m1_CCI_ATR_v1.0": {
+    "BCH-USDT.OKEX m1_CCI_ATR_v1.0": {
         "class_name": "CciAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDK.OKEX m1_CCI_ATR_v1.0 REV": {
+    "BCH-USDT.OKEX m1_CCI_ATR_v1.0 REV": {
         "class_name": "CciAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDK.OKEX m1_CMO_ATR_v1.0": {
+    "BCH-USDT.OKEX m1_CMO_ATR_v1.0": {
         "class_name": "CmoAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDK.OKEX m1_CMO_ATR_v1.0 REV": {
+    "BCH-USDT.OKEX m1_CMO_ATR_v1.0 REV": {
         "class_name": "CmoAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDK.OKEX m1_DEMA_ATR_v1.0": {
+    "BCH-USDT.OKEX m1_DEMA_ATR_v1.0": {
         "class_name": "DemaAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDK.OKEX m1_DEMA_ATR_v1.0 REV": {
+    "BCH-USDT.OKEX m1_DEMA_ATR_v1.0 REV": {
         "class_name": "DemaAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDK.OKEX m1_Donchian_ATR_v1.0": {
+    "BCH-USDT.OKEX m1_Donchian_ATR_v1.0": {
         "class_name": "DonchianAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDK.OKEX m1_Donchian_ATR_v1.0 REV": {
+    "BCH-USDT.OKEX m1_Donchian_ATR_v1.0 REV": {
         "class_name": "DonchianAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDK.OKEX m1_HT_ATR_v1.0": {
+    "BCH-USDT.OKEX m1_HT_ATR_v1.0": {
         "class_name": "HtAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDK.OKEX m1_HT_ATR_v1.0 REV": {
+    "BCH-USDT.OKEX m1_HT_ATR_v1.0 REV": {
         "class_name": "HtAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDK.OKEX m1_KAMA_ATR_v1.0": {
+    "BCH-USDT.OKEX m1_KAMA_ATR_v1.0": {
         "class_name": "KamaAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDK.OKEX m1_KAMA_ATR_v1.0 REV": {
+    "BCH-USDT.OKEX m1_KAMA_ATR_v1.0 REV": {
         "class_name": "KamaAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDK.OKEX m1_Keltner_ATR_v1.0": {
+    "BCH-USDT.OKEX m1_Keltner_ATR_v1.0": {
         "class_name": "KeltnerAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDK.OKEX m1_Keltner_ATR_v1.0 REV": {
+    "BCH-USDT.OKEX m1_Keltner_ATR_v1.0 REV": {
         "class_name": "KeltnerAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDK.OKEX m1_MACD_ATR_v1.0": {
+    "BCH-USDT.OKEX m1_MACD_ATR_v1.0": {
         "class_name": "MacdAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDK.OKEX m1_MACD_ATR_v1.0 REV": {
+    "BCH-USDT.OKEX m1_MACD_ATR_v1.0 REV": {
         "class_name": "MacdAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDK.OKEX m1_RSI_ATR_v1.0": {
+    "BCH-USDT.OKEX m1_RSI_ATR_v1.0": {
         "class_name": "RsiAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDK.OKEX m1_RSI_ATR_v1.0 REV": {
+    "BCH-USDT.OKEX m1_RSI_ATR_v1.0 REV": {
         "class_name": "RsiAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDK.OKEX m1_SAR_ATR_v1.0": {
+    "BCH-USDT.OKEX m1_SAR_ATR_v1.0": {
         "class_name": "SarAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDK.OKEX m1_SAR_ATR_v1.0 REV": {
+    "BCH-USDT.OKEX m1_SAR_ATR_v1.0 REV": {
         "class_name": "SarAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDK.OKEX m1_TEMA_ATR_v1.0": {
+    "BCH-USDT.OKEX m1_TEMA_ATR_v1.0": {
         "class_name": "TemaAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDK.OKEX m1_TEMA_ATR_v1.0 REV": {
+    "BCH-USDT.OKEX m1_TEMA_ATR_v1.0 REV": {
         "class_name": "TemaAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDK.OKEX m1_TriMA_ATR_v1.0": {
+    "BCH-USDT.OKEX m1_TriMA_ATR_v1.0": {
         "class_name": "TrimaAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDK.OKEX m1_TriMA_ATR_v1.0 REV": {
+    "BCH-USDT.OKEX m1_TriMA_ATR_v1.0 REV": {
         "class_name": "TrimaAtrStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 20
+            "reverse": true
         }
     },
-    "BTCUSDK.OKEX m1_BOLLCCI_ATR_v1.0": {
+    "BCH-USDT.OKEX m1_BOLLCCI_ATR_v1.0": {
         "class_name": "BollChannelStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDK.OKEX m1_DualThrust_UNK_v1.0": {
+    "BCH-USDT.OKEX m1_DualThrust_UNK_v1.0": {
         "class_name": "DualThrustStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDK.OKEX m1_KingKeltner_v1.0": {
+    "BCH-USDT.OKEX m1_KingKeltner_v1.0": {
         "class_name": "KingKeltnerStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BTCUSDK.OKEX MultiTimeframe_v1.0": {
+    "BCH-USDT.OKEX MultiTimeframe_v1.0": {
         "class_name": "MultiTimeframeStrategy",
-        "vt_symbol": "BTCUSDK.OKEX",
+        "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 20
+            "reverse": false
         }
     },
-    "BCHUSDT.OKEX m1_ADX_ATR_v1.0": {
+    "BSV-USDT.OKEX m1_ADX_ATR_v1.0": {
         "class_name": "AdxAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDT.OKEX m1_ADX_ATR_v1.0 REV": {
+    "BSV-USDT.OKEX m1_ADX_ATR_v1.0 REV": {
         "class_name": "AdxAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDT.OKEX m1_BOLL_ATR_v1.0": {
+    "BSV-USDT.OKEX m1_BOLL_ATR_v1.0": {
         "class_name": "BollAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDT.OKEX m1_BOLL_ATR_v1.0 REV": {
+    "BSV-USDT.OKEX m1_BOLL_ATR_v1.0 REV": {
         "class_name": "BollAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDT.OKEX m1_CCI_ATR_v1.0": {
+    "BSV-USDT.OKEX m1_CCI_ATR_v1.0": {
         "class_name": "CciAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDT.OKEX m1_CCI_ATR_v1.0 REV": {
+    "BSV-USDT.OKEX m1_CCI_ATR_v1.0 REV": {
         "class_name": "CciAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDT.OKEX m1_CMO_ATR_v1.0": {
+    "BSV-USDT.OKEX m1_CMO_ATR_v1.0": {
         "class_name": "CmoAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDT.OKEX m1_CMO_ATR_v1.0 REV": {
+    "BSV-USDT.OKEX m1_CMO_ATR_v1.0 REV": {
         "class_name": "CmoAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDT.OKEX m1_DEMA_ATR_v1.0": {
+    "BSV-USDT.OKEX m1_DEMA_ATR_v1.0": {
         "class_name": "DemaAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDT.OKEX m1_DEMA_ATR_v1.0 REV": {
+    "BSV-USDT.OKEX m1_DEMA_ATR_v1.0 REV": {
         "class_name": "DemaAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDT.OKEX m1_Donchian_ATR_v1.0": {
+    "BSV-USDT.OKEX m1_Donchian_ATR_v1.0": {
         "class_name": "DonchianAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDT.OKEX m1_Donchian_ATR_v1.0 REV": {
+    "BSV-USDT.OKEX m1_Donchian_ATR_v1.0 REV": {
         "class_name": "DonchianAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDT.OKEX m1_HT_ATR_v1.0": {
+    "BSV-USDT.OKEX m1_HT_ATR_v1.0": {
         "class_name": "HtAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDT.OKEX m1_HT_ATR_v1.0 REV": {
+    "BSV-USDT.OKEX m1_HT_ATR_v1.0 REV": {
         "class_name": "HtAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDT.OKEX m1_KAMA_ATR_v1.0": {
+    "BSV-USDT.OKEX m1_KAMA_ATR_v1.0": {
         "class_name": "KamaAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDT.OKEX m1_KAMA_ATR_v1.0 REV": {
+    "BSV-USDT.OKEX m1_KAMA_ATR_v1.0 REV": {
         "class_name": "KamaAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDT.OKEX m1_Keltner_ATR_v1.0": {
+    "BSV-USDT.OKEX m1_Keltner_ATR_v1.0": {
         "class_name": "KeltnerAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDT.OKEX m1_Keltner_ATR_v1.0 REV": {
+    "BSV-USDT.OKEX m1_Keltner_ATR_v1.0 REV": {
         "class_name": "KeltnerAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDT.OKEX m1_MACD_ATR_v1.0": {
+    "BSV-USDT.OKEX m1_MACD_ATR_v1.0": {
         "class_name": "MacdAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDT.OKEX m1_MACD_ATR_v1.0 REV": {
+    "BSV-USDT.OKEX m1_MACD_ATR_v1.0 REV": {
         "class_name": "MacdAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDT.OKEX m1_RSI_ATR_v1.0": {
+    "BSV-USDT.OKEX m1_RSI_ATR_v1.0": {
         "class_name": "RsiAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDT.OKEX m1_RSI_ATR_v1.0 REV": {
+    "BSV-USDT.OKEX m1_RSI_ATR_v1.0 REV": {
         "class_name": "RsiAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDT.OKEX m1_SAR_ATR_v1.0": {
+    "BSV-USDT.OKEX m1_SAR_ATR_v1.0": {
         "class_name": "SarAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDT.OKEX m1_SAR_ATR_v1.0 REV": {
+    "BSV-USDT.OKEX m1_SAR_ATR_v1.0 REV": {
         "class_name": "SarAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDT.OKEX m1_TEMA_ATR_v1.0": {
+    "BSV-USDT.OKEX m1_TEMA_ATR_v1.0": {
         "class_name": "TemaAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDT.OKEX m1_TEMA_ATR_v1.0 REV": {
+    "BSV-USDT.OKEX m1_TEMA_ATR_v1.0 REV": {
         "class_name": "TemaAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDT.OKEX m1_TriMA_ATR_v1.0": {
+    "BSV-USDT.OKEX m1_TriMA_ATR_v1.0": {
         "class_name": "TrimaAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDT.OKEX m1_TriMA_ATR_v1.0 REV": {
+    "BSV-USDT.OKEX m1_TriMA_ATR_v1.0 REV": {
         "class_name": "TrimaAtrStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDT.OKEX m1_BOLLCCI_ATR_v1.0": {
+    "BSV-USDT.OKEX m1_BOLLCCI_ATR_v1.0": {
         "class_name": "BollChannelStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDT.OKEX m1_DualThrust_UNK_v1.0": {
+    "BSV-USDT.OKEX m1_DualThrust_UNK_v1.0": {
         "class_name": "DualThrustStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDT.OKEX m1_KingKeltner_v1.0": {
+    "BSV-USDT.OKEX m1_KingKeltner_v1.0": {
         "class_name": "KingKeltnerStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDT.OKEX MultiTimeframe_v1.0": {
+    "BSV-USDT.OKEX MultiTimeframe_v1.0": {
         "class_name": "MultiTimeframeStrategy",
-        "vt_symbol": "BCHUSDT.OKEX",
+        "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDK.OKEX m1_ADX_ATR_v1.0": {
+    "LTC-USDT.OKEX m1_ADX_ATR_v1.0": {
         "class_name": "AdxAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDK.OKEX m1_ADX_ATR_v1.0 REV": {
+    "LTC-USDT.OKEX m1_ADX_ATR_v1.0 REV": {
         "class_name": "AdxAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDK.OKEX m1_BOLL_ATR_v1.0": {
+    "LTC-USDT.OKEX m1_BOLL_ATR_v1.0": {
         "class_name": "BollAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDK.OKEX m1_BOLL_ATR_v1.0 REV": {
+    "LTC-USDT.OKEX m1_BOLL_ATR_v1.0 REV": {
         "class_name": "BollAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDK.OKEX m1_CCI_ATR_v1.0": {
+    "LTC-USDT.OKEX m1_CCI_ATR_v1.0": {
         "class_name": "CciAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDK.OKEX m1_CCI_ATR_v1.0 REV": {
+    "LTC-USDT.OKEX m1_CCI_ATR_v1.0 REV": {
         "class_name": "CciAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDK.OKEX m1_CMO_ATR_v1.0": {
+    "LTC-USDT.OKEX m1_CMO_ATR_v1.0": {
         "class_name": "CmoAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDK.OKEX m1_CMO_ATR_v1.0 REV": {
+    "LTC-USDT.OKEX m1_CMO_ATR_v1.0 REV": {
         "class_name": "CmoAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDK.OKEX m1_DEMA_ATR_v1.0": {
+    "LTC-USDT.OKEX m1_DEMA_ATR_v1.0": {
         "class_name": "DemaAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDK.OKEX m1_DEMA_ATR_v1.0 REV": {
+    "LTC-USDT.OKEX m1_DEMA_ATR_v1.0 REV": {
         "class_name": "DemaAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDK.OKEX m1_Donchian_ATR_v1.0": {
+    "LTC-USDT.OKEX m1_Donchian_ATR_v1.0": {
         "class_name": "DonchianAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDK.OKEX m1_Donchian_ATR_v1.0 REV": {
+    "LTC-USDT.OKEX m1_Donchian_ATR_v1.0 REV": {
         "class_name": "DonchianAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDK.OKEX m1_HT_ATR_v1.0": {
+    "LTC-USDT.OKEX m1_HT_ATR_v1.0": {
         "class_name": "HtAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDK.OKEX m1_HT_ATR_v1.0 REV": {
+    "LTC-USDT.OKEX m1_HT_ATR_v1.0 REV": {
         "class_name": "HtAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDK.OKEX m1_KAMA_ATR_v1.0": {
+    "LTC-USDT.OKEX m1_KAMA_ATR_v1.0": {
         "class_name": "KamaAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDK.OKEX m1_KAMA_ATR_v1.0 REV": {
+    "LTC-USDT.OKEX m1_KAMA_ATR_v1.0 REV": {
         "class_name": "KamaAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDK.OKEX m1_Keltner_ATR_v1.0": {
+    "LTC-USDT.OKEX m1_Keltner_ATR_v1.0": {
         "class_name": "KeltnerAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDK.OKEX m1_Keltner_ATR_v1.0 REV": {
+    "LTC-USDT.OKEX m1_Keltner_ATR_v1.0 REV": {
         "class_name": "KeltnerAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDK.OKEX m1_MACD_ATR_v1.0": {
+    "LTC-USDT.OKEX m1_MACD_ATR_v1.0": {
         "class_name": "MacdAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDK.OKEX m1_MACD_ATR_v1.0 REV": {
+    "LTC-USDT.OKEX m1_MACD_ATR_v1.0 REV": {
         "class_name": "MacdAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDK.OKEX m1_RSI_ATR_v1.0": {
+    "LTC-USDT.OKEX m1_RSI_ATR_v1.0": {
         "class_name": "RsiAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDK.OKEX m1_RSI_ATR_v1.0 REV": {
+    "LTC-USDT.OKEX m1_RSI_ATR_v1.0 REV": {
         "class_name": "RsiAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDK.OKEX m1_SAR_ATR_v1.0": {
+    "LTC-USDT.OKEX m1_SAR_ATR_v1.0": {
         "class_name": "SarAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDK.OKEX m1_SAR_ATR_v1.0 REV": {
+    "LTC-USDT.OKEX m1_SAR_ATR_v1.0 REV": {
         "class_name": "SarAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDK.OKEX m1_TEMA_ATR_v1.0": {
+    "LTC-USDT.OKEX m1_TEMA_ATR_v1.0": {
         "class_name": "TemaAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDK.OKEX m1_TEMA_ATR_v1.0 REV": {
+    "LTC-USDT.OKEX m1_TEMA_ATR_v1.0 REV": {
         "class_name": "TemaAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDK.OKEX m1_TriMA_ATR_v1.0": {
+    "LTC-USDT.OKEX m1_TriMA_ATR_v1.0": {
         "class_name": "TrimaAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDK.OKEX m1_TriMA_ATR_v1.0 REV": {
+    "LTC-USDT.OKEX m1_TriMA_ATR_v1.0 REV": {
         "class_name": "TrimaAtrStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 600
+            "reverse": true
         }
     },
-    "BCHUSDK.OKEX m1_BOLLCCI_ATR_v1.0": {
+    "LTC-USDT.OKEX m1_BOLLCCI_ATR_v1.0": {
         "class_name": "BollChannelStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDK.OKEX m1_DualThrust_UNK_v1.0": {
+    "LTC-USDT.OKEX m1_DualThrust_UNK_v1.0": {
         "class_name": "DualThrustStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDK.OKEX m1_KingKeltner_v1.0": {
+    "LTC-USDT.OKEX m1_KingKeltner_v1.0": {
         "class_name": "KingKeltnerStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "BCHUSDK.OKEX MultiTimeframe_v1.0": {
+    "LTC-USDT.OKEX MultiTimeframe_v1.0": {
         "class_name": "MultiTimeframeStrategy",
-        "vt_symbol": "BCHUSDK.OKEX",
+        "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 600
+            "reverse": false
         }
     },
-    "LTCUSDT.OKEX m1_ADX_ATR_v1.0": {
+    "ETH-USDT.OKEX m1_ADX_ATR_v1.0": {
         "class_name": "AdxAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDT.OKEX m1_ADX_ATR_v1.0 REV": {
+    "ETH-USDT.OKEX m1_ADX_ATR_v1.0 REV": {
         "class_name": "AdxAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDT.OKEX m1_BOLL_ATR_v1.0": {
+    "ETH-USDT.OKEX m1_BOLL_ATR_v1.0": {
         "class_name": "BollAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDT.OKEX m1_BOLL_ATR_v1.0 REV": {
+    "ETH-USDT.OKEX m1_BOLL_ATR_v1.0 REV": {
         "class_name": "BollAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDT.OKEX m1_CCI_ATR_v1.0": {
+    "ETH-USDT.OKEX m1_CCI_ATR_v1.0": {
         "class_name": "CciAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDT.OKEX m1_CCI_ATR_v1.0 REV": {
+    "ETH-USDT.OKEX m1_CCI_ATR_v1.0 REV": {
         "class_name": "CciAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDT.OKEX m1_CMO_ATR_v1.0": {
+    "ETH-USDT.OKEX m1_CMO_ATR_v1.0": {
         "class_name": "CmoAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDT.OKEX m1_CMO_ATR_v1.0 REV": {
+    "ETH-USDT.OKEX m1_CMO_ATR_v1.0 REV": {
         "class_name": "CmoAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDT.OKEX m1_DEMA_ATR_v1.0": {
+    "ETH-USDT.OKEX m1_DEMA_ATR_v1.0": {
         "class_name": "DemaAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDT.OKEX m1_DEMA_ATR_v1.0 REV": {
+    "ETH-USDT.OKEX m1_DEMA_ATR_v1.0 REV": {
         "class_name": "DemaAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDT.OKEX m1_Donchian_ATR_v1.0": {
+    "ETH-USDT.OKEX m1_Donchian_ATR_v1.0": {
         "class_name": "DonchianAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDT.OKEX m1_Donchian_ATR_v1.0 REV": {
+    "ETH-USDT.OKEX m1_Donchian_ATR_v1.0 REV": {
         "class_name": "DonchianAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDT.OKEX m1_HT_ATR_v1.0": {
+    "ETH-USDT.OKEX m1_HT_ATR_v1.0": {
         "class_name": "HtAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDT.OKEX m1_HT_ATR_v1.0 REV": {
+    "ETH-USDT.OKEX m1_HT_ATR_v1.0 REV": {
         "class_name": "HtAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDT.OKEX m1_KAMA_ATR_v1.0": {
+    "ETH-USDT.OKEX m1_KAMA_ATR_v1.0": {
         "class_name": "KamaAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDT.OKEX m1_KAMA_ATR_v1.0 REV": {
+    "ETH-USDT.OKEX m1_KAMA_ATR_v1.0 REV": {
         "class_name": "KamaAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDT.OKEX m1_Keltner_ATR_v1.0": {
+    "ETH-USDT.OKEX m1_Keltner_ATR_v1.0": {
         "class_name": "KeltnerAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDT.OKEX m1_Keltner_ATR_v1.0 REV": {
+    "ETH-USDT.OKEX m1_Keltner_ATR_v1.0 REV": {
         "class_name": "KeltnerAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDT.OKEX m1_MACD_ATR_v1.0": {
+    "ETH-USDT.OKEX m1_MACD_ATR_v1.0": {
         "class_name": "MacdAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDT.OKEX m1_MACD_ATR_v1.0 REV": {
+    "ETH-USDT.OKEX m1_MACD_ATR_v1.0 REV": {
         "class_name": "MacdAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDT.OKEX m1_RSI_ATR_v1.0": {
+    "ETH-USDT.OKEX m1_RSI_ATR_v1.0": {
         "class_name": "RsiAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDT.OKEX m1_RSI_ATR_v1.0 REV": {
+    "ETH-USDT.OKEX m1_RSI_ATR_v1.0 REV": {
         "class_name": "RsiAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDT.OKEX m1_SAR_ATR_v1.0": {
+    "ETH-USDT.OKEX m1_SAR_ATR_v1.0": {
         "class_name": "SarAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDT.OKEX m1_SAR_ATR_v1.0 REV": {
+    "ETH-USDT.OKEX m1_SAR_ATR_v1.0 REV": {
         "class_name": "SarAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDT.OKEX m1_TEMA_ATR_v1.0": {
+    "ETH-USDT.OKEX m1_TEMA_ATR_v1.0": {
         "class_name": "TemaAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDT.OKEX m1_TEMA_ATR_v1.0 REV": {
+    "ETH-USDT.OKEX m1_TEMA_ATR_v1.0 REV": {
         "class_name": "TemaAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDT.OKEX m1_TriMA_ATR_v1.0": {
+    "ETH-USDT.OKEX m1_TriMA_ATR_v1.0": {
         "class_name": "TrimaAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDT.OKEX m1_TriMA_ATR_v1.0 REV": {
+    "ETH-USDT.OKEX m1_TriMA_ATR_v1.0 REV": {
         "class_name": "TrimaAtrStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDT.OKEX m1_BOLLCCI_ATR_v1.0": {
+    "ETH-USDT.OKEX m1_BOLLCCI_ATR_v1.0": {
         "class_name": "BollChannelStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDT.OKEX m1_DualThrust_UNK_v1.0": {
+    "ETH-USDT.OKEX m1_DualThrust_UNK_v1.0": {
         "class_name": "DualThrustStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDT.OKEX m1_KingKeltner_v1.0": {
+    "ETH-USDT.OKEX m1_KingKeltner_v1.0": {
         "class_name": "KingKeltnerStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDT.OKEX MultiTimeframe_v1.0": {
+    "ETH-USDT.OKEX MultiTimeframe_v1.0": {
         "class_name": "MultiTimeframeStrategy",
-        "vt_symbol": "LTCUSDT.OKEX",
+        "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDK.OKEX m1_ADX_ATR_v1.0": {
+    "ETC-USDT.OKEX m1_ADX_ATR_v1.0": {
         "class_name": "AdxAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDK.OKEX m1_ADX_ATR_v1.0 REV": {
+    "ETC-USDT.OKEX m1_ADX_ATR_v1.0 REV": {
         "class_name": "AdxAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDK.OKEX m1_BOLL_ATR_v1.0": {
+    "ETC-USDT.OKEX m1_BOLL_ATR_v1.0": {
         "class_name": "BollAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDK.OKEX m1_BOLL_ATR_v1.0 REV": {
+    "ETC-USDT.OKEX m1_BOLL_ATR_v1.0 REV": {
         "class_name": "BollAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDK.OKEX m1_CCI_ATR_v1.0": {
+    "ETC-USDT.OKEX m1_CCI_ATR_v1.0": {
         "class_name": "CciAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDK.OKEX m1_CCI_ATR_v1.0 REV": {
+    "ETC-USDT.OKEX m1_CCI_ATR_v1.0 REV": {
         "class_name": "CciAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDK.OKEX m1_CMO_ATR_v1.0": {
+    "ETC-USDT.OKEX m1_CMO_ATR_v1.0": {
         "class_name": "CmoAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDK.OKEX m1_CMO_ATR_v1.0 REV": {
+    "ETC-USDT.OKEX m1_CMO_ATR_v1.0 REV": {
         "class_name": "CmoAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDK.OKEX m1_DEMA_ATR_v1.0": {
+    "ETC-USDT.OKEX m1_DEMA_ATR_v1.0": {
         "class_name": "DemaAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDK.OKEX m1_DEMA_ATR_v1.0 REV": {
+    "ETC-USDT.OKEX m1_DEMA_ATR_v1.0 REV": {
         "class_name": "DemaAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDK.OKEX m1_Donchian_ATR_v1.0": {
+    "ETC-USDT.OKEX m1_Donchian_ATR_v1.0": {
         "class_name": "DonchianAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDK.OKEX m1_Donchian_ATR_v1.0 REV": {
+    "ETC-USDT.OKEX m1_Donchian_ATR_v1.0 REV": {
         "class_name": "DonchianAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDK.OKEX m1_HT_ATR_v1.0": {
+    "ETC-USDT.OKEX m1_HT_ATR_v1.0": {
         "class_name": "HtAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDK.OKEX m1_HT_ATR_v1.0 REV": {
+    "ETC-USDT.OKEX m1_HT_ATR_v1.0 REV": {
         "class_name": "HtAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDK.OKEX m1_KAMA_ATR_v1.0": {
+    "ETC-USDT.OKEX m1_KAMA_ATR_v1.0": {
         "class_name": "KamaAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDK.OKEX m1_KAMA_ATR_v1.0 REV": {
+    "ETC-USDT.OKEX m1_KAMA_ATR_v1.0 REV": {
         "class_name": "KamaAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDK.OKEX m1_Keltner_ATR_v1.0": {
+    "ETC-USDT.OKEX m1_Keltner_ATR_v1.0": {
         "class_name": "KeltnerAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDK.OKEX m1_Keltner_ATR_v1.0 REV": {
+    "ETC-USDT.OKEX m1_Keltner_ATR_v1.0 REV": {
         "class_name": "KeltnerAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDK.OKEX m1_MACD_ATR_v1.0": {
+    "ETC-USDT.OKEX m1_MACD_ATR_v1.0": {
         "class_name": "MacdAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDK.OKEX m1_MACD_ATR_v1.0 REV": {
+    "ETC-USDT.OKEX m1_MACD_ATR_v1.0 REV": {
         "class_name": "MacdAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDK.OKEX m1_RSI_ATR_v1.0": {
+    "ETC-USDT.OKEX m1_RSI_ATR_v1.0": {
         "class_name": "RsiAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDK.OKEX m1_RSI_ATR_v1.0 REV": {
+    "ETC-USDT.OKEX m1_RSI_ATR_v1.0 REV": {
         "class_name": "RsiAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDK.OKEX m1_SAR_ATR_v1.0": {
+    "ETC-USDT.OKEX m1_SAR_ATR_v1.0": {
         "class_name": "SarAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDK.OKEX m1_SAR_ATR_v1.0 REV": {
+    "ETC-USDT.OKEX m1_SAR_ATR_v1.0 REV": {
         "class_name": "SarAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDK.OKEX m1_TEMA_ATR_v1.0": {
+    "ETC-USDT.OKEX m1_TEMA_ATR_v1.0": {
         "class_name": "TemaAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDK.OKEX m1_TEMA_ATR_v1.0 REV": {
+    "ETC-USDT.OKEX m1_TEMA_ATR_v1.0 REV": {
         "class_name": "TemaAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDK.OKEX m1_TriMA_ATR_v1.0": {
+    "ETC-USDT.OKEX m1_TriMA_ATR_v1.0": {
         "class_name": "TrimaAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDK.OKEX m1_TriMA_ATR_v1.0 REV": {
+    "ETC-USDT.OKEX m1_TriMA_ATR_v1.0 REV": {
         "class_name": "TrimaAtrStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 2000
+            "reverse": true
         }
     },
-    "LTCUSDK.OKEX m1_BOLLCCI_ATR_v1.0": {
+    "ETC-USDT.OKEX m1_BOLLCCI_ATR_v1.0": {
         "class_name": "BollChannelStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDK.OKEX m1_DualThrust_UNK_v1.0": {
+    "ETC-USDT.OKEX m1_DualThrust_UNK_v1.0": {
         "class_name": "DualThrustStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDK.OKEX m1_KingKeltner_v1.0": {
+    "ETC-USDT.OKEX m1_KingKeltner_v1.0": {
         "class_name": "KingKeltnerStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "LTCUSDK.OKEX MultiTimeframe_v1.0": {
+    "ETC-USDT.OKEX MultiTimeframe_v1.0": {
         "class_name": "MultiTimeframeStrategy",
-        "vt_symbol": "LTCUSDK.OKEX",
+        "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 2000
+            "reverse": false
         }
     },
-    "ETHUSDT.OKEX m1_ADX_ATR_v1.0": {
+    "EOS-USDT.OKEX m1_ADX_ATR_v1.0": {
         "class_name": "AdxAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDT.OKEX m1_ADX_ATR_v1.0 REV": {
+    "EOS-USDT.OKEX m1_ADX_ATR_v1.0 REV": {
         "class_name": "AdxAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDT.OKEX m1_BOLL_ATR_v1.0": {
+    "EOS-USDT.OKEX m1_BOLL_ATR_v1.0": {
         "class_name": "BollAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDT.OKEX m1_BOLL_ATR_v1.0 REV": {
+    "EOS-USDT.OKEX m1_BOLL_ATR_v1.0 REV": {
         "class_name": "BollAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDT.OKEX m1_CCI_ATR_v1.0": {
+    "EOS-USDT.OKEX m1_CCI_ATR_v1.0": {
         "class_name": "CciAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDT.OKEX m1_CCI_ATR_v1.0 REV": {
+    "EOS-USDT.OKEX m1_CCI_ATR_v1.0 REV": {
         "class_name": "CciAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDT.OKEX m1_CMO_ATR_v1.0": {
+    "EOS-USDT.OKEX m1_CMO_ATR_v1.0": {
         "class_name": "CmoAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDT.OKEX m1_CMO_ATR_v1.0 REV": {
+    "EOS-USDT.OKEX m1_CMO_ATR_v1.0 REV": {
         "class_name": "CmoAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDT.OKEX m1_DEMA_ATR_v1.0": {
+    "EOS-USDT.OKEX m1_DEMA_ATR_v1.0": {
         "class_name": "DemaAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDT.OKEX m1_DEMA_ATR_v1.0 REV": {
+    "EOS-USDT.OKEX m1_DEMA_ATR_v1.0 REV": {
         "class_name": "DemaAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDT.OKEX m1_Donchian_ATR_v1.0": {
+    "EOS-USDT.OKEX m1_Donchian_ATR_v1.0": {
         "class_name": "DonchianAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDT.OKEX m1_Donchian_ATR_v1.0 REV": {
+    "EOS-USDT.OKEX m1_Donchian_ATR_v1.0 REV": {
         "class_name": "DonchianAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDT.OKEX m1_HT_ATR_v1.0": {
+    "EOS-USDT.OKEX m1_HT_ATR_v1.0": {
         "class_name": "HtAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDT.OKEX m1_HT_ATR_v1.0 REV": {
+    "EOS-USDT.OKEX m1_HT_ATR_v1.0 REV": {
         "class_name": "HtAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDT.OKEX m1_KAMA_ATR_v1.0": {
+    "EOS-USDT.OKEX m1_KAMA_ATR_v1.0": {
         "class_name": "KamaAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDT.OKEX m1_KAMA_ATR_v1.0 REV": {
+    "EOS-USDT.OKEX m1_KAMA_ATR_v1.0 REV": {
         "class_name": "KamaAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDT.OKEX m1_Keltner_ATR_v1.0": {
+    "EOS-USDT.OKEX m1_Keltner_ATR_v1.0": {
         "class_name": "KeltnerAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDT.OKEX m1_Keltner_ATR_v1.0 REV": {
+    "EOS-USDT.OKEX m1_Keltner_ATR_v1.0 REV": {
         "class_name": "KeltnerAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDT.OKEX m1_MACD_ATR_v1.0": {
+    "EOS-USDT.OKEX m1_MACD_ATR_v1.0": {
         "class_name": "MacdAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDT.OKEX m1_MACD_ATR_v1.0 REV": {
+    "EOS-USDT.OKEX m1_MACD_ATR_v1.0 REV": {
         "class_name": "MacdAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDT.OKEX m1_RSI_ATR_v1.0": {
+    "EOS-USDT.OKEX m1_RSI_ATR_v1.0": {
         "class_name": "RsiAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDT.OKEX m1_RSI_ATR_v1.0 REV": {
+    "EOS-USDT.OKEX m1_RSI_ATR_v1.0 REV": {
         "class_name": "RsiAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDT.OKEX m1_SAR_ATR_v1.0": {
+    "EOS-USDT.OKEX m1_SAR_ATR_v1.0": {
         "class_name": "SarAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDT.OKEX m1_SAR_ATR_v1.0 REV": {
+    "EOS-USDT.OKEX m1_SAR_ATR_v1.0 REV": {
         "class_name": "SarAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDT.OKEX m1_TEMA_ATR_v1.0": {
+    "EOS-USDT.OKEX m1_TEMA_ATR_v1.0": {
         "class_name": "TemaAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDT.OKEX m1_TEMA_ATR_v1.0 REV": {
+    "EOS-USDT.OKEX m1_TEMA_ATR_v1.0 REV": {
         "class_name": "TemaAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDT.OKEX m1_TriMA_ATR_v1.0": {
+    "EOS-USDT.OKEX m1_TriMA_ATR_v1.0": {
         "class_name": "TrimaAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDT.OKEX m1_TriMA_ATR_v1.0 REV": {
+    "EOS-USDT.OKEX m1_TriMA_ATR_v1.0 REV": {
         "class_name": "TrimaAtrStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDT.OKEX m1_BOLLCCI_ATR_v1.0": {
+    "EOS-USDT.OKEX m1_BOLLCCI_ATR_v1.0": {
         "class_name": "BollChannelStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDT.OKEX m1_DualThrust_UNK_v1.0": {
+    "EOS-USDT.OKEX m1_DualThrust_UNK_v1.0": {
         "class_name": "DualThrustStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDT.OKEX m1_KingKeltner_v1.0": {
+    "EOS-USDT.OKEX m1_KingKeltner_v1.0": {
         "class_name": "KingKeltnerStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDT.OKEX MultiTimeframe_v1.0": {
+    "EOS-USDT.OKEX MultiTimeframe_v1.0": {
         "class_name": "MultiTimeframeStrategy",
-        "vt_symbol": "ETHUSDT.OKEX",
+        "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDK.OKEX m1_ADX_ATR_v1.0": {
+    "OKB-USDT.OKEX m1_ADX_ATR_v1.0": {
         "class_name": "AdxAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDK.OKEX m1_ADX_ATR_v1.0 REV": {
+    "OKB-USDT.OKEX m1_ADX_ATR_v1.0 REV": {
         "class_name": "AdxAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDK.OKEX m1_BOLL_ATR_v1.0": {
+    "OKB-USDT.OKEX m1_BOLL_ATR_v1.0": {
         "class_name": "BollAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDK.OKEX m1_BOLL_ATR_v1.0 REV": {
+    "OKB-USDT.OKEX m1_BOLL_ATR_v1.0 REV": {
         "class_name": "BollAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDK.OKEX m1_CCI_ATR_v1.0": {
+    "OKB-USDT.OKEX m1_CCI_ATR_v1.0": {
         "class_name": "CciAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDK.OKEX m1_CCI_ATR_v1.0 REV": {
+    "OKB-USDT.OKEX m1_CCI_ATR_v1.0 REV": {
         "class_name": "CciAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDK.OKEX m1_CMO_ATR_v1.0": {
+    "OKB-USDT.OKEX m1_CMO_ATR_v1.0": {
         "class_name": "CmoAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDK.OKEX m1_CMO_ATR_v1.0 REV": {
+    "OKB-USDT.OKEX m1_CMO_ATR_v1.0 REV": {
         "class_name": "CmoAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDK.OKEX m1_DEMA_ATR_v1.0": {
+    "OKB-USDT.OKEX m1_DEMA_ATR_v1.0": {
         "class_name": "DemaAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDK.OKEX m1_DEMA_ATR_v1.0 REV": {
+    "OKB-USDT.OKEX m1_DEMA_ATR_v1.0 REV": {
         "class_name": "DemaAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDK.OKEX m1_Donchian_ATR_v1.0": {
+    "OKB-USDT.OKEX m1_Donchian_ATR_v1.0": {
         "class_name": "DonchianAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDK.OKEX m1_Donchian_ATR_v1.0 REV": {
+    "OKB-USDT.OKEX m1_Donchian_ATR_v1.0 REV": {
         "class_name": "DonchianAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDK.OKEX m1_HT_ATR_v1.0": {
+    "OKB-USDT.OKEX m1_HT_ATR_v1.0": {
         "class_name": "HtAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDK.OKEX m1_HT_ATR_v1.0 REV": {
+    "OKB-USDT.OKEX m1_HT_ATR_v1.0 REV": {
         "class_name": "HtAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDK.OKEX m1_KAMA_ATR_v1.0": {
+    "OKB-USDT.OKEX m1_KAMA_ATR_v1.0": {
         "class_name": "KamaAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDK.OKEX m1_KAMA_ATR_v1.0 REV": {
+    "OKB-USDT.OKEX m1_KAMA_ATR_v1.0 REV": {
         "class_name": "KamaAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDK.OKEX m1_Keltner_ATR_v1.0": {
+    "OKB-USDT.OKEX m1_Keltner_ATR_v1.0": {
         "class_name": "KeltnerAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDK.OKEX m1_Keltner_ATR_v1.0 REV": {
+    "OKB-USDT.OKEX m1_Keltner_ATR_v1.0 REV": {
         "class_name": "KeltnerAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDK.OKEX m1_MACD_ATR_v1.0": {
+    "OKB-USDT.OKEX m1_MACD_ATR_v1.0": {
         "class_name": "MacdAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDK.OKEX m1_MACD_ATR_v1.0 REV": {
+    "OKB-USDT.OKEX m1_MACD_ATR_v1.0 REV": {
         "class_name": "MacdAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDK.OKEX m1_RSI_ATR_v1.0": {
+    "OKB-USDT.OKEX m1_RSI_ATR_v1.0": {
         "class_name": "RsiAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDK.OKEX m1_RSI_ATR_v1.0 REV": {
+    "OKB-USDT.OKEX m1_RSI_ATR_v1.0 REV": {
         "class_name": "RsiAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDK.OKEX m1_SAR_ATR_v1.0": {
+    "OKB-USDT.OKEX m1_SAR_ATR_v1.0": {
         "class_name": "SarAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDK.OKEX m1_SAR_ATR_v1.0 REV": {
+    "OKB-USDT.OKEX m1_SAR_ATR_v1.0 REV": {
         "class_name": "SarAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDK.OKEX m1_TEMA_ATR_v1.0": {
+    "OKB-USDT.OKEX m1_TEMA_ATR_v1.0": {
         "class_name": "TemaAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDK.OKEX m1_TEMA_ATR_v1.0 REV": {
+    "OKB-USDT.OKEX m1_TEMA_ATR_v1.0 REV": {
         "class_name": "TemaAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDK.OKEX m1_TriMA_ATR_v1.0": {
+    "OKB-USDT.OKEX m1_TriMA_ATR_v1.0": {
         "class_name": "TrimaAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDK.OKEX m1_TriMA_ATR_v1.0 REV": {
+    "OKB-USDT.OKEX m1_TriMA_ATR_v1.0 REV": {
         "class_name": "TrimaAtrStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 200
+            "reverse": true
         }
     },
-    "ETHUSDK.OKEX m1_BOLLCCI_ATR_v1.0": {
+    "OKB-USDT.OKEX m1_BOLLCCI_ATR_v1.0": {
         "class_name": "BollChannelStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDK.OKEX m1_DualThrust_UNK_v1.0": {
+    "OKB-USDT.OKEX m1_DualThrust_UNK_v1.0": {
         "class_name": "DualThrustStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDK.OKEX m1_KingKeltner_v1.0": {
+    "OKB-USDT.OKEX m1_KingKeltner_v1.0": {
         "class_name": "KingKeltnerStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "ETHUSDK.OKEX MultiTimeframe_v1.0": {
+    "OKB-USDT.OKEX MultiTimeframe_v1.0": {
         "class_name": "MultiTimeframeStrategy",
-        "vt_symbol": "ETHUSDK.OKEX",
+        "vt_symbol": "OKB-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 200
+            "reverse": false
         }
     },
-    "EOSUSDT.OKEX m1_ADX_ATR_v1.0": {
+    "XRP-USDT.OKEX m1_ADX_ATR_v1.0": {
         "class_name": "AdxAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDT.OKEX m1_ADX_ATR_v1.0 REV": {
+    "XRP-USDT.OKEX m1_ADX_ATR_v1.0 REV": {
         "class_name": "AdxAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDT.OKEX m1_BOLL_ATR_v1.0": {
+    "XRP-USDT.OKEX m1_BOLL_ATR_v1.0": {
         "class_name": "BollAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDT.OKEX m1_BOLL_ATR_v1.0 REV": {
+    "XRP-USDT.OKEX m1_BOLL_ATR_v1.0 REV": {
         "class_name": "BollAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDT.OKEX m1_CCI_ATR_v1.0": {
+    "XRP-USDT.OKEX m1_CCI_ATR_v1.0": {
         "class_name": "CciAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDT.OKEX m1_CCI_ATR_v1.0 REV": {
+    "XRP-USDT.OKEX m1_CCI_ATR_v1.0 REV": {
         "class_name": "CciAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDT.OKEX m1_CMO_ATR_v1.0": {
+    "XRP-USDT.OKEX m1_CMO_ATR_v1.0": {
         "class_name": "CmoAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDT.OKEX m1_CMO_ATR_v1.0 REV": {
+    "XRP-USDT.OKEX m1_CMO_ATR_v1.0 REV": {
         "class_name": "CmoAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDT.OKEX m1_DEMA_ATR_v1.0": {
+    "XRP-USDT.OKEX m1_DEMA_ATR_v1.0": {
         "class_name": "DemaAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDT.OKEX m1_DEMA_ATR_v1.0 REV": {
+    "XRP-USDT.OKEX m1_DEMA_ATR_v1.0 REV": {
         "class_name": "DemaAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDT.OKEX m1_Donchian_ATR_v1.0": {
+    "XRP-USDT.OKEX m1_Donchian_ATR_v1.0": {
         "class_name": "DonchianAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDT.OKEX m1_Donchian_ATR_v1.0 REV": {
+    "XRP-USDT.OKEX m1_Donchian_ATR_v1.0 REV": {
         "class_name": "DonchianAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDT.OKEX m1_HT_ATR_v1.0": {
+    "XRP-USDT.OKEX m1_HT_ATR_v1.0": {
         "class_name": "HtAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDT.OKEX m1_HT_ATR_v1.0 REV": {
+    "XRP-USDT.OKEX m1_HT_ATR_v1.0 REV": {
         "class_name": "HtAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDT.OKEX m1_KAMA_ATR_v1.0": {
+    "XRP-USDT.OKEX m1_KAMA_ATR_v1.0": {
         "class_name": "KamaAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDT.OKEX m1_KAMA_ATR_v1.0 REV": {
+    "XRP-USDT.OKEX m1_KAMA_ATR_v1.0 REV": {
         "class_name": "KamaAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDT.OKEX m1_Keltner_ATR_v1.0": {
+    "XRP-USDT.OKEX m1_Keltner_ATR_v1.0": {
         "class_name": "KeltnerAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDT.OKEX m1_Keltner_ATR_v1.0 REV": {
+    "XRP-USDT.OKEX m1_Keltner_ATR_v1.0 REV": {
         "class_name": "KeltnerAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDT.OKEX m1_MACD_ATR_v1.0": {
+    "XRP-USDT.OKEX m1_MACD_ATR_v1.0": {
         "class_name": "MacdAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDT.OKEX m1_MACD_ATR_v1.0 REV": {
+    "XRP-USDT.OKEX m1_MACD_ATR_v1.0 REV": {
         "class_name": "MacdAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDT.OKEX m1_RSI_ATR_v1.0": {
+    "XRP-USDT.OKEX m1_RSI_ATR_v1.0": {
         "class_name": "RsiAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDT.OKEX m1_RSI_ATR_v1.0 REV": {
+    "XRP-USDT.OKEX m1_RSI_ATR_v1.0 REV": {
         "class_name": "RsiAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDT.OKEX m1_SAR_ATR_v1.0": {
+    "XRP-USDT.OKEX m1_SAR_ATR_v1.0": {
         "class_name": "SarAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDT.OKEX m1_SAR_ATR_v1.0 REV": {
+    "XRP-USDT.OKEX m1_SAR_ATR_v1.0 REV": {
         "class_name": "SarAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDT.OKEX m1_TEMA_ATR_v1.0": {
+    "XRP-USDT.OKEX m1_TEMA_ATR_v1.0": {
         "class_name": "TemaAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDT.OKEX m1_TEMA_ATR_v1.0 REV": {
+    "XRP-USDT.OKEX m1_TEMA_ATR_v1.0 REV": {
         "class_name": "TemaAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDT.OKEX m1_TriMA_ATR_v1.0": {
+    "XRP-USDT.OKEX m1_TriMA_ATR_v1.0": {
         "class_name": "TrimaAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDT.OKEX m1_TriMA_ATR_v1.0 REV": {
+    "XRP-USDT.OKEX m1_TriMA_ATR_v1.0 REV": {
         "class_name": "TrimaAtrStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDT.OKEX m1_BOLLCCI_ATR_v1.0": {
+    "XRP-USDT.OKEX m1_BOLLCCI_ATR_v1.0": {
         "class_name": "BollChannelStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDT.OKEX m1_DualThrust_UNK_v1.0": {
+    "XRP-USDT.OKEX m1_DualThrust_UNK_v1.0": {
         "class_name": "DualThrustStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDT.OKEX m1_KingKeltner_v1.0": {
+    "XRP-USDT.OKEX m1_KingKeltner_v1.0": {
         "class_name": "KingKeltnerStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDT.OKEX MultiTimeframe_v1.0": {
+    "XRP-USDT.OKEX MultiTimeframe_v1.0": {
         "class_name": "MultiTimeframeStrategy",
-        "vt_symbol": "EOSUSDT.OKEX",
+        "vt_symbol": "XRP-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDK.OKEX m1_ADX_ATR_v1.0": {
+    "TRX-USDT.OKEX m1_ADX_ATR_v1.0": {
         "class_name": "AdxAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDK.OKEX m1_ADX_ATR_v1.0 REV": {
+    "TRX-USDT.OKEX m1_ADX_ATR_v1.0 REV": {
         "class_name": "AdxAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDK.OKEX m1_BOLL_ATR_v1.0": {
+    "TRX-USDT.OKEX m1_BOLL_ATR_v1.0": {
         "class_name": "BollAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDK.OKEX m1_BOLL_ATR_v1.0 REV": {
+    "TRX-USDT.OKEX m1_BOLL_ATR_v1.0 REV": {
         "class_name": "BollAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDK.OKEX m1_CCI_ATR_v1.0": {
+    "TRX-USDT.OKEX m1_CCI_ATR_v1.0": {
         "class_name": "CciAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDK.OKEX m1_CCI_ATR_v1.0 REV": {
+    "TRX-USDT.OKEX m1_CCI_ATR_v1.0 REV": {
         "class_name": "CciAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDK.OKEX m1_CMO_ATR_v1.0": {
+    "TRX-USDT.OKEX m1_CMO_ATR_v1.0": {
         "class_name": "CmoAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDK.OKEX m1_CMO_ATR_v1.0 REV": {
+    "TRX-USDT.OKEX m1_CMO_ATR_v1.0 REV": {
         "class_name": "CmoAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDK.OKEX m1_DEMA_ATR_v1.0": {
+    "TRX-USDT.OKEX m1_DEMA_ATR_v1.0": {
         "class_name": "DemaAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDK.OKEX m1_DEMA_ATR_v1.0 REV": {
+    "TRX-USDT.OKEX m1_DEMA_ATR_v1.0 REV": {
         "class_name": "DemaAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDK.OKEX m1_Donchian_ATR_v1.0": {
+    "TRX-USDT.OKEX m1_Donchian_ATR_v1.0": {
         "class_name": "DonchianAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDK.OKEX m1_Donchian_ATR_v1.0 REV": {
+    "TRX-USDT.OKEX m1_Donchian_ATR_v1.0 REV": {
         "class_name": "DonchianAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDK.OKEX m1_HT_ATR_v1.0": {
+    "TRX-USDT.OKEX m1_HT_ATR_v1.0": {
         "class_name": "HtAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDK.OKEX m1_HT_ATR_v1.0 REV": {
+    "TRX-USDT.OKEX m1_HT_ATR_v1.0 REV": {
         "class_name": "HtAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDK.OKEX m1_KAMA_ATR_v1.0": {
+    "TRX-USDT.OKEX m1_KAMA_ATR_v1.0": {
         "class_name": "KamaAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDK.OKEX m1_KAMA_ATR_v1.0 REV": {
+    "TRX-USDT.OKEX m1_KAMA_ATR_v1.0 REV": {
         "class_name": "KamaAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDK.OKEX m1_Keltner_ATR_v1.0": {
+    "TRX-USDT.OKEX m1_Keltner_ATR_v1.0": {
         "class_name": "KeltnerAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDK.OKEX m1_Keltner_ATR_v1.0 REV": {
+    "TRX-USDT.OKEX m1_Keltner_ATR_v1.0 REV": {
         "class_name": "KeltnerAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDK.OKEX m1_MACD_ATR_v1.0": {
+    "TRX-USDT.OKEX m1_MACD_ATR_v1.0": {
         "class_name": "MacdAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDK.OKEX m1_MACD_ATR_v1.0 REV": {
+    "TRX-USDT.OKEX m1_MACD_ATR_v1.0 REV": {
         "class_name": "MacdAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDK.OKEX m1_RSI_ATR_v1.0": {
+    "TRX-USDT.OKEX m1_RSI_ATR_v1.0": {
         "class_name": "RsiAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDK.OKEX m1_RSI_ATR_v1.0 REV": {
+    "TRX-USDT.OKEX m1_RSI_ATR_v1.0 REV": {
         "class_name": "RsiAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDK.OKEX m1_SAR_ATR_v1.0": {
+    "TRX-USDT.OKEX m1_SAR_ATR_v1.0": {
         "class_name": "SarAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDK.OKEX m1_SAR_ATR_v1.0 REV": {
+    "TRX-USDT.OKEX m1_SAR_ATR_v1.0 REV": {
         "class_name": "SarAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDK.OKEX m1_TEMA_ATR_v1.0": {
+    "TRX-USDT.OKEX m1_TEMA_ATR_v1.0": {
         "class_name": "TemaAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDK.OKEX m1_TEMA_ATR_v1.0 REV": {
+    "TRX-USDT.OKEX m1_TEMA_ATR_v1.0 REV": {
         "class_name": "TemaAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDK.OKEX m1_TriMA_ATR_v1.0": {
+    "TRX-USDT.OKEX m1_TriMA_ATR_v1.0": {
         "class_name": "TrimaAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDK.OKEX m1_TriMA_ATR_v1.0 REV": {
+    "TRX-USDT.OKEX m1_TriMA_ATR_v1.0 REV": {
         "class_name": "TrimaAtrStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": true,
-            "fixed_size": 40000
+            "reverse": true
         }
     },
-    "EOSUSDK.OKEX m1_BOLLCCI_ATR_v1.0": {
+    "TRX-USDT.OKEX m1_BOLLCCI_ATR_v1.0": {
         "class_name": "BollChannelStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDK.OKEX m1_DualThrust_UNK_v1.0": {
+    "TRX-USDT.OKEX m1_DualThrust_UNK_v1.0": {
         "class_name": "DualThrustStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDK.OKEX m1_KingKeltner_v1.0": {
+    "TRX-USDT.OKEX m1_KingKeltner_v1.0": {
         "class_name": "KingKeltnerStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
         }
     },
-    "EOSUSDK.OKEX MultiTimeframe_v1.0": {
+    "TRX-USDT.OKEX MultiTimeframe_v1.0": {
         "class_name": "MultiTimeframeStrategy",
-        "vt_symbol": "EOSUSDK.OKEX",
+        "vt_symbol": "TRX-USDT.OKEX",
         "setting": {
-            "reverse": false,
-            "fixed_size": 40000
+            "reverse": false
+        }
+    },
+    "DASH-USDT.OKEX m1_ADX_ATR_v1.0": {
+        "class_name": "AdxAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "DASH-USDT.OKEX m1_ADX_ATR_v1.0 REV": {
+        "class_name": "AdxAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "DASH-USDT.OKEX m1_BOLL_ATR_v1.0": {
+        "class_name": "BollAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "DASH-USDT.OKEX m1_BOLL_ATR_v1.0 REV": {
+        "class_name": "BollAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "DASH-USDT.OKEX m1_CCI_ATR_v1.0": {
+        "class_name": "CciAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "DASH-USDT.OKEX m1_CCI_ATR_v1.0 REV": {
+        "class_name": "CciAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "DASH-USDT.OKEX m1_CMO_ATR_v1.0": {
+        "class_name": "CmoAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "DASH-USDT.OKEX m1_CMO_ATR_v1.0 REV": {
+        "class_name": "CmoAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "DASH-USDT.OKEX m1_DEMA_ATR_v1.0": {
+        "class_name": "DemaAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "DASH-USDT.OKEX m1_DEMA_ATR_v1.0 REV": {
+        "class_name": "DemaAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "DASH-USDT.OKEX m1_Donchian_ATR_v1.0": {
+        "class_name": "DonchianAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "DASH-USDT.OKEX m1_Donchian_ATR_v1.0 REV": {
+        "class_name": "DonchianAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "DASH-USDT.OKEX m1_HT_ATR_v1.0": {
+        "class_name": "HtAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "DASH-USDT.OKEX m1_HT_ATR_v1.0 REV": {
+        "class_name": "HtAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "DASH-USDT.OKEX m1_KAMA_ATR_v1.0": {
+        "class_name": "KamaAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "DASH-USDT.OKEX m1_KAMA_ATR_v1.0 REV": {
+        "class_name": "KamaAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "DASH-USDT.OKEX m1_Keltner_ATR_v1.0": {
+        "class_name": "KeltnerAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "DASH-USDT.OKEX m1_Keltner_ATR_v1.0 REV": {
+        "class_name": "KeltnerAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "DASH-USDT.OKEX m1_MACD_ATR_v1.0": {
+        "class_name": "MacdAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "DASH-USDT.OKEX m1_MACD_ATR_v1.0 REV": {
+        "class_name": "MacdAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "DASH-USDT.OKEX m1_RSI_ATR_v1.0": {
+        "class_name": "RsiAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "DASH-USDT.OKEX m1_RSI_ATR_v1.0 REV": {
+        "class_name": "RsiAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "DASH-USDT.OKEX m1_SAR_ATR_v1.0": {
+        "class_name": "SarAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "DASH-USDT.OKEX m1_SAR_ATR_v1.0 REV": {
+        "class_name": "SarAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "DASH-USDT.OKEX m1_TEMA_ATR_v1.0": {
+        "class_name": "TemaAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "DASH-USDT.OKEX m1_TEMA_ATR_v1.0 REV": {
+        "class_name": "TemaAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "DASH-USDT.OKEX m1_TriMA_ATR_v1.0": {
+        "class_name": "TrimaAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "DASH-USDT.OKEX m1_TriMA_ATR_v1.0 REV": {
+        "class_name": "TrimaAtrStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "DASH-USDT.OKEX m1_BOLLCCI_ATR_v1.0": {
+        "class_name": "BollChannelStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "DASH-USDT.OKEX m1_DualThrust_UNK_v1.0": {
+        "class_name": "DualThrustStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "DASH-USDT.OKEX m1_KingKeltner_v1.0": {
+        "class_name": "KingKeltnerStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "DASH-USDT.OKEX MultiTimeframe_v1.0": {
+        "class_name": "MultiTimeframeStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "NEO-USDT.OKEX m1_ADX_ATR_v1.0": {
+        "class_name": "AdxAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "NEO-USDT.OKEX m1_ADX_ATR_v1.0 REV": {
+        "class_name": "AdxAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "NEO-USDT.OKEX m1_BOLL_ATR_v1.0": {
+        "class_name": "BollAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "NEO-USDT.OKEX m1_BOLL_ATR_v1.0 REV": {
+        "class_name": "BollAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "NEO-USDT.OKEX m1_CCI_ATR_v1.0": {
+        "class_name": "CciAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "NEO-USDT.OKEX m1_CCI_ATR_v1.0 REV": {
+        "class_name": "CciAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "NEO-USDT.OKEX m1_CMO_ATR_v1.0": {
+        "class_name": "CmoAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "NEO-USDT.OKEX m1_CMO_ATR_v1.0 REV": {
+        "class_name": "CmoAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "NEO-USDT.OKEX m1_DEMA_ATR_v1.0": {
+        "class_name": "DemaAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "NEO-USDT.OKEX m1_DEMA_ATR_v1.0 REV": {
+        "class_name": "DemaAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "NEO-USDT.OKEX m1_Donchian_ATR_v1.0": {
+        "class_name": "DonchianAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "NEO-USDT.OKEX m1_Donchian_ATR_v1.0 REV": {
+        "class_name": "DonchianAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "NEO-USDT.OKEX m1_HT_ATR_v1.0": {
+        "class_name": "HtAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "NEO-USDT.OKEX m1_HT_ATR_v1.0 REV": {
+        "class_name": "HtAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "NEO-USDT.OKEX m1_KAMA_ATR_v1.0": {
+        "class_name": "KamaAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "NEO-USDT.OKEX m1_KAMA_ATR_v1.0 REV": {
+        "class_name": "KamaAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "NEO-USDT.OKEX m1_Keltner_ATR_v1.0": {
+        "class_name": "KeltnerAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "NEO-USDT.OKEX m1_Keltner_ATR_v1.0 REV": {
+        "class_name": "KeltnerAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "NEO-USDT.OKEX m1_MACD_ATR_v1.0": {
+        "class_name": "MacdAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "NEO-USDT.OKEX m1_MACD_ATR_v1.0 REV": {
+        "class_name": "MacdAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "NEO-USDT.OKEX m1_RSI_ATR_v1.0": {
+        "class_name": "RsiAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "NEO-USDT.OKEX m1_RSI_ATR_v1.0 REV": {
+        "class_name": "RsiAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "NEO-USDT.OKEX m1_SAR_ATR_v1.0": {
+        "class_name": "SarAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "NEO-USDT.OKEX m1_SAR_ATR_v1.0 REV": {
+        "class_name": "SarAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "NEO-USDT.OKEX m1_TEMA_ATR_v1.0": {
+        "class_name": "TemaAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "NEO-USDT.OKEX m1_TEMA_ATR_v1.0 REV": {
+        "class_name": "TemaAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "NEO-USDT.OKEX m1_TriMA_ATR_v1.0": {
+        "class_name": "TrimaAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "NEO-USDT.OKEX m1_TriMA_ATR_v1.0 REV": {
+        "class_name": "TrimaAtrStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": true
+        }
+    },
+    "NEO-USDT.OKEX m1_BOLLCCI_ATR_v1.0": {
+        "class_name": "BollChannelStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "NEO-USDT.OKEX m1_DualThrust_UNK_v1.0": {
+        "class_name": "DualThrustStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "NEO-USDT.OKEX m1_KingKeltner_v1.0": {
+        "class_name": "KingKeltnerStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "NEO-USDT.OKEX MultiTimeframe_v1.0": {
+        "class_name": "MultiTimeframeStrategy",
+        "vt_symbol": "NEO-USDT.OKEX",
+        "setting": {
+            "reverse": false
         }
     }
 }

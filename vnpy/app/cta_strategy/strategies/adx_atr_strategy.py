@@ -22,14 +22,15 @@ class AdxAtrStrategy(BaseAtrStrategy):
 
     adx_value = 0
 
-    parameters = ["atr_length", "atr_ma_length", "trailing_percent", "adx_length"]
+    parameters = list(BaseAtrStrategy.parameters)
+    parameters.extend(['adx_length'])
 
     def on_pos_zero(self, bar: BarData):
         ma20_array = self.am.sma(20, array=True)
         self.adx_value = self.am.adx(self.adx_length)
         if self.atr_value > self.atr_ma and self.adx_value > 25:
             if ma20_array[-1] > ma20_array[-2]:
-                self.buy(bar.close_price, self.fixed_size)
+                self.buy(bar.close_price, self.volume)
             elif ma20_array[-1] < ma20_array[-2]:
-                self.short(bar.close_price, self.fixed_size)
+                self.short(bar.close_price, self.volume)
 

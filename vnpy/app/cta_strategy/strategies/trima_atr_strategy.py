@@ -26,13 +26,13 @@ class TrimaAtrStrategy(BaseAtrStrategy):
     rsi_buy = 0
     rsi_sell = 0
 
-    parameters = ["atr_length", "atr_ma_length", "trima_length",
-                  "trailing_percent"]
+    parameters = list(BaseAtrStrategy.parameters)
+    parameters.extend(["trima_length"])
 
     def on_pos_zero(self, bar: BarData):
         trima_array = talib.TRIMA(self.am.close, self.trima_length)
         if self.atr_value > self.atr_ma:
             if trima_array[-3] > trima_array[-2] < trima_array[-1]:
-                self.buy(bar.close_price, self.fixed_size)
+                self.buy(bar.close_price, self.volume)
             elif trima_array[-3] < trima_array[-2] > trima_array[-1]:
-                self.short(bar.close_price, self.fixed_size)
+                self.short(bar.close_price, self.volume)

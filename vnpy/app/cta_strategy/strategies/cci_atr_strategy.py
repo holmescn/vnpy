@@ -25,14 +25,15 @@ class CciAtrStrategy(BaseAtrStrategy):
     cci_buy = 100
     cci_sell = -100
 
-    parameters = ["atr_length", "atr_ma_length", "cci_length",
-                  "trailing_percent"]
-    variables = ["atr_value", "atr_ma", "cci_value", "cci_buy", "cci_sell", "timestamp"]
+    parameters = list(BaseAtrStrategy.parameters)
+    parameters.extend(["cci_length"])
+    variables = list(BaseAtrStrategy.variables)
+    variables.extend(["cci_value", "cci_buy", "cci_sell"])
 
     def on_pos_zero(self, bar: BarData):
         self.cci_value = self.am.cci(self.cci_length)
         if self.atr_value > self.atr_ma:
             if self.cci_value > self.cci_buy:
-                self.buy(bar.close_price, self.fixed_size)
+                self.buy(bar.close_price, self.volume)
             elif self.cci_value < self.cci_sell:
-                self.short(bar.close_price, self.fixed_size)
+                self.short(bar.close_price, self.volume)

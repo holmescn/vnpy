@@ -33,9 +33,13 @@ class BollChannelStrategy(BaseStrategy):
     short_stop = 0
 
     parameters = ["boll_window", "boll_dev", "cci_window",
-                  "atr_window", "sl_multiplier", "fixed_size"]
-    variables = ["boll_up", "boll_down", "cci_value", "atr_value",
-                 "intra_trade_high", "intra_trade_low", "long_stop", "short_stop", 'timestamp']
+                  "atr_window", "sl_multiplier"]
+    variables = list(BaseStrategy.variables)
+    variables.extend([
+        "boll_up", "boll_down", "cci_value", "atr_value",
+        "intra_trade_high", "intra_trade_low", "long_stop",
+        "short_stop"
+    ])
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
         """"""
@@ -68,11 +72,6 @@ class BollChannelStrategy(BaseStrategy):
         if not am.inited:
             return
 
-        if self.timestamp > bar.datetime.timestamp():
-            self.pos = 0
-            return
-        self.timestamp = bar.datetime.timestamp()
-
         self.boll_up, self.boll_down = am.boll(self.boll_window, self.boll_dev)
         self.cci_value = am.cci(self.cci_window)
         self.atr_value = am.atr(self.atr_window)
@@ -82,9 +81,9 @@ class BollChannelStrategy(BaseStrategy):
             self.intra_trade_low = bar.low_price
 
             if self.cci_value > 0:
-                self.buy(self.boll_up, self.fixed_size, True)
+                self.buy(self.boll_up, self.volume, True)
             elif self.cci_value < 0:
-                self.short(self.boll_down, self.fixed_size, True)
+                self.short(self.boll_down, self.volume, True)
 
         elif self.pos > 0:
             self.intra_trade_high = max(self.intra_trade_high, bar.high_price)

@@ -77,11 +77,11 @@ class TestStrategy(CtaTemplate):
             if adx_array[-1] > 25 and adx_array[-1] > adx_array[-2]:
                 size = int(self.fixed_money / bar.close_price)
                 if sma_array[-1] > sma_array[-2]:
-                    # self.buy(bar.close_price + 5, self.fixed_size)
+                    # self.buy(bar.close_price + 5, self.volume)
                     self.buy(bar.close_price, size)
                     # print(f"{bar.datetime} 趋势增强向上，买多 {size}")
                 elif sma_array[-1] < sma_array[-2]:
-                    # self.short(bar.close_price - 5, self.fixed_size)
+                    # self.short(bar.close_price - 5, self.volume)
                     self.short(bar.close_price, size)
                     # print(f"{bar.datetime} 趋势增强向下，买空 {size}")
 

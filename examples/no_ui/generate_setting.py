@@ -61,61 +61,61 @@ from vnpy.app.cta_strategy.strategies.king_keltner_strategy import (
 from vnpy.app.cta_strategy.strategies.multi_timeframe_strategy import (
     MultiTimeframeStrategy,
 )
-
+from vnpy.app.cta_strategy.strategies.double_ma_strategy import (
+    DoubleMaStrategy,
+)
 
 def make_pair(it, s, reverse):
     key = '{} {}{}'.format(it['vt_symbol'], s.model_id, ' REV' if reverse else '')
     value = {
         "class_name": s.__name__,
+        # "vt_symbol": it['vt_symbol'].replace('-', ''),
         "vt_symbol": it['vt_symbol'],
         "setting": {
             "reverse": reverse,
-            "fixed_size": it['fixed_size']
         }
     }
+    if 'percent' in it:
+        value['setting']['percent'] = it['percent']
     return key, value
 
 
 def main():
     instruments = [{
-        'vt_symbol': 'BTCUSDT.OKEX',
-        'fixed_size': 20,
+        'vt_symbol': 'BTC-USDT.OKEX',
         'price_tick': 0.01,
     }, {
-        'vt_symbol': 'BTCUSDK.OKEX',
-        'fixed_size': 20,
+        'vt_symbol': 'BCH-USDT.OKEX',
         'price_tick': 0.01,
     }, {
-        'vt_symbol': 'BCHUSDT.OKEX',
-        'fixed_size': 600,
+        'vt_symbol': 'BSV-USDT.OKEX',
         'price_tick': 0.01,
     }, {
-        'vt_symbol': 'BCHUSDK.OKEX',
-        'fixed_size': 600,
-        'price_tick': 0.01,
-    }, {
-        'vt_symbol': 'LTCUSDT.OKEX',
-        'fixed_size': 2000,
+        'vt_symbol': 'LTC-USDT.OKEX',
         'price_tick': 0.001,
     }, {
-        'vt_symbol': 'LTCUSDK.OKEX',
-        'fixed_size': 2000,
+        'vt_symbol': 'ETH-USDT.OKEX',
         'price_tick': 0.001,
     }, {
-        'vt_symbol': 'ETHUSDT.OKEX',
-        'fixed_size': 200,
+        'vt_symbol': 'ETC-USDT.OKEX',
         'price_tick': 0.001,
     }, {
-        'vt_symbol': 'ETHUSDK.OKEX',
-        'fixed_size': 200,
+        'vt_symbol': 'EOS-USDT.OKEX',
         'price_tick': 0.001,
     }, {
-        'vt_symbol': 'EOSUSDT.OKEX',
-        'fixed_size': 40000,
+        'vt_symbol': 'OKB-USDT.OKEX',
         'price_tick': 0.001,
     }, {
-        'vt_symbol': 'EOSUSDK.OKEX',
-        'fixed_size': 40000,
+        'vt_symbol': 'XRP-USDT.OKEX',
+        'price_tick': 0.001,
+    }, {
+        'vt_symbol': 'TRX-USDT.OKEX',
+        'price_tick': 0.001,
+    }, {
+        'vt_symbol': 'DASH-USDT.OKEX',
+        'price_tick': 0.001,
+    }, {
+        'vt_symbol': 'NEO-USDT.OKEX',
         'price_tick': 0.001,
     }]
 
@@ -134,7 +134,7 @@ def main():
     ]
 
     settings = dict()
-    # (5 + 28) * 10 = 330
+    # (28 + 5) * 12 = 384
     for it in instruments:
         for s in revertable_strategies:
             k, v = make_pair(it, s, False)

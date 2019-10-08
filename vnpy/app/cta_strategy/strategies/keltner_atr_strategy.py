@@ -22,13 +22,13 @@ class KeltnerAtrStrategy(BaseAtrStrategy):
     atr_ma_length = 10
     trailing_percent = 0.9
 
-    parameters = ["atr_length", "atr_ma_length", "keltner_window", "keltner_dev",
-                  "trailing_percent"]
+    parameters = list(BaseAtrStrategy.parameters)
+    parameters.extend(["keltner_window", "keltner_dev"])
 
     def on_pos_zero(self, bar: BarData):
         up, lo = self.am.keltner(self.keltner_window, self.keltner_dev)
         if self.atr_value > self.atr_ma:
             if bar.close_price > up:
-                self.buy(bar.close_price, self.fixed_size)
+                self.buy(bar.close_price, self.volume)
             elif bar.close_price < lo:
-                self.short(bar.close_price, self.fixed_size)
+                self.short(bar.close_price, self.volume)

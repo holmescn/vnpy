@@ -27,13 +27,13 @@ class SarAtrStrategy(BaseAtrStrategy):
     rsi_buy = 0
     rsi_sell = 0
 
-    parameters = ["atr_length", "atr_ma_length", "sar_k1", "sar_k2",
-                  "trailing_percent"]
+    parameters = list(BaseAtrStrategy.parameters)
+    parameters.extend(["sar_k1", "sar_k2"])
 
     def on_pos_zero(self, bar: BarData):
         sar_array = talib.SAR(self.am.high, self.am.low, self.sar_k1, self.sar_k2)
         if self.atr_value > self.atr_ma:
             if self.am.close[-2] < sar_array[-2] and bar.close_price > sar_array[-1]:
-                self.buy(bar.close_price, self.fixed_size)
+                self.buy(bar.close_price, self.volume)
             elif self.am.close[-2] > sar_array[-2] and bar.close_price < sar_array[-1]:
-                self.short(bar.close_price, self.fixed_size)
+                self.short(bar.close_price, self.volume)

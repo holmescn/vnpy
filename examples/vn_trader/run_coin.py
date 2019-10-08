@@ -7,8 +7,8 @@ from vnpy.trader.ui import MainWindow, create_qapp
 from vnpy.gateway.bitmex import BitmexGateway
 from vnpy.gateway.okexf import OkexfGateway
 from vnpy.gateway.hbdm import HbdmGateway
+from vnpy.gateway.okex import OkexGateway
 # from vnpy.gateway.huobi import HuobiGateway
-# from vnpy.gateway.okex import OkexGateway
 # from vnpy.gateway.bitfinex import BitfinexGateway
 # from vnpy.gateway.onetoken import OnetokenGateway
 # from vnpy.gateway.binance import BinanceGateway
@@ -45,12 +45,12 @@ def main():
     main_engine = MainEngine(event_engine)
 
     main_engine.add_gateway(BitmexGateway)
-    # main_engine.add_gateway(OkexGateway)
+    main_engine.add_gateway(OkexGateway)
+    main_engine.add_gateway(OkexfGateway)
+    main_engine.add_gateway(HbdmGateway)
     # main_engine.add_gateway(HuobiGateway)
     # main_engine.add_gateway(BitfinexGateway)
     # main_engine.add_gateway(OnetokenGateway)
-    main_engine.add_gateway(OkexfGateway)
-    main_engine.add_gateway(HbdmGateway)
     # main_engine.add_gateway(BinanceGateway)
     # main_engine.add_gateway(CtpGateway)
     # main_engine.add_gateway(CtptestGateway)

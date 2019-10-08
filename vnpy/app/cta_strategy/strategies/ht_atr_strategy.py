@@ -25,6 +25,6 @@ class HtAtrStrategy(BaseAtrStrategy):
         ht_array = talib.HT_TRENDLINE(self.am.close)
         if self.atr_value > self.atr_ma:
             if ht_array[-3] > ht_array[-2] < ht_array[-1]:
-                self.buy(bar.close_price, self.fixed_size)
+                self.buy(bar.close_price, self.volume)
             elif ht_array[-3] < ht_array[-2] > ht_array[-1]:
-                self.short(bar.close_price, self.fixed_size)
+                self.short(bar.close_price, self.volume)

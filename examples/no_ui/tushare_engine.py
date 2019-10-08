@@ -1,28 +1,22 @@
-import multiprocessing
+import os
 import random
 import importlib
-import os
 import traceback
 import numpy as np
 import pandas as pd
 import tushare as ts
 import requests.exceptions as requests_exceptions
-from vnpy.app.cta_strategy import strategies
-from time import sleep
+from hashlib import md5
+from time import sleep, time
 
 from collections import defaultdict
 from datetime import date, datetime, timedelta
-from typing import Callable
-from itertools import product
-from time import time
-from pandas import DataFrame
 from pathlib import Path
 from typing import Any, Callable
-from datetime import datetime, timedelta
-from threading import Thread
-from queue import Queue, Empty
+from threading import Lock
 from copy import copy
 
+from vnpy.app.cta_strategy import strategies
 from vnpy.trader.object import OrderData, TradeData, BarData, TickData
 from vnpy.trader.utility import round_to
 from vnpy.app.cta_strategy.base import (
@@ -55,8 +49,6 @@ from vnpy.trader.constant import (
     Status
 )
 from vnpy.trader.utility import load_json, save_json, extract_vt_symbol, round_to
-from vnpy.trader.database import database_manager
-from vnpy.trader.rqdata import rqdata_client
 from vnpy.app.cta_strategy.converter import OffsetConverter
 from vnpy.app.cta_strategy.template import CtaTemplate
 
@@ -69,6 +61,7 @@ STOP_STATUS_MAP = {
     Status.CANCELLED: StopOrderStatus.CANCELLED,
     Status.REJECTED: StopOrderStatus.CANCELLED
 }
+
 
 class TushareEngine(BaseEngine):
     engine_type = EngineType.BACKTESTING
@@ -94,7 +87,6 @@ class TushareEngine(BaseEngine):
 
         self.offset_converter = OffsetConverter(self.main_engine)
 
-        self.start = None
         self.mode = BacktestingMode.BAR
 
         self.bar: BarData = None
@@ -115,6 +107,14 @@ class TushareEngine(BaseEngine):
         setting = load_json('connect_tushare.json')
         self.token = setting['Token']
         self.ts_api = ts.pro_api(self.token)
+
+    def new_orderid(self, order_count, stop=False):
+        return "{}{}_{}_{}".format(
+            f'{STOPORDER_PREFIX}.' if stop else '',
+            self.strategy.vt_modelid,
+            self.datetime.strftime("%Y%m%d_%H%M"),
+            order_count
+        )
 
     def init_engine(self):
         self.load_strategy_class()
@@ -236,18 +236,22 @@ class TushareEngine(BaseEngine):
         self.put_strategy_event(strategy)
         self.write_log(f"{strategy_name}初始化完成")
 
-    def run(self):
-        while True:
+    def run(self, start_date, end_date=None):
+        today = start_date
+        end_date = datetime.now() if end_date is None else end_date
+        while today <= end_date:
             empty_counter = 0
             for vt_symbol in self.symbol_strategy_map.keys():
                 symbol, exchange = extract_vt_symbol(vt_symbol)
+                symbol = symbol.replace('-', '')
                 try:
                     df = self.ts_api.coin_mins(
-                        exchange='future_%s' % exchange.value.lower(),
+                        # exchange='future_%s' % exchange.value.lower(),
+                        exchange=exchange.value.lower(),
                         symbol=symbol.lower(),
-                        trade_date=self.start.strftime('%Y%m%d'),
+                        trade_date=today.strftime('%Y%m%d'),
                         freq='1min',
-                        fields='date,open,high,low,close,vol,contract_type'
+                        fields='date,open,high,low,close,vol'
                     )
                 except requests_exceptions.ConnectTimeout:
                     self.ts_api = ts.pro_api(self.token)
@@ -259,21 +263,21 @@ class TushareEngine(BaseEngine):
                     continue
 
                 if len(df) == 0:
+                    self.write_log(f"{vt_symbol.lower()} @ {today.date()} 没有数据")
                     empty_counter += 1
                     sleep(1.0)
                     continue
 
                 df['datetime'] = pd.to_datetime(df.date)
                 df.set_index('datetime', inplace=True)
-                df = df[df.contract_type == 'this_week']
 
                 self.symbol = symbol
                 self.vt_symbol = vt_symbol
                 self.exchange = exchange
                 if symbol.startswith('BTC') or symbol.startswith('BCH'):
-                    self.pricetick = 0.01
+                    self.pricetick = 0.1
                 else:
-                    self.pricetick = 0.001
+                    self.pricetick = 0.01
 
                 for strategy in self.symbol_strategy_map[vt_symbol]:
                     self.strategy = strategy
@@ -284,6 +288,8 @@ class TushareEngine(BaseEngine):
 
                     for t, row in df.iterrows():
                         self.datetime = t
+                        if hasattr(self.strategy, 'datetime'):
+                            self.strategy.datetime = t
                         bar = BarData(
                             symbol=symbol,
                             exchange=exchange,
@@ -298,19 +304,14 @@ class TushareEngine(BaseEngine):
                         )
                         self.new_bar(bar)
 
-                    sleep(10.0)
-
             if empty_counter < len(self.symbol_strategy_map.keys()):
-                self.start += timedelta(days=1)
+                today += timedelta(days=1)
             else:
                 sleep(30.0)
 
     def new_bar(self, bar: BarData):
         """"""
         self.bar = bar
-        if hasattr(self.strategy, 'datetime'):
-            self.strategy.datetime = bar.datetime
-
         self.cross_limit_order()
         self.cross_stop_order()
         self.strategy.on_bar(bar)
@@ -325,7 +326,7 @@ class TushareEngine(BaseEngine):
         short_best_price = self.bar.open_price
 
         for order, model_id in list(self.active_limit_orders.values()):
-            if model_id != self.strategy.model_id:
+            if model_id != self.strategy.vt_modelid:
                 continue
 
             # Push order update with status "not traded" (pending).
@@ -390,7 +391,11 @@ class TushareEngine(BaseEngine):
         short_best_price = self.bar.open_price
 
         for stop_order, model_id in list(self.active_stop_orders.values()):
-            if model_id != self.strategy.model_id:
+            if model_id != self.strategy.vt_modelid:
+                continue
+
+            if stop_order.stop_orderid not in self.active_stop_orders:
+                assert stop_order.status == StopOrderStatus.CANCELLED
                 continue
 
             # Check whether stop order can be triggered.
@@ -413,7 +418,7 @@ class TushareEngine(BaseEngine):
             order = OrderData(
                 symbol=self.symbol,
                 exchange=self.exchange,
-                orderid='{}_{}_{}'.format(self.vt_symbol, self.datetime.strftime("%Y%m%d_%H%M"), self.limit_order_count),
+                orderid=self.new_orderid(self.limit_order_count),
                 direction=stop_order.direction,
                 offset=stop_order.offset,
                 price=stop_order.price,
@@ -493,18 +498,18 @@ class TushareEngine(BaseEngine):
         """"""
         self.stop_order_count += 1
 
-        ts = self.datetime.strftime("%Y%m%d_%H%M")
+        orderid = self.new_orderid(self.stop_order_count, stop=True)
         stop_order = StopOrder(
             vt_symbol=self.vt_symbol,
             direction=direction,
             offset=offset,
             price=price,
             volume=volume,
-            stop_orderid=f"{STOPORDER_PREFIX}.{self.vt_symbol}_{ts}_{self.stop_order_count}",
+            stop_orderid=orderid,
             strategy_name=self.strategy.strategy_name,
         )
 
-        self.active_stop_orders[stop_order.stop_orderid] = (stop_order, self.strategy.model_id)
+        self.active_stop_orders[stop_order.stop_orderid] = (stop_order, self.strategy.vt_modelid)
 
         return stop_order.stop_orderid
 
@@ -517,12 +522,12 @@ class TushareEngine(BaseEngine):
     ):
         """"""
         self.limit_order_count += 1
-        
-        ts = self.datetime.strftime("%Y%m%d_%H%M")
+
+        orderid = self.new_orderid(self.limit_order_count)
         order = OrderData(
             symbol=self.symbol,
             exchange=self.exchange,
-            orderid=f'{self.vt_symbol}_{ts}_{self.limit_order_count}',
+            orderid=orderid,
             direction=direction,
             offset=offset,
             price=price,
@@ -532,7 +537,7 @@ class TushareEngine(BaseEngine):
         )
         order.datetime = self.datetime
 
-        self.active_limit_orders[order.vt_orderid] = (order, self.strategy.model_id)
+        self.active_limit_orders[order.vt_orderid] = (order, self.strategy.vt_modelid)
 
         return order.vt_orderid
 

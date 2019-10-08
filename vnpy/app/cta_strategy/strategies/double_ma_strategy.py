@@ -13,10 +13,10 @@ from vnpy.app.cta_strategy.base_strategy import BaseStrategy
 
 
 class DoubleMaStrategy(BaseStrategy):
-    model_id = "m1_DoubleMA_UNK_v1.0"
+    model_id = "m1_DoubleMA_v1.0"
 
-    fast_window = 10
-    slow_window = 20
+    fast_window = 50
+    slow_window = 60
 
     fast_ma0 = 0.0
     fast_ma1 = 0.0
@@ -24,8 +24,10 @@ class DoubleMaStrategy(BaseStrategy):
     slow_ma0 = 0.0
     slow_ma1 = 0.0
 
-    parameters = ["fast_window", "slow_window"]
-    variables = ["fast_ma0", "fast_ma1", "slow_ma0", "slow_ma1"]
+    parameters = list(BaseStrategy.parameters)
+    parameters.extend(["fast_window", "slow_window"])
+    variables = list(BaseStrategy.variables)
+    variables.extend(['fast_ma0', 'fast_ma1', 'slow_ma0', 'slow_ma1'])
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
         """"""
@@ -47,16 +49,13 @@ class DoubleMaStrategy(BaseStrategy):
         Callback of new bar data update.
         """
         super(DoubleMaStrategy, self).on_bar(bar)
+        
+        self.cancel_all()
 
         am = self.am
         am.update_bar(bar)
         if not am.inited:
             return
-
-        if self.timestamp > bar.datetime.timestamp():
-            self.pos = 0
-            return
-        self.timestamp = bar.datetime.timestamp()
 
         fast_ma = am.sma(self.fast_window, array=True)
         self.fast_ma0 = fast_ma[-1]
@@ -71,16 +70,16 @@ class DoubleMaStrategy(BaseStrategy):
 
         if cross_over:
             if self.pos == 0:
-                self.buy(bar.close_price, self.fixed_size)
+                self.buy(bar.close_price, self.volume)
             elif self.pos < 0:
-                self.cover(bar.close_price, self.fixed_size)
-                self.buy(bar.close_price, self.fixed_size)
+                self.cover(bar.close_price, abs(self.pos))
+                self.buy(bar.close_price, self.volume)
 
         elif cross_below:
             if self.pos == 0:
-                self.short(bar.close_price, self.fixed_size)
+                self.short(bar.close_price, self.volume)
             elif self.pos > 0:
-                self.sell(bar.close_price, self.fixed_size)
-                self.short(bar.close_price, self.fixed_size)
+                self.sell(bar.close_price, abs(self.pos))
+                self.short(bar.close_price, self.volume)
 
         self.put_event()

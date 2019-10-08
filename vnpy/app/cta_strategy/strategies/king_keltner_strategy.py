@@ -29,8 +29,10 @@ class KingKeltnerStrategy(BaseStrategy):
     short_vt_orderids = []
     vt_orderids = []
 
-    parameters = ['kk_length', 'kk_dev', 'fixed_size']
-    variables = ['kk_up', 'kk_down', 'timestamp']
+    parameters = list(BaseStrategy.parameters)
+    parameters.extend(['kk_length', 'kk_dev'])
+    variables = list(BaseStrategy.variables)
+    variables.extend(['kk_up', 'kk_down'])
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
         """"""
@@ -65,17 +67,12 @@ class KingKeltnerStrategy(BaseStrategy):
         if not am.inited:
             return
 
-        if self.timestamp > bar.datetime.timestamp():
-            self.pos = 0
-            return
-        self.timestamp = bar.datetime.timestamp()
-
         self.kk_up, self.kk_down = am.keltner(self.kk_length, self.kk_dev)
 
         if self.pos == 0:
             self.intra_trade_high = bar.high_price
             self.intra_trade_low = bar.low_price
-            self.send_oco_order(self.kk_up, self.kk_down, self.fixed_size)
+            self.send_oco_order(self.kk_up, self.kk_down, self.volume)
 
         elif self.pos > 0:
             self.intra_trade_high = max(self.intra_trade_high, bar.high_price)

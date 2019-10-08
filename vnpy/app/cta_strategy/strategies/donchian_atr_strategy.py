@@ -25,13 +25,13 @@ class DonchianAtrStrategy(BaseAtrStrategy):
     donchian_up = 0
     donchian_down = 0
 
-    parameters = ["atr_length", "atr_ma_length", "donchian_window",
-                  "trailing_percent"]
+    parameters = list(BaseAtrStrategy.parameters)
+    parameters.extend(["donchian_window"])
 
     def on_pos_zero(self, bar: BarData):
         dema_array = talib.DEMA(self.am.close, self.donchian_window)
         self.donchian_up, self.donchian_down = self.am.donchian(self.donchian_window)
         if dema_array[-2] < dema_array[-1] and bar.high_price >= self.donchian_up:
-            self.buy(bar.close_price, self.fixed_size)
+            self.buy(bar.close_price, self.volume)
         elif dema_array[-2] > dema_array[-1] and bar.low_price <= self.donchian_down:
-            self.short(bar.close_price, self.fixed_size)
+            self.short(bar.close_price, self.volume)

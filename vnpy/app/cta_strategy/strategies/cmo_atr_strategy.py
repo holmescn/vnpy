@@ -26,15 +26,16 @@ class CmoAtrStrategy(BaseAtrStrategy):
     cmo_buy = 5
     cmo_sell = -5
 
-    parameters = ["atr_length", "atr_ma_length", "cmo_length",
-                  "trailing_percent", "fixed_size"]
-    variables = ["atr_value", "atr_ma", "cmo_value", "cmo_buy", "cmo_sell", "timestamp"]
+    parameters = list(BaseAtrStrategy.parameters)
+    parameters.extend(["cmo_length"])
+    variables = list(BaseAtrStrategy.variables)
+    variables.extend(["cmo_value", "cmo_buy", "cmo_sell"])
 
     def on_pos_zero(self, bar: BarData):
         cmo_array = talib.CMO(self.am.close, self.cmo_length)
         self.cmo_value = cmo_array[-1]
         if self.atr_value > self.atr_ma:
             if self.cmo_value > self.cmo_buy and cmo_array[-1] > cmo_array[-2]:
-                self.buy(bar.close_price, self.fixed_size)
+                self.buy(bar.close_price, self.volume)
             elif self.cmo_value < self.cmo_buy and cmo_array[-1] < cmo_array[-2]:
-                self.short(bar.close_price, self.fixed_size)
+                self.short(bar.close_price, self.volume)

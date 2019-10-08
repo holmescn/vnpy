@@ -34,8 +34,10 @@ class DualThrustStrategy(BaseStrategy):
     long_entered = False
     short_entered = False
 
-    parameters = ["k1", "k2", "fixed_size"]
-    variables = ["range", "long_entry", "short_entry", 'timestamp']
+    parameters = list(BaseStrategy.parameters)
+    parameters.extend(["k1", "k2"])
+    variables = list(BaseStrategy.variables)
+    variables.extend(["range", "long_entry", "short_entry"])
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
         """"""
@@ -67,10 +69,6 @@ class DualThrustStrategy(BaseStrategy):
             self.bars.pop(0)
         last_bar = self.bars[-2]
 
-        if self.timestamp > bar.datetime.timestamp():
-            return
-        self.timestamp = bar.datetime.timestamp()
-
         if last_bar.datetime.date() != bar.datetime.date():
             if self.day_high:
                 self.range = self.day_high - self.day_low
@@ -94,27 +92,26 @@ class DualThrustStrategy(BaseStrategy):
             if self.pos == 0:
                 if bar.close_price > self.day_open:
                     if not self.long_entered:
-                        self.buy(self.long_entry, self.fixed_size, stop=True)
+                        self.buy(self.long_entry, self.volume, stop=True)
                 else:
                     if not self.short_entered:
-                        self.short(self.short_entry,
-                                   self.fixed_size, stop=True)
+                        self.short(self.short_entry, self.volume, stop=True)
 
             elif self.pos > 0:
                 self.long_entered = True
 
-                self.sell(self.short_entry, self.fixed_size, stop=True)
+                self.sell(self.short_entry, self.pos, stop=True)
 
                 if not self.short_entered:
-                    self.short(self.short_entry, self.fixed_size, stop=True)
+                    self.short(self.short_entry, self.pos, stop=True)
 
             elif self.pos < 0:
                 self.short_entered = True
 
-                self.cover(self.long_entry, self.fixed_size, stop=True)
+                self.cover(self.long_entry, abs(self.pos), stop=True)
 
                 if not self.long_entered:
-                    self.buy(self.long_entry, self.fixed_size, stop=True)
+                    self.buy(self.long_entry, abs(self.pos), stop=True)
 
         else:
             if self.pos > 0:

@@ -26,13 +26,13 @@ class DemaAtrStrategy(BaseAtrStrategy):
     cmo_buy = 5
     cmo_sell = -5
 
-    parameters = ["atr_length", "atr_ma_length", "dema_length",
-                  "trailing_percent"]
+    parameters = list(BaseAtrStrategy.parameters)
+    parameters.extend(["dema_length"])
 
     def on_pos_zero(self, bar: BarData):
         dema_array = talib.DEMA(self.am.close, self.dema_length)
         if self.atr_value > self.atr_ma:
             if dema_array[-3] > dema_array[-2] < dema_array[-1]:
-                self.buy(bar.close_price, self.fixed_size)
+                self.buy(bar.close_price, self.volume)
             elif dema_array[-3] < dema_array[-2] > dema_array[-1]:
-                self.short(bar.close_price, self.fixed_size)
+                self.short(bar.close_price, self.volume)

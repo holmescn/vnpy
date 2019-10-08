@@ -530,7 +530,7 @@ class OkexfRestApi(RestClient):
         buf = {}
         end_time = None
 
-        for i in range(10):
+        for _ in range(10):
             path = f"/api/futures/v3/instruments/{req.symbol}/candles"
 
             # Create query params
@@ -583,6 +583,7 @@ class OkexfRestApi(RestClient):
 
                 # Update start time
                 end_time = begin
+                time.sleep(1.0)
 
         index = list(buf.keys())
         index.sort()

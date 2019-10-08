@@ -10,21 +10,18 @@ from vnpy.app.cta_strategy import (
     ArrayManager
 )
 from vnpy.trader.object import Offset, Direction, Status
-from vnpy.app.cta_strategy.base_strategy import BaseAtrStrategy
+from vnpy.app.cta_strategy.base_strategy import BaseStrategy
 
 
-class MacdStrategy(BaseAtrStrategy):
+class MacdStrategy(BaseStrategy):
     """MACD Strategy"""
-    author = "用Python的交易员"
     model_id = "m1_MACD_v1.0"
 
     fast_period = 12
     slow_period = 26
     signal_period = 9
-    fixed_size = 1
 
     parameters = ["fast_period", "slow_period", "signal_period"]
-    variables = []
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
         """"""
@@ -62,17 +59,10 @@ class MacdStrategy(BaseAtrStrategy):
 
         price = bar.close_price
         if self.pos == 0:
-            size = self.fixed_size
             if macd_array[-2] < signal_array[-2] and macd_array[-1] > signal_array[-1]:
-                if not self.reverse:
-                    self.buy(price, size)
-                else:
-                    self.short(price, size)
+                self.buy(price, self.volume)
             elif macd_array[-2] > signal_array[-2] and macd_array[-1] < signal_array[-1]:
-                if not self.reverse:
-                    self.short(price, size)
-                else:
-                    self.buy(price, size)
+                self.short(price, self.volume)
 
         elif self.pos > 0:
             cond1 = not self.reverse and macd_array[-2] > signal_array[-2] and macd_array[-1] < signal_array[-1]
