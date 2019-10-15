@@ -14,6 +14,7 @@ from vnpy.app.cta_backtester import CtaBacktesterApp, BacktesterEngine
 from vnpy.app.cta_strategy.base import EVENT_CTA_LOG
 from vnpy.gateway.tushare import TushareGateway
 from vnpy.trader.event import EVENT_TIMER
+from vnpy.trader.utility import load_json
 
 
 SETTINGS["log.active"] = True
@@ -36,9 +37,7 @@ def main():
     event_engine.register(EVENT_CTA_LOG, log_engine.process_log_event)
     main_engine.write_log("注册日志事件监听")
 
-    with open(os.path.abspath('./.vntrader/connect_tushare.json'), 'r', encoding='utf-8') as f:
-        connect_setting = json.load(f)
-
+    connect_setting = load_json('connect_tushare.json')
     main_engine.connect(connect_setting, "TUSHARE")
     main_engine.write_log("连接 TUSHARE 接口")
 
@@ -46,14 +45,21 @@ def main():
     main_engine.write_log("CTA回测引擎初始化完成")
 
     vt_symbols = [
-        'BTCUSDT.OKEX', 'BTCUSDK.OKEX',
-        'BCHUSDT.OKEX', 'BCHUSDK.OKEX',
-        'LTCUSDT.OKEX', 'LTCUSDK.OKEX',
-        'ETHUSDT.OKEX', 'ETHUSDK.OKEX',
-        'EOSUSDT.OKEX', 'EOSUSDK.OKEX',
+        'BTCUSDT.OKEX',
+        'BCHUSDT.OKEX',
+        'BSVUSDT.OKEX',
+        'LTCUSDT.OKEX',
+        'ETHUSDT.OKEX',
+        'ETCUSDT.OKEX',
+        'EOSUSDT.OKEX',
+        'XRPUSDT.OKEX',
+        'OKBUSDT.OKEX',
+        'TRXUSDT.OKEX',
+        'DASHUSDT.OKEX',
+        'NEOUSDT.OKEX',
     ]
     for vt_symbol in vt_symbols:
-        bt_engine.run_downloading(vt_symbol, '1m', datetime(2019, 8, 1, 0, 0), datetime.today())
+        bt_engine.run_downloading(vt_symbol, '1m', datetime(2019, 9, 1, 0, 0), datetime.now())
 
 
 if __name__ == "__main__":

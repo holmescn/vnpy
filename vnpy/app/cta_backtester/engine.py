@@ -362,7 +362,10 @@ class BacktesterEngine(BaseEngine):
                 )
             # Otherwise use RQData to query data
             else:
-                data = rqdata_client.query_history(req)
+                # data = rqdata_client.query_history(req)
+                data = self.main_engine.query_history(
+                    req, 'TUSHARE'
+                )
 
             if data:
                 database_manager.save_bar_data(data)

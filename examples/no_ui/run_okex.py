@@ -13,6 +13,7 @@ from vnpy.trader.engine import MainEngine
 
 from vnpy.trader.utility import load_json
 from vnpy.gateway.okex import OkexGateway
+from vnpy.gateway.okex.okex_gateway import OkexWebsocketApi
 from vnpy.app.cta_strategy import CtaStrategyApp
 from vnpy.app.cta_strategy.base import EVENT_CTA_LOG
 from vnpy.trader.object import (
@@ -24,6 +25,7 @@ from vnpy.trader.object import (
     TickData,
     OrderData,
     TradeData,
+    SubscribeRequest,
     OrderRequest,
     CancelRequest,
     HistoryRequest,
@@ -33,12 +35,39 @@ from vnpy.trader.object import (
 SETTINGS["log.active"] = True
 SETTINGS["log.level"] = INFO
 SETTINGS["log.console"] = True
-SETTINGS["database.database"] = "D:\\database-0.sqlite"
+
+
+class CustomOkexWebsocketApi(OkexWebsocketApi):
+
+    def __init__(self, gateway):
+        super(CustomOkexWebsocketApi, self).__init__(gateway)
+        self.subscribe_reqs = set()
+        self.do_subscribe = False
+
+    def subscribe(self, req: SubscribeRequest):
+        super(CustomOkexWebsocketApi, self).subscribe(req)
+        self.subscribe_reqs.add(req)
+
+    def on_login(self, data: dict):
+        super(CustomOkexWebsocketApi, self).on_login(data)
+        if self.do_subscribe:
+            for req in self.do_subscribe:
+                self.subscribe(req)
+
+        self.do_subscribe = False
+
+    def on_disconnected(self):
+        """"""
+        super(CustomOkexWebsocketApi, self).on_disconnected()
+        self.do_subscribe = True
+
 
 class FakeOkexGateway(OkexGateway):
 
     def __init__(self, event_engine):
         super(FakeOkexGateway, self).__init__(event_engine)
+        self.ws_api = CustomOkexWebsocketApi(self)
+
         self._orders = dict()
         self.datetime = datetime.now()
         self.queried_histories = dict()
@@ -145,6 +174,10 @@ class FakeOkexGateway(OkexGateway):
             history_data = super(FakeOkexGateway, self).query_history(req)
             self.queried_histories[req.vt_symbol] = history_data
         return self.queried_histories[req.vt_symbol]
+
+    def subscribe(self, req: SubscribeRequest):
+        """"""
+        self.ws_api.subscribe(req)
 
 
 def main():

@@ -52,15 +52,7 @@ CONTRACT_INFO = {
         'tickSize': 0.01,
         "lotSize": 1,
     },
-    'future_okex/btc_usdk': {
-        'tickSize': 0.01,
-        "lotSize": 1,
-    },
     'future_okex/bch_usdt': {
-        'tickSize': 0.01,
-        "lotSize": 1,
-    },
-    'future_okex/bch_usdk': {
         'tickSize': 0.01,
         "lotSize": 1,
     },
@@ -68,23 +60,11 @@ CONTRACT_INFO = {
         'tickSize': 0.001,
         "lotSize": 1,
     },
-    'future_okex/ltc_usdk': {
-        'tickSize': 0.001,
-        "lotSize": 1,
-    },
     'future_okex/eth_usdt': {
         'tickSize': 0.001,
         "lotSize": 1,
     },
-    'future_okex/eth_usdk': {
-        'tickSize': 0.001,
-        "lotSize": 1,
-    },
     'future_okex/eos_usdt': {
-        'tickSize': 0.001,
-        "lotSize": 1,
-    },
-    'future_okex/eos_usdk': {
         'tickSize': 0.001,
         "lotSize": 1,
     },
@@ -354,20 +334,22 @@ class TushareGateway(BaseGateway):
         history = []
         while True:
             df = self.ts_api.coin_mins(
-                exchange='future_%s' % req.exchange.value.lower(),
+                # exchange='future_%s' % req.exchange.value.lower(),
+                exchange=req.exchange.value.lower(),
                 symbol=req.symbol.lower(),
                 trade_date=trade_date.strftime('%Y%m%d'),
                 freq=INTERVAL_VT2TS[req.interval],
-                fields='date,open,high,low,close,vol,contract_type')
+                # fields='date,open,high,low,close,vol,contract_type')
+                fields='date,open,high,low,close,vol')
 
             # Break if total data count less than 750 (latest date collected)
             if len(df) == 0:
                 break
 
-            if req.exchange == Exchange.OKEX:
-                df = df[df.contract_type == 'this_week']
-            elif req.exchange == Exchange.BITMEX:
-                df = df[df.contract_type == 'monthly']
+            # if req.exchange == Exchange.OKEX:
+            #     df = df[df.contract_type == 'this_week']
+            # elif req.exchange == Exchange.BITMEX:
+            #     df = df[df.contract_type == 'monthly']
 
             begin, end = None, None
             for _, row in df.iterrows():
