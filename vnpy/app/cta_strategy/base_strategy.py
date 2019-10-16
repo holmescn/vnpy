@@ -32,7 +32,7 @@ class BaseStrategy(CtaTemplate):
         super(BaseStrategy, self).__init__(
             cta_engine, strategy_name, vt_symbol, setting
         )
-        self.enable_submit_trade_data = SETTINGS.get('submit_trade_data.enable', False)
+        self.submit_trade_data_enabled = SETTINGS.get('submit_trade_data.enable', False)
         self.percent = setting.get('percent', 0.5)
         self.reverse = setting.get('reverse', False)
         self._model_id = '{}_{}{}'.format(self.vt_symbol, self.model_id, '_rev' if self.reverse else '')
@@ -116,10 +116,10 @@ class BaseStrategy(CtaTemplate):
             self.buy_trade_list = [t for t in self.buy_trade_list if t['volume'] > 0]
             self.sell_trade_list = [t for t in self.sell_trade_list if t['volume'] > 0]
 
-            with open(f'tradedata/{self._model_id}.pkl', 'wb') as f:
-                pickle.dump(self.trade_records, f)
+            # with open(f'tradedata/{self._model_id}.pkl', 'wb') as f:
+            #     pickle.dump(self.trade_records, f)
 
-        if self.enable_submit_trade_data:
+        if self.submit_trade_data_enabled:
             submit_trade_data(send_list)
 
     def print_order(self, order):
@@ -136,7 +136,6 @@ class BaseStrategy(CtaTemplate):
         """
         Callback when strategy is inited.
         """
-        self.write_log("策略初始化")
         self.load_bar(2)
 
     def on_start(self):

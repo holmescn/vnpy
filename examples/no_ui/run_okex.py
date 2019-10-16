@@ -1,8 +1,9 @@
 import os
 import json
+import traceback
 from random import randint
 from time import sleep
-from datetime import datetime, time
+from datetime import datetime, time, timedelta
 from logging import INFO
 from copy import copy
 from dateutil.relativedelta import relativedelta
@@ -42,24 +43,24 @@ class CustomOkexWebsocketApi(OkexWebsocketApi):
     def __init__(self, gateway):
         super(CustomOkexWebsocketApi, self).__init__(gateway)
         self.subscribe_reqs = set()
-        self.do_subscribe = False
+        self.re_subscribe = False
 
     def subscribe(self, req: SubscribeRequest):
         super(CustomOkexWebsocketApi, self).subscribe(req)
-        self.subscribe_reqs.add(req)
+        self.subscribe_reqs.add((req.symbol, req.exchange))
 
     def on_login(self, data: dict):
         super(CustomOkexWebsocketApi, self).on_login(data)
-        if self.do_subscribe:
-            for req in self.do_subscribe:
-                self.subscribe(req)
+        if self.re_subscribe:
+            for (sym, ex) in self.subscribe_reqs:
+                self.subscribe(SubscribeRequest(symbol=sym, exchange=ex))
 
-        self.do_subscribe = False
+        self.re_subscribe = False
 
     def on_disconnected(self):
         """"""
         super(CustomOkexWebsocketApi, self).on_disconnected()
-        self.do_subscribe = True
+        self.re_subscribe = True
 
 
 class FakeOkexGateway(OkexGateway):
@@ -118,13 +119,13 @@ class FakeOkexGateway(OkexGateway):
             if o.type == OrderType.LIMIT:
                 long_cross = (
                     limit_long_cross_price > 0
-                    and o.direction == Direction.LONG 
-                    and o.price >= limit_long_cross_price 
+                    and o.direction == Direction.LONG
+                    and o.price >= limit_long_cross_price
                 )
                 short_cross = (
                     limit_short_cross_price > 0
-                    and o.price <= limit_short_cross_price 
-                    and o.direction == Direction.SHORT 
+                    and o.price <= limit_short_cross_price
+                    and o.direction == Direction.SHORT
                 )
                 if long_cross or short_cross:
                     self.sim_deal(orderid, o, tick, o.volume)
@@ -132,12 +133,12 @@ class FakeOkexGateway(OkexGateway):
             elif o.type == OrderType.STOP:
                 long_cross = (
                     tick.last_price > 0
-                    and o.direction == Direction.LONG 
+                    and o.direction == Direction.LONG
                     and o.price <= tick.last_price
                 )
                 short_cross = (
                     tick.last_price > 0
-                    and o.direction == Direction.SHORT 
+                    and o.direction == Direction.SHORT
                     and o.price >= tick.last_price
                 )
                 if long_cross or short_cross:
@@ -175,10 +176,6 @@ class FakeOkexGateway(OkexGateway):
             self.queried_histories[req.vt_symbol] = history_data
         return self.queried_histories[req.vt_symbol]
 
-    def subscribe(self, req: SubscribeRequest):
-        """"""
-        self.ws_api.subscribe(req)
-
 
 def main():
     SETTINGS["log.file"] = True
@@ -197,19 +194,20 @@ def main():
     main_engine.connect(connect_setting, "OKEX")
     main_engine.write_log("连接 OKEx 接口")
 
-    sleep(10)
+    sleep(5)
 
     cta_engine.init_engine()
     main_engine.write_log("CTA策略初始化完成")
 
     cta_engine.init_all_strategies()
-    # Leave enough time to complete strategy initialization
-    all_initialized = False
-    while not all_initialized:
-        all_initialized = True
-        for s in cta_engine.strategies.values():
-            if not s.inited:
-                all_initialized = False
+    n_initialized = 0
+    while n_initialized < len(cta_engine.strategies):
+        sleep(10.0)
+        n_initialized = cta_engine.n_inited.value
+        main_engine.write_log("{}/{} initialized".format(
+            n_initialized,
+            len(cta_engine.strategies)
+        ))
     main_engine.write_log("CTA策略全部初始化")
 
     cta_engine.start_all_strategies()

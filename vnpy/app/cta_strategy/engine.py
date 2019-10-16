@@ -35,7 +35,7 @@ from vnpy.trader.constant import (
     Offset,
     Status
 )
-from vnpy.trader.utility import load_json, save_json, extract_vt_symbol, round_to
+from vnpy.trader.utility import load_json, save_json, extract_vt_symbol, round_to, Counter
 from vnpy.trader.database import database_manager
 from vnpy.trader.rqdata import rqdata_client
 from vnpy.trader.converter import OffsetConverter
@@ -91,7 +91,7 @@ class CtaEngine(BaseEngine):
         self.stop_order_count = 0   # for generating stop_orderid
         self.stop_orders = {}       # stop_orderid: stop_order
 
-        self.init_executor = ThreadPoolExecutor(max_workers=3)
+        self.init_executor = ThreadPoolExecutor(max_workers=2)
 
         self.rq_client = None
         self.rq_symbols = set()
@@ -99,6 +99,8 @@ class CtaEngine(BaseEngine):
         self.vt_tradeids = set()    # for filtering duplicate trade
 
         self.offset_converter = OffsetConverter(self.main_engine)
+
+        self.n_inited = Counter()
 
     def init_engine(self):
         """
@@ -628,13 +630,11 @@ class CtaEngine(BaseEngine):
         """
         strategy = self.strategies[strategy_name]
 
-        print(datetime.now(), strategy_name, strategy.vt_symbol)
-
         if strategy.inited:
             self.write_log(f"{strategy_name}已经完成初始化，禁止重复操作")
             return
 
-        self.write_log(f"{strategy_name}开始执行初始化")
+        self.write_log(f"{strategy_name} 开始执行初始化")
 
         # Call on_init function of strategy
         self.call_strategy_func(strategy, strategy.on_init)
@@ -650,8 +650,7 @@ class CtaEngine(BaseEngine):
         # Subscribe market data
         contract = self.main_engine.get_contract(strategy.vt_symbol)
         if contract:
-            req = SubscribeRequest(
-                symbol=contract.symbol, exchange=contract.exchange)
+            req = SubscribeRequest(symbol=contract.symbol, exchange=contract.exchange)
             self.main_engine.subscribe(req, contract.gateway_name)
         else:
             self.write_log(f"行情订阅失败，找不到合约{strategy.vt_symbol}", strategy)
@@ -659,7 +658,8 @@ class CtaEngine(BaseEngine):
         # Put event to update init completed status.
         strategy.inited = True
         self.put_strategy_event(strategy)
-        self.write_log(f"{strategy_name}初始化完成")
+        self.write_log(f"{strategy_name} 初始化完成")
+        self.n_inited.incr()
 
     def start_strategy(self, strategy_name: str):
         """

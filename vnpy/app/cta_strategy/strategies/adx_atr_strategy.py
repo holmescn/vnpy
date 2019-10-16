@@ -15,10 +15,10 @@ class AdxAtrStrategy(BaseAtrStrategy):
     """ADX/ATR Strategy"""
     model_id = "m1_ADX_ATR_v1.0"
 
-    adx_length = 14
-    atr_length = 22
-    atr_ma_length = 10
-    trailing_percent = 0.9
+    adx_length = 21
+    atr_length = 37
+    atr_ma_length = 46
+    trailing_percent = 0.3
 
     adx_value = 0
 

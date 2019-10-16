@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 from typing import Callable
 from decimal import Decimal
+from threading import Lock
 
 import numpy as np
 import talib
@@ -461,3 +462,23 @@ def virtual(func: "callable"):
     that can be (re)implemented by subclasses.
     """
     return func
+
+
+class Counter(object):
+
+    def __init__(self, initial_value=0):
+        self._val = initial_value
+        self._lock = Lock()
+    
+    def incr(self, v=1):
+        with self._lock:
+            self._val += v
+    
+    def decr(self, v=1):
+        with self._lock:
+            self._val += v
+
+    @property
+    def value(self):
+        with self._lock:
+            return self._val

@@ -474,7 +474,7 @@ class OkexRestApi(RestClient):
         buf = {}
         end_time = None
 
-        for i in range(10):
+        for _ in range(10):
             path = f"/api/spot/v3/instruments/{req.symbol}/candles"
 
             # Create query params
@@ -495,6 +495,7 @@ class OkexRestApi(RestClient):
                 path,
                 params=params
             )
+            time.sleep(0.5)
 
             # Break if request failed with other status code
             if resp.status_code // 100 != 2:
