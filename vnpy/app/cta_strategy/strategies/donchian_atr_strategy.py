@@ -17,10 +17,10 @@ class DonchianAtrStrategy(BaseAtrStrategy):
     """Donchian/ATR Strategy"""
     model_id = "m1_Donchian_ATR_v1.0"
 
-    donchian_window = 5
-    atr_length = 22
-    atr_ma_length = 10
-    trailing_percent = 0.9
+    donchian_window = 6
+    atr_length = 23
+    atr_ma_length = 14
+    trailing_percent = 0.1
 
     donchian_up = 0
     donchian_down = 0

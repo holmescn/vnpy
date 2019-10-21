@@ -17,8 +17,8 @@ class DualThrustStrategy(BaseStrategy):
     """Duel Thrust Strategy"""
     model_id = "m1_DualThrust_UNK_v1.0"
 
-    k1 = 0.4
-    k2 = 0.6
+    k1 = 0.6
+    k2 = 0.7
 
     bars = []
 

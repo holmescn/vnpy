@@ -16,11 +16,11 @@ class BollAtrStrategy(BaseAtrStrategy):
     """BOLL/ATR Strategy"""
     model_id = "m1_BOLL_ATR_v1.0"
 
-    boll_window = 18
-    boll_dev = 3.4
-    atr_length = 22
+    boll_window = 20
+    boll_dev = 3
+    atr_length = 20
     atr_ma_length = 10
-    trailing_percent = 0.9
+    trailing_percent = 0.6
 
     parameters = list(BaseAtrStrategy.parameters)
     parameters.extend(["boll_window", "boll_dev"])

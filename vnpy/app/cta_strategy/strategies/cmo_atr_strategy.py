@@ -17,10 +17,10 @@ class CmoAtrStrategy(BaseAtrStrategy):
     """CMO/ATR Strategy"""
     model_id = "m1_CMO_ATR_v1.0"
 
-    cmo_length = 20
-    atr_length = 22
-    atr_ma_length = 10
-    trailing_percent = 0.9
+    cmo_length = 9
+    atr_length = 24
+    atr_ma_length = 17
+    trailing_percent = 1.1
 
     cmo_value = 0
     cmo_buy = 5

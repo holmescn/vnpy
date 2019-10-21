@@ -17,10 +17,10 @@ class KamaAtrStrategy(BaseAtrStrategy):
     """KAMA/ATR Strategy"""
     model_id = "m1_KAMA_ATR_v1.0"
 
-    kama_length = 15
-    atr_length = 22
-    atr_ma_length = 10
-    trailing_percent = 0.9
+    kama_length = 12
+    atr_length = 23
+    atr_ma_length = 22
+    trailing_percent = 1.2
 
     parameters = list(BaseAtrStrategy.parameters)
     parameters.extend(["kama_length"])

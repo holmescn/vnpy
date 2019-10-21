@@ -17,9 +17,9 @@ class HtAtrStrategy(BaseAtrStrategy):
     """HT Trendline/ATR Strategy"""
     model_id = "m1_HT_ATR_v1.0"
 
-    atr_length = 22
-    atr_ma_length = 10
-    trailing_percent = 0.9
+    atr_length = 7
+    atr_ma_length = 30
+    trailing_percent = 1.4
 
     def on_pos_zero(self, bar: BarData):
         ht_array = talib.HT_TRENDLINE(self.am.close)

@@ -17,10 +17,10 @@ class DemaAtrStrategy(BaseAtrStrategy):
     """DEMA/ATR Strategy"""
     model_id = "m1_DEMA_ATR_v1.0"
 
-    dema_length = 15
-    atr_length = 22
-    atr_ma_length = 10
-    trailing_percent = 0.9
+    dema_length = 20
+    atr_length = 29
+    atr_ma_length = 30
+    trailing_percent = 1.2
 
     cmo_value = 0
     cmo_buy = 5

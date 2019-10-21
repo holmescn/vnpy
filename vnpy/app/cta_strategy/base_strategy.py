@@ -24,7 +24,7 @@ class BaseStrategy(CtaTemplate):
 
     model_id = ''
 
-    parameters = ['percent']
+    parameters = []
     variables = ["buy_trade_list", "sell_trade_list"]
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
@@ -51,7 +51,7 @@ class BaseStrategy(CtaTemplate):
     @property
     def volume(self):
         if self.bar:
-            vol = 200_000 * self.percent / self.bar.close_price
+            vol = 200_000 / self.bar.close_price
             vol = min(max(self.bar.volume, self.avg_vol), vol)
             if vol > 5000:
                 vol = round(vol / 1000, 1) * 1000
@@ -206,10 +206,12 @@ class BaseAtrStrategy(BaseStrategy):
     variables.extend(["atr_value", "atr_ma"])
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
-        """"""
         super(BaseAtrStrategy, self).__init__(
             cta_engine, strategy_name, vt_symbol, setting
         )
+        self._atr_length = self.atr_length
+        self._atr_ma_length = self.atr_ma_length
+        self._trailing_percent = self.trailing_percent
         self.bg = BarGenerator(self.on_bar)
         self.am = ArrayManager()
 
@@ -231,9 +233,9 @@ class BaseAtrStrategy(BaseStrategy):
         if not am.inited:
             return
 
-        atr_array = am.atr(self.atr_length, array=True)
+        atr_array = am.atr(self._atr_length, array=True)
         self.atr_value = atr_array[-1]
-        self.atr_ma = atr_array[-self.atr_ma_length:].mean()
+        self.atr_ma = atr_array[-self._atr_ma_length:].mean()
 
         if self.pos == 0:
             self.intra_trade_high = bar.high_price
@@ -244,14 +246,14 @@ class BaseAtrStrategy(BaseStrategy):
             self.intra_trade_high = max(self.intra_trade_high, bar.high_price)
             self.intra_trade_low = bar.low_price
 
-            long_stop = self.intra_trade_high * (1 - self.trailing_percent / 100)
+            long_stop = self.intra_trade_high * (1 - self._trailing_percent / 100)
             self.sell(long_stop, abs(self.pos), stop=True)
 
         elif self.pos < 0:
             self.intra_trade_low = min(self.intra_trade_low, bar.low_price)
             self.intra_trade_high = bar.high_price
 
-            short_stop = self.intra_trade_low * (1 + self.trailing_percent / 100)
+            short_stop = self.intra_trade_low * (1 + self._trailing_percent / 100)
             self.cover(short_stop, abs(self.pos), stop=True)
 
         self.put_event()

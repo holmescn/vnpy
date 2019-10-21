@@ -16,10 +16,10 @@ class CciAtrStrategy(BaseAtrStrategy):
     """CCI/ATR Strategy"""
     model_id = "m1_CCI_ATR_v1.0"
 
-    cci_length = 5
-    atr_length = 22
-    atr_ma_length = 10
-    trailing_percent = 0.9
+    cci_length = 20
+    atr_length = 11
+    atr_ma_length = 12
+    trailing_percent = 1.2
 
     cci_value = 0
     cci_buy = 100
