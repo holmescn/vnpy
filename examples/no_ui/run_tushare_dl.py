@@ -20,10 +20,10 @@ from vnpy.trader.utility import load_json
 SETTINGS["log.active"] = True
 SETTINGS["log.level"] = INFO
 SETTINGS["log.console"] = True
-SETTINGS["log.file"] = True
+SETTINGS["log.file"] = False
 
 if sys.platform == 'win32':
-    SETTINGS["database.database"] = "D:\\coin-database.sqlite"
+    SETTINGS["database.database"] = "D:\\tushare-database.sqlite"
 
 
 def main():
@@ -46,15 +46,13 @@ def main():
 
     vt_symbols = [
         'BTCUSDT.OKEX',
+        'BTGUSDT.OKEX',
         'BCHUSDT.OKEX',
         'BSVUSDT.OKEX',
         'LTCUSDT.OKEX',
         'ETHUSDT.OKEX',
         'ETCUSDT.OKEX',
         'EOSUSDT.OKEX',
-        'XRPUSDT.OKEX',
-        'OKBUSDT.OKEX',
-        'TRXUSDT.OKEX',
         'DASHUSDT.OKEX',
         'NEOUSDT.OKEX',
     ]

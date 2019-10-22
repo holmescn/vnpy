@@ -32,10 +32,9 @@ class BaseStrategy(CtaTemplate):
         super(BaseStrategy, self).__init__(
             cta_engine, strategy_name, vt_symbol, setting
         )
-        self.submit_trade_data_enabled = SETTINGS.get('submit_trade_data.enable', False)
-        self.percent = setting.get('percent', 0.5)
+        self.enable_submit_trade_data = SETTINGS.get('submit_trade_data.enable', False)
         self.reverse = setting.get('reverse', False)
-        self._model_id = '{}_{}{}'.format(self.vt_symbol, self.model_id, '_rev' if self.reverse else '')
+        self.vt_modelid = '{}_{}{}'.format(self.vt_symbol, self.model_id, '_rev' if self.reverse else '')
 
         self.buy_trade_list = []
         self.sell_trade_list = []
@@ -43,10 +42,6 @@ class BaseStrategy(CtaTemplate):
         self.datetime: datetime = None
         self.avg_vol = 0.01
         self.trade_records = []
-
-    @property
-    def vt_modelid(self):
-        return self._model_id
 
     @property
     def volume(self):
@@ -66,7 +61,7 @@ class BaseStrategy(CtaTemplate):
 
     def submit_trade(self, trade: TradeData):
         direction = "buy" if trade.direction == Direction.LONG else 'sell'
-        trade_id = trade.tradeid.replace(trade.vt_symbol, self._model_id)
+        trade_id = trade.tradeid.replace(trade.vt_symbol, self.vt_modelid)
         trade_id = 'DIGIT_' + md5(trade_id.encode('utf-8')).hexdigest()
 
         current_trade = {
@@ -75,7 +70,7 @@ class BaseStrategy(CtaTemplate):
             "direction": direction,
             "instrument_id": trade.symbol.replace('-', ''),
             "instrument_name": trade.vt_symbol,
-            "model_id": self._model_id,
+            "model_id": self.vt_modelid,
             "price": trade.price,
             "trade_id": trade_id,
             "trade_time": self.datetime.strftime("%Y-%m-%d %H:%M:%S"),
@@ -116,38 +111,23 @@ class BaseStrategy(CtaTemplate):
             self.buy_trade_list = [t for t in self.buy_trade_list if t['volume'] > 0]
             self.sell_trade_list = [t for t in self.sell_trade_list if t['volume'] > 0]
 
-            # with open(f'tradedata/{self._model_id}.pkl', 'wb') as f:
+            # with open(f'tradedata/{self.vt_modelid}.pkl', 'wb') as f:
             #     pickle.dump(self.trade_records, f)
 
-        if self.submit_trade_data_enabled:
+        if self.enable_submit_trade_data:
             submit_trade_data(send_list)
-
-    def print_order(self, order):
-        # if order.status in (Status.SUBMITTING, Status.ALLTRADED):
-        #     action = '{} {}'.format(order.offset.value, order.direction.value)
-        #     self.write_log("{} {:.3f} x {}".format(action, order.price, order.volume))
-        pass
 
     def print_trade(self, trade):
         action = '{} {}'.format(trade.offset.value, trade.direction.value)
         self.write_log("成交：{} {:.2f} x {} {}".format(action, trade.price, trade.volume, trade.tradeid))
 
     def on_init(self):
-        """
-        Callback when strategy is inited.
-        """
-        self.load_bar(2)
+        self.load_bar(1)
 
     def on_start(self):
-        """
-        Callback when strategy is started.
-        """
         self.write_log("策略启动")
 
     def on_stop(self):
-        """
-        Callback when strategy is stopped.
-        """
         self.write_log("策略停止")
 
     def on_bar(self, bar: BarData):
@@ -160,18 +140,15 @@ class BaseStrategy(CtaTemplate):
             self.avg_vol = self.avg_vol * 0.5 + bar.volume * 0.5
 
     def on_order(self, order: OrderData):
-        """
-        Callback of new order data update.
-        """
-        self.print_order(order)
+        pass
 
     def on_trade(self, trade: TradeData):
-        """
-        Callback of new trade data update.
-        """
         self.submit_trade(trade)
         self.print_trade(trade)
         self.put_event()
+
+    def on_stop_order(self, stop_order: StopOrder):
+        pass
 
     def buy(self, price: float, volume: float, stop: bool = False, lock: bool = False):
         if volume < 0.01:
@@ -190,57 +167,37 @@ class BaseStrategy(CtaTemplate):
         return super(BaseStrategy, self).short(price, volume, stop, lock)
 
 
-class BaseAtrStrategy(BaseStrategy):
-    atr_length = 22
-    atr_ma_length = 10
-    trailing_percent = 0.9
-
-    atr_value = 0
-    atr_ma = 0
-    intra_trade_high = 0
-    intra_trade_low = 0
-
+class BaseM1Strategy(BaseStrategy):
+    trailing_percent = 0.0
     parameters = list(BaseStrategy.parameters)
-    parameters.extend(["atr_length", "atr_ma_length", "trailing_percent"])
-    variables = list(BaseStrategy.variables)
-    variables.extend(["atr_value", "atr_ma"])
+    parameters.extend(["trailing_percent"])
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
-        super(BaseAtrStrategy, self).__init__(
+        super(BaseM1Strategy, self).__init__(
             cta_engine, strategy_name, vt_symbol, setting
         )
-        self._atr_length = self.atr_length
-        self._atr_ma_length = self.atr_ma_length
         self._trailing_percent = self.trailing_percent
+        self.intra_trade_high = 0
+        self.intra_trade_low = 0
+
         self.bg = BarGenerator(self.on_bar)
         self.am = ArrayManager()
 
     def on_tick(self, tick: TickData):
-        """
-        Callback of new tick data update.
-        """
         self.bg.update_tick(tick)
 
     def on_bar(self, bar: BarData):
-        """
-        Callback of new bar data update.
-        """
-        super(BaseAtrStrategy, self).on_bar(bar)
+        super(BaseM1Strategy, self).on_bar(bar)
         self.cancel_all()
 
-        am = self.am
-        am.update_bar(bar)
-        if not am.inited:
+        self.am.update_bar(bar)
+        if not self.am.inited:
             return
-
-        atr_array = am.atr(self._atr_length, array=True)
-        self.atr_value = atr_array[-1]
-        self.atr_ma = atr_array[-self._atr_ma_length:].mean()
 
         if self.pos == 0:
             self.intra_trade_high = bar.high_price
             self.intra_trade_low = bar.low_price
-            self.on_pos_zero(bar)
+            self.check_entry(bar)
 
         elif self.pos > 0:
             self.intra_trade_high = max(self.intra_trade_high, bar.high_price)
@@ -250,19 +207,13 @@ class BaseAtrStrategy(BaseStrategy):
             self.sell(long_stop, abs(self.pos), stop=True)
 
         elif self.pos < 0:
-            self.intra_trade_low = min(self.intra_trade_low, bar.low_price)
             self.intra_trade_high = bar.high_price
+            self.intra_trade_low = min(self.intra_trade_low, bar.low_price)
 
             short_stop = self.intra_trade_low * (1 + self._trailing_percent / 100)
             self.cover(short_stop, abs(self.pos), stop=True)
 
         self.put_event()
 
-    def on_pos_zero(self, bar: BarData):
-        pass
-
-    def on_stop_order(self, stop_order: StopOrder):
-        """
-        Callback of stop order update.
-        """
+    def check_entry(self, bar: BarData):
         pass

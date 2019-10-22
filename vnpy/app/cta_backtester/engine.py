@@ -368,6 +368,7 @@ class BacktesterEngine(BaseEngine):
                 )
 
             if data:
+                self.write_log(f"{vt_symbol}-{interval} 下载了 {len(data)} 条数据，准备保存到数据库")
                 database_manager.save_bar_data(data)
                 self.write_log(f"{vt_symbol}-{interval}历史数据下载完成")
             else:
