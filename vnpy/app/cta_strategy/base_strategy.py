@@ -114,8 +114,8 @@ class BaseStrategy(CtaTemplate):
             # with open(f'tradedata/{self.vt_modelid}.pkl', 'wb') as f:
             #     pickle.dump(self.trade_records, f)
 
-        if self.enable_submit_trade_data:
-            submit_trade_data(send_list)
+        # if self.enable_submit_trade_data:
+        #     submit_trade_data(send_list)
 
     def print_trade(self, trade):
         action = '{} {}'.format(trade.offset.value, trade.direction.value)

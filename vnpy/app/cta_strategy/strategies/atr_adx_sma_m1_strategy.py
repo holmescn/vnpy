@@ -33,19 +33,61 @@ class AtrAdxSmaM1Strategy(BaseM1Strategy):
             'trailing_percent': 1.1
         },
         'BCHUSDT.OKEX': {
-            'atr_length': 10,
-            'atr_ma_length': 5,
+            'atr_length': 25,
+            'atr_ma_length': 20,
+            'adx_length': 30,
+            'adx_entry_point': 35,
+            'sma_window': 15,
+            'trailing_percent': 9.0
+        },
+        'BSVUSDT.OKEX': {
+            'atr_length': 11,
+            'atr_ma_length': 10,
+            'adx_length': 25,
+            'adx_entry_point': 30,
+            'sma_window': 13,
+            'trailing_percent': 3.0
+        },
+        'ETHUSDT.OKEX': {
+            'atr_length': 4,
+            'atr_ma_length': 6,
+            'adx_length': 28,
+            'adx_entry_point': 28,
+            'sma_window': 28,
+            'trailing_percent': 2
+        },
+        'ETCUSDT.OKEX': {
+            'atr_length': 15,
+            'atr_ma_length': 20,
             'adx_length': 25,
             'adx_entry_point': 25,
-            'sma_window': 20,
-            'trailing_percent': 1.1
+            'sma_window': 10,
+            'trailing_percent': 5.5
         },
-        # 'BSVUSDT.OKEX': {
-        # },
-        # 'ETHUSDT.OKEX': {
-        # },
-        # 'ETCUSDT.OKEX': {
-        # }
+        'EOSUSDT.OKEX': {
+            'atr_length': 15,
+            'atr_ma_length': 5,
+            'adx_length': 5,
+            'adx_entry_point': 22,
+            'sma_window': 10,
+            'trailing_percent': 1.0
+        },
+        'LTCUSDT.OKEX': {
+            'atr_length': 20,
+            'atr_ma_length': 16,
+            'adx_length': 24,
+            'adx_entry_point': 40,
+            'sma_window': 18,
+            'trailing_percent': 5.0
+        },
+        'DASHUSDT.OKEX': {
+            'atr_length': 6,
+            'atr_ma_length': 26,
+            'adx_length': 8,
+            'adx_entry_point': 20,
+            'sma_window': 28,
+            'trailing_percent': 9.0
+        }
     }
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
