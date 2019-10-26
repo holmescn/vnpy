@@ -67,7 +67,7 @@ class TushareEngine(BaseEngine):
     engine_type = EngineType.BACKTESTING
     gateway_name = "TUSHARE"
 
-    setting_filename = "tushare_strategy_setting.json"
+    setting_filename = "cta_strategy_setting.json"
 
     def __init__(self, main_engine: MainEngine, event_engine: EventEngine):
         super(TushareEngine, self).__init__(

@@ -9,9 +9,6 @@ from vnpy.app.cta_strategy.backtesting import BacktestingEngine
 from vnpy.app.cta_strategy.strategies.atr_adx_sma_m1_strategy import (
     AtrAdxSmaM1Strategy,
 )
-# from vnpy.app.cta_strategy.strategies.boll_atr_strategy import (
-#     BollAtrStrategy,
-# )
 # from vnpy.app.cta_strategy.strategies.cci_atr_strategy import (
 #     CciAtrStrategy,
 # )
@@ -49,21 +46,18 @@ from vnpy.app.cta_strategy.strategies.atr_adx_sma_m1_strategy import (
 #     TrimaAtrStrategy,
 # )
 
-# from vnpy.app.cta_strategy.strategies.boll_channel_strategy import (
-#     BollChannelStrategy,
-# )
-# from vnpy.app.cta_strategy.strategies.dual_thrust_strategy import (
-#     DualThrustStrategy,
-# )
-# from vnpy.app.cta_strategy.strategies.king_keltner_strategy import (
-#     KingKeltnerStrategy,
-# )
-# from vnpy.app.cta_strategy.strategies.multi_timeframe_strategy import (
-#     MultiTimeframeStrategy,
-# )
-# from vnpy.app.cta_strategy.strategies.double_ma_strategy import (
-#     DoubleMaStrategy,
-# )
+from vnpy.app.cta_strategy.strategies.boll_channel_cci_strategy import (
+    BollChannelCciStrategy,
+)
+from vnpy.app.cta_strategy.strategies.dual_thrust_strategy import (
+    DualThrustStrategy,
+)
+from vnpy.app.cta_strategy.strategies.king_keltner_strategy import (
+    KingKeltnerStrategy,
+)
+from vnpy.app.cta_strategy.strategies.multi_timeframe_strategy import (
+    MultiTimeframeStrategy,
+)
 
 def make_pair(it, s, reverse):
     key = '{} {}{}'.format(it['vt_symbol'], s.model_id, ' REV' if reverse else '')
@@ -105,17 +99,9 @@ def main():
         'price_tick': 0.001,
     }]
 
-    # 14 * 2 = 28
-    revertable_strategies = [
-        AtrAdxSmaM1Strategy
-        # AdxAtrStrategy, BollAtrStrategy, CciAtrStrategy, CmoAtrStrategy,
-        # DemaAtrStrategy, DonchianAtrStrategy, HtAtrStrategy,
-        # KamaAtrStrategy, KeltnerAtrStrategy, MacdAtrStrategy, RsiAtrStrategy,
-        # SarAtrStrategy, TemaAtrStrategy, TrimaAtrStrategy
-    ]
-
-    # 5
-    other_strategies = [
+    #
+    strategy_classes = [
+        AtrAdxSmaM1Strategy, BollChannelCciStrategy,
         # BollChannelStrategy, DualThrustStrategy,
         # KingKeltnerStrategy, MultiTimeframeStrategy
     ]
@@ -123,14 +109,7 @@ def main():
     settings = dict()
     # (28 + 5) * 8 = 
     for it in instruments:
-        for s in revertable_strategies:
-            k, v = make_pair(it, s, False)
-            settings[k] = v
-
-            # k, v = make_pair(it, s, True)
-            # settings[k] = v
-
-        for s in other_strategies:
+        for s in strategy_classes:
             k, v = make_pair(it, s, False)
             settings[k] = v
 

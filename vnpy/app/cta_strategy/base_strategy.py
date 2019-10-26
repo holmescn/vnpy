@@ -40,13 +40,17 @@ class BaseStrategy(CtaTemplate):
         self.sell_trade_list = []
         self.bar: BarData = None
         self.datetime: datetime = None
-        self.avg_vol = 0.01
+        self.vol_list = []
         self.trade_records = []
+
+    @property
+    def avg_vol(self):
+        return sum(self.vol_list) / len(self.vol_list) if self.vol_list else 0.0
 
     @property
     def volume(self):
         if self.bar:
-            vol = 200_000 / self.bar.close_price
+            vol = 150_000 / self.bar.close_price
             vol = min(max(self.bar.volume, self.avg_vol), vol)
             if vol > 5000:
                 vol = round(vol / 1000, 1) * 1000
@@ -134,10 +138,9 @@ class BaseStrategy(CtaTemplate):
         super(BaseStrategy, self).on_bar(bar)
         self.datetime = bar.datetime
         self.bar = bar
-        if self.avg_vol < 0.1:
-            self.avg_vol = bar.volume
-        elif bar.volume > 0:
-            self.avg_vol = self.avg_vol * 0.5 + bar.volume * 0.5
+        self.vol_list.append(bar.volume)
+        if len(self.vol_list) > 10:
+            self.vol_list = self.vol_list[-10:]
 
     def on_order(self, order: OrderData):
         pass
@@ -152,7 +155,7 @@ class BaseStrategy(CtaTemplate):
 
     def buy(self, price: float, volume: float, stop: bool = False, lock: bool = False):
         if volume < 0.01:
-            return
+            return []
 
         if self.reverse:
             return super(BaseStrategy, self).short(price, volume, stop, lock)
@@ -160,7 +163,7 @@ class BaseStrategy(CtaTemplate):
 
     def short(self, price: float, volume: float, stop: bool = False, lock: bool = False):
         if volume < 0.01:
-            return
+            return []
 
         if self.reverse:
             return super(BaseStrategy, self).buy(price, volume, stop, lock)
@@ -176,7 +179,6 @@ class BaseM1Strategy(BaseStrategy):
         super(BaseM1Strategy, self).__init__(
             cta_engine, strategy_name, vt_symbol, setting
         )
-        self._trailing_percent = self.trailing_percent
         self.intra_trade_high = 0
         self.intra_trade_low = 0
 
@@ -203,14 +205,14 @@ class BaseM1Strategy(BaseStrategy):
             self.intra_trade_high = max(self.intra_trade_high, bar.high_price)
             self.intra_trade_low = bar.low_price
 
-            long_stop = self.intra_trade_high * (1 - self._trailing_percent / 100)
+            long_stop = self.intra_trade_high * (1 - self.trailing_percent / 100)
             self.sell(long_stop, abs(self.pos), stop=True)
 
         elif self.pos < 0:
             self.intra_trade_high = bar.high_price
             self.intra_trade_low = min(self.intra_trade_low, bar.low_price)
 
-            short_stop = self.intra_trade_low * (1 + self._trailing_percent / 100)
+            short_stop = self.intra_trade_low * (1 + self.trailing_percent / 100)
             self.cover(short_stop, abs(self.pos), stop=True)
 
         self.put_event()

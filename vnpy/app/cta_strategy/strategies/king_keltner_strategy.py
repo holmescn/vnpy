@@ -13,32 +13,76 @@ from vnpy.app.cta_strategy.base_strategy import BaseStrategy
 
 
 class KingKeltnerStrategy(BaseStrategy):
-    """King Keltner Strategy"""
-    model_id = "m1_KingKeltner_v1.0"
+    model_id = "m1_02_KingKeltner_v1.0"
 
     kk_length = 11
     kk_dev = 1.6
     trailing_percent = 0.8
 
-    kk_up = 0
-    kk_down = 0
-    intra_trade_high = 0
-    intra_trade_low = 0
-
-    long_vt_orderids = []
-    short_vt_orderids = []
-    vt_orderids = []
-
     parameters = list(BaseStrategy.parameters)
-    parameters.extend(['kk_length', 'kk_dev'])
-    variables = list(BaseStrategy.variables)
-    variables.extend(['kk_up', 'kk_down'])
+    parameters.extend(['kk_length', 'kk_dev', 'trailing_percent'])
+
+    symbol_parameters = {
+        'BTCUSDT.OKEX': {
+            'kk_length': 9,
+            'kk_dev': 0.1,
+            'trailing_percent': 0.2,
+        },
+        'BCHUSDT.OKEX': {
+            'kk_length': 10,
+            'kk_dev': 1.0,
+            'trailing_percent': 0.3,
+        },
+        'BSVUSDT.OKEX': {
+            'kk_length': 16,
+            'kk_dev': 2.9,
+            'trailing_percent': 0.5,
+        },
+        'ETHUSDT.OKEX': {
+            'kk_length': 8,
+            'kk_dev': 0.3,
+            'trailing_percent': 0.2,
+        },
+        'ETCUSDT.OKEX': {
+            'kk_length': 11,
+            'kk_dev': 0.8,
+            'trailing_percent': 0.2,
+        },
+        'EOSUSDT.OKEX': {
+            'kk_length': 13,
+            'kk_dev': 1.4,
+            'trailing_percent': 0.7,
+        },
+        'LTCUSDT.OKEX': {
+            'kk_length': 8.0,
+            'kk_dev': 5.9,
+            'trailing_percent': 4.6,
+        },
+        'DASHUSDT.OKEX': {
+            'kk_length': 19,
+            'kk_dev': 8.5,
+            'trailing_percent': 3.2,
+        }
+    }
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
         """"""
         super(KingKeltnerStrategy, self).__init__(
             cta_engine, strategy_name, vt_symbol, setting
         )
+
+        if vt_symbol in self.symbol_parameters:
+            params = self.symbol_parameters[vt_symbol]
+            self.kk_length = params['kk_length']
+            self.kk_dev = params['kk_dev']
+            self.trailing_percent = params['trailing_percent']
+
+        self.intra_trade_high = 0
+        self.intra_trade_low = 0
+
+        self.long_vt_orderids = []
+        self.short_vt_orderids = []
+        self.vt_orderids = []
 
         self.bg = BarGenerator(self.on_bar, 5, self.on_5min_bar)
         self.am = ArrayManager()
@@ -67,27 +111,25 @@ class KingKeltnerStrategy(BaseStrategy):
         if not am.inited:
             return
 
-        self.kk_up, self.kk_down = am.keltner(self.kk_length, self.kk_dev)
+        kk_up, kk_down = am.keltner(self.kk_length, self.kk_dev)
 
         if self.pos == 0:
             self.intra_trade_high = bar.high_price
             self.intra_trade_low = bar.low_price
-            self.send_oco_order(self.kk_up, self.kk_down, self.volume)
+            self.send_oco_order(kk_up, kk_down, self.volume * 2.5)
 
         elif self.pos > 0:
             self.intra_trade_high = max(self.intra_trade_high, bar.high_price)
             self.intra_trade_low = bar.low_price
 
-            vt_orderids = self.sell(self.intra_trade_high * (1 - self.trailing_percent / 100),
-                                    abs(self.pos), True)
+            vt_orderids = self.sell(self.intra_trade_high * (1 - self.trailing_percent / 100), abs(self.pos), True)
             self.vt_orderids.extend(vt_orderids)
 
         elif self.pos < 0:
             self.intra_trade_high = bar.high_price
             self.intra_trade_low = min(self.intra_trade_low, bar.low_price)
 
-            vt_orderids = self.cover(self.intra_trade_low * (1 + self.trailing_percent / 100),
-                                     abs(self.pos), True)
+            vt_orderids = self.cover(self.intra_trade_low * (1 + self.trailing_percent / 100), abs(self.pos), True)
             self.vt_orderids.extend(vt_orderids)
 
         self.put_event()
@@ -114,7 +156,6 @@ class KingKeltnerStrategy(BaseStrategy):
         self.put_event()
 
     def send_oco_order(self, buy_price, short_price, volume):
-        """"""
         self.long_vt_orderids = self.buy(buy_price, volume, True)
         self.short_vt_orderids = self.short(short_price, volume, True)
 
