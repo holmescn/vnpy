@@ -116,10 +116,10 @@ class DualThrustStrategy(BaseStrategy):
         if self.pos == 0:
             if bar.close_price > self.day_open:
                 if not self.long_entered:
-                    self.buy(self.long_entry, self.volume, stop=True)
+                    self.buy(self.long_entry, self.volume(1.5), stop=True)
             else:
                 if not self.short_entered:
-                    self.short(self.short_entry, self.volume, stop=True)
+                    self.short(self.short_entry, self.volume(1.5), stop=True)
 
         elif self.pos > 0:
             self.long_entered = True

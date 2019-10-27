@@ -29,65 +29,64 @@ class BollChannelCciStrategy(BaseStrategy):
     ])
     symbol_parameters = {
         'BTCUSDT.OKEX': {
-            'boll_window': 27,
+            'atr_window': 15,
             'boll_dev': 5,
-            'cci_window': 14,
-            'atr_window': 6,
-            'sl_multiplier': 15,
+            'boll_window': 35,
+            'cci_window': 30,
+            'sl_multiplier': 3.7
         },
         'BCHUSDT.OKEX': {
-            'boll_window': 20,
+            'atr_window': 5,
             'boll_dev': 5,
+            'boll_window': 35,
             'cci_window': 30,
-            'atr_window': 15,
-            'sl_multiplier': 10
+            'sl_multiplier': 4.8
         },
         'BSVUSDT.OKEX': {
-            'boll_window': 15,
-            'boll_dev': 10,
-            'cci_window': 25,
-            'atr_window': 10,
-            'sl_multiplier': 2.4
+            'atr_window': 30,
+            'boll_dev': 5,
+            'boll_window': 5,
+            'cci_window': 10,
+            'sl_multiplier': 4.1
         },
         'ETHUSDT.OKEX': {
-            'boll_window': 5,
+            'atr_window': 10,
             'boll_dev': 5,
-            'cci_window': 10,
-            'atr_window': 15,
-            'sl_multiplier': 9.8
+            'boll_window': 15,
+            'cci_window': 5,
+            'sl_multiplier': 4.8
         },
         'ETCUSDT.OKEX': {
-            'boll_window': 30,
+            'atr_window': 20,
             'boll_dev': 5,
+            'boll_window': 5,
             'cci_window': 10,
-            'atr_window': 15,
-            'sl_multiplier': 9.4
+            'sl_multiplier': 1.4
         },
         'EOSUSDT.OKEX': {
-            'boll_window': 25,
+            'atr_window': 15,
             'boll_dev': 5,
-            'cci_window': 20,
-            'atr_window': 10,
-            'sl_multiplier': 6
+            'boll_window': 35,
+            'cci_window': 30,
+            'sl_multiplier': 4.5
         },
         'LTCUSDT.OKEX': {
-            'boll_window': 27,
+            'atr_window': 5,
             'boll_dev': 5,
-            'cci_window': 14,
-            'atr_window': 32,
-            'sl_multiplier': 15,
+            'boll_window': 15,
+            'cci_window': 20,
+            'sl_multiplier': 3.7
         },
         'DASHUSDT.OKEX': {
-            'boll_window': 19,
+            'atr_window': 20,
             'boll_dev': 5,
-            'cci_window': 14,
-            'atr_window': 32,
-            'sl_multiplier': 14
+            'boll_window': 30,
+            'cci_window': 15,
+            'sl_multiplier': 0.8
         }
     }
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
-        """"""
         super(BollChannelCciStrategy, self).__init__(
             cta_engine, strategy_name, vt_symbol, setting
         )
@@ -136,9 +135,9 @@ class BollChannelCciStrategy(BaseStrategy):
             self.intra_trade_low = bar.low_price
 
             if cci_value > 0:
-                self.buy(boll_up, self.volume * 7.5, stop=True)
+                self.buy(boll_up, self.volume(7.5), stop=True)
             elif cci_value < 0:
-                self.short(boll_down, self.volume * 7.5, stop=True)
+                self.short(boll_down, self.volume(7.5), stop=True)
 
         elif self.pos > 0:
             self.intra_trade_high = max(self.intra_trade_high, bar.high_price)

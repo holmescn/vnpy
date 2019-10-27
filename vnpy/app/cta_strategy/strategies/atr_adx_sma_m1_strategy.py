@@ -21,72 +21,72 @@ class AtrAdxSmaM1Strategy(BaseM1Strategy):
     sma_window = 25
 
     parameters = list(BaseM1Strategy.parameters)
-    parameters.extend(['atr_length', 'atr_ma_length', 'adx_length', 'adx_entry_point', 'sma_length'])
+    parameters.extend(['atr_length', 'atr_ma_length', 'adx_length', 'adx_entry_point', 'sma_window'])
 
     symbol_parameters = {
         'BTCUSDT.OKEX': {
-            'atr_length': 10,
-            'atr_ma_length': 2,
+            'adx_entry_point': 25,
             'adx_length': 25,
-            'adx_entry_point': 20,
-            'sma_window': 30,
+            'atr_length': 50,
+            'atr_ma_length': 10,
+            'sma_window': 15,
             'trailing_percent': 1
         },
         'BCHUSDT.OKEX': {
-            'atr_length': 10,
-            'atr_ma_length': 7,
-            'adx_length': 20,
-            'adx_entry_point': 40,
-            'sma_window': 15,
-            'trailing_percent': 9.0
+            'adx_entry_point': 15,
+            'adx_length': 25,
+            'atr_length': 60,
+            'atr_ma_length': 15,
+            'sma_window': 5,
+            'trailing_percent': 1
         },
         'BSVUSDT.OKEX': {
-            'atr_length': 35,
-            'atr_ma_length': 8,
-            'adx_length': 40,
-            'adx_entry_point': 30,
-            'sma_window': 30,
-            'trailing_percent': 2
+            'adx_entry_point': 25,
+            'adx_length': 5,
+            'atr_length': 20,
+            'atr_ma_length': 5,
+            'sma_window': 12,
+            'trailing_percent': 0.4
         },
         'ETHUSDT.OKEX': {
-            'atr_length': 15,
-            'atr_ma_length': 6,
+            'adx_entry_point': 25,
             'adx_length': 15,
-            'adx_entry_point': 20,
-            'sma_window': 30,
-            'trailing_percent': 10
+            'atr_length': 45,
+            'atr_ma_length': 5,
+            'sma_window': 7,
+            'trailing_percent': 1
         },
         'ETCUSDT.OKEX': {
+            'adx_entry_point': 20,
+            'adx_length': 5,
             'atr_length': 35,
-            'atr_ma_length': 5,
-            'adx_length': 20,
-            'adx_entry_point': 30,
-            'sma_window': 55,
-            'trailing_percent': 5.0
+            'atr_ma_length': 30,
+            'sma_window': 15,
+            'trailing_percent': 0.2
         },
         'EOSUSDT.OKEX': {
-            'atr_length': 25,
-            'atr_ma_length': 6,
-            'adx_length': 5,
             'adx_entry_point': 20,
-            'sma_window': 20,
-            'trailing_percent': 1.0
+            'adx_length': 5,
+            'atr_length': 10,
+            'atr_ma_length': 5,
+            'sma_window': 29,
+            'trailing_percent': 1.1
         },
         'LTCUSDT.OKEX': {
+            'adx_entry_point': 35,
+            'adx_length': 30,
             'atr_length': 40,
-            'atr_ma_length': 4.0,
-            'adx_length': 35,
-            'adx_entry_point': 30,
-            'sma_window': 20,
-            'trailing_percent': 5.0
+            'atr_ma_length': 25,
+            'sma_window': 22,
+            'trailing_percent': 4.8
         },
         'DASHUSDT.OKEX': {
-            'atr_length': 35,
-            'atr_ma_length': 5,
-            'adx_length': 15,
             'adx_entry_point': 25,
-            'sma_window': 5,
-            'trailing_percent': 10
+            'adx_length': 30,
+            'atr_length': 60,
+            'atr_ma_length': 25,
+            'sma_window': 6,
+            'trailing_percent': 4.5
         }
     }
 
@@ -101,7 +101,7 @@ class AtrAdxSmaM1Strategy(BaseM1Strategy):
             self.atr_ma_length = params['atr_ma_length']
             self.adx_length = params['adx_length']
             self.adx_entry_point = params['adx_entry_point']
-            self.sma_length = params['sma_window']
+            self.sma_window = params['sma_window']
             self.trailing_percent = params['trailing_percent']
 
     def check_entry(self, bar: BarData):
@@ -113,6 +113,6 @@ class AtrAdxSmaM1Strategy(BaseM1Strategy):
 
         if atr_value > atr_ma and adx_array[-1] > adx_array[-2] > self.adx_entry_point:
             if sma_array[-3] < sma_array[-2] < sma_array[-1]:
-                self.buy(bar.close_price, self.volume)
+                self.buy(bar.close_price, self.volume(1.5))
             elif sma_array[-3] > sma_array[-2] > sma_array[-1]:
-                self.short(bar.close_price, self.volume)
+                self.short(bar.close_price, self.volume(1.5))

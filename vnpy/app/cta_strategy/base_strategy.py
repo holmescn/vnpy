@@ -25,10 +25,9 @@ class BaseStrategy(CtaTemplate):
     model_id = ''
 
     parameters = []
-    variables = ["buy_trade_list", "sell_trade_list"]
+    variables = ["buy_trade_list", "sell_trade_list", "balance"]
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
-        """"""
         super(BaseStrategy, self).__init__(
             cta_engine, strategy_name, vt_symbol, setting
         )
@@ -36,6 +35,7 @@ class BaseStrategy(CtaTemplate):
         self.reverse = setting.get('reverse', False)
         self.vt_modelid = '{}_{}{}'.format(self.vt_symbol, self.model_id, '_rev' if self.reverse else '')
 
+        self.balance = 200_000
         self.buy_trade_list = []
         self.sell_trade_list = []
         self.bar: BarData = None
@@ -47,11 +47,10 @@ class BaseStrategy(CtaTemplate):
     def avg_vol(self):
         return sum(self.vol_list) / len(self.vol_list) if self.vol_list else 0.0
 
-    @property
-    def volume(self):
+    def volume(self, multiplier=1.0):
         if self.bar:
-            vol = 150_000 / self.bar.close_price
-            vol = min(max(self.bar.volume, self.avg_vol), vol)
+            vol_ubound = self.balance / self.bar.close_price
+            vol = min(max(self.bar.volume, self.avg_vol) * multiplier, vol_ubound)
             if vol > 5000:
                 vol = round(vol / 1000, 1) * 1000
             elif vol > 500:
@@ -102,6 +101,7 @@ class BaseStrategy(CtaTemplate):
             for open_trade in trade_list:
                 close_trade = copy(current_trade)
                 close_trade['close_trade_id'] = open_trade['trade_id']
+                self.update_balance(open_trade, close_trade)
                 if close_trade['volume'] > open_trade['volume']:
                     close_trade['volume'] = open_trade['volume']
                     current_trade['volume'] -= open_trade['volume']
@@ -120,6 +120,11 @@ class BaseStrategy(CtaTemplate):
 
         # if self.enable_submit_trade_data:
         #     submit_trade_data(send_list)
+
+    def update_balance(self, open_trade, close_trade):
+        vol = open_trade['volume']
+        k_type = 1 if open_trade['direction'] == 'buy' else -1
+        return k_type * (close_trade['price'] - open_trade['price']) * vol
 
     def print_trade(self, trade):
         action = '{} {}'.format(trade.offset.value, trade.direction.value)

@@ -24,6 +24,8 @@ SETTINGS["log.file"] = False
 
 if sys.platform == 'win32':
     SETTINGS["database.database"] = "D:\\tushare-database.sqlite"
+else:
+    SETTINGS["database.database"] = "tushare-database.sqlite"
 
 
 def main():
@@ -46,15 +48,13 @@ def main():
 
     vt_symbols = [
         'BTCUSDT.OKEX',
-        'BTGUSDT.OKEX',
         'BCHUSDT.OKEX',
         'BSVUSDT.OKEX',
-        'LTCUSDT.OKEX',
         'ETHUSDT.OKEX',
         'ETCUSDT.OKEX',
         'EOSUSDT.OKEX',
+        'LTCUSDT.OKEX',
         'DASHUSDT.OKEX',
-        'NEOUSDT.OKEX',
     ]
     for vt_symbol in vt_symbols:
         bt_engine.run_downloading(vt_symbol, '1m', datetime(2019, 9, 1, 0, 0), datetime.now())
