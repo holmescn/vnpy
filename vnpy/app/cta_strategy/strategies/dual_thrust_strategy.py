@@ -23,37 +23,37 @@ class DualThrustStrategy(BaseStrategy):
     parameters.extend(["k1", "k2"])
 
     symbol_parameters = {
-        # 'BTCUSDT.OKEX': {
-        #     'k1': 1.5,
-        #     'k2': 0.3
-        # },
-        # 'BCHUSDT.OKEX': {
-        #     'k1': 1.0,
-        #     'k2': 0.4
-        # },
-        # 'BSVUSDT.OKEX': {
-        #     'k1': 1.7,
-        #     'k2': 0.5
-        # },
-        # 'ETHUSDT.OKEX': {
-        #     'k1': 0.1,
-        #     'k2': 0.6
-        # },
-        # 'ETCUSDT.OKEX': {
-        #     'k1': 0.9,
-        #     'k2': 0.4
-        # },
-        # 'EOSUSDT.OKEX': {
-        #     'k1': 1.5,
-        #     'k2': 0.2
-        # },
-        # 'LTCUSDT.OKEX': {
-        #     'k1': 0.7,
-        #     'k2': 0.2
-        # },
+        'BTCUSDT.OKEX': {
+            'k1': 1.0,
+            'k2': 0.5
+        },
+        'BCHUSDT.OKEX': {
+            'k1': 1.0,
+            'k2': 0.1
+        },
+        'BSVUSDT.OKEX': {
+            'k1': 1.0,
+            'k2': 0.1
+        },
+        'ETHUSDT.OKEX': {
+            'k1': 0.2,
+            'k2': 0.2
+        },
+        'ETCUSDT.OKEX': {
+            'k1': 3.0,
+            'k2': 0.6
+        },
+        'EOSUSDT.OKEX': {
+            'k1': 1.0,
+            'k2': 0.1
+        },
+        'LTCUSDT.OKEX': {
+            'k1': 3.0,
+            'k2': 0.6
+        },
         # 'DASHUSDT.OKEX': {
-        #     'k1': 1.4,
-        #     'k2': 0.2
+        #     'k1': 3.0,
+        #     'k2': 0.6
         # }
     }
 
