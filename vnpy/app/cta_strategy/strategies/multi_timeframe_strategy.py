@@ -24,69 +24,29 @@ class MultiTimeframeStrategy(BaseStrategy):
     parameters.extend(["rsi_signal", "rsi_window", "fast_window", "slow_window"])
 
     symbol_parameters = {
+        # 2019-09-01 2019-10-25
         # 'BTCUSDT.OKEX': {
-        #     'atr_length': 10,
-        #     'atr_ma_length': 5,
-        #     'adx_length': 25,
-        #     'adx_entry_point': 25,
-        #     'sma_window': 20,
-        #     'trailing_percent': 1.1
         # },
+        # 2019-09-01 2019-10-25
         # 'BCHUSDT.OKEX': {
-        #     'atr_length': 25,
-        #     'atr_ma_length': 20,
-        #     'adx_length': 30,
-        #     'adx_entry_point': 35,
-        #     'sma_window': 15,
-        #     'trailing_percent': 9.0
         # },
+        # 2019-09-01 2019-10-25
         # 'BSVUSDT.OKEX': {
-        #     'atr_length': 11,
-        #     'atr_ma_length': 10,
-        #     'adx_length': 25,
-        #     'adx_entry_point': 30,
-        #     'sma_window': 13,
-        #     'trailing_percent': 3.0
         # },
+        # 2019-09-01 2019-10-25
         # 'ETHUSDT.OKEX': {
-        #     'atr_length': 4,
-        #     'atr_ma_length': 6,
-        #     'adx_length': 28,
-        #     'adx_entry_point': 28,
-        #     'sma_window': 28,
-        #     'trailing_percent': 2
         # },
+        # 2019-09-01 2019-10-25
         # 'ETCUSDT.OKEX': {
-        #     'atr_length': 15,
-        #     'atr_ma_length': 20,
-        #     'adx_length': 25,
-        #     'adx_entry_point': 25,
-        #     'sma_window': 10,
-        #     'trailing_percent': 5.5
         # },
+        # 2019-09-01 2019-10-25
         # 'EOSUSDT.OKEX': {
-        #     'atr_length': 15,
-        #     'atr_ma_length': 5,
-        #     'adx_length': 5,
-        #     'adx_entry_point': 22,
-        #     'sma_window': 10,
-        #     'trailing_percent': 1.0
         # },
+        # 2019-09-01 2019-10-25
         # 'LTCUSDT.OKEX': {
-        #     'atr_length': 20,
-        #     'atr_ma_length': 16,
-        #     'adx_length': 24,
-        #     'adx_entry_point': 40,
-        #     'sma_window': 18,
-        #     'trailing_percent': 5.0
         # },
+        # 2019-09-01 2019-10-25
         # 'DASHUSDT.OKEX': {
-        #     'atr_length': 6,
-        #     'atr_ma_length': 26,
-        #     'adx_length': 8,
-        #     'adx_entry_point': 20,
-        #     'sma_window': 28,
-        #     'trailing_percent': 9.0
         # }
     }
 
@@ -103,7 +63,6 @@ class MultiTimeframeStrategy(BaseStrategy):
             self.fast_window = params['fast_window']
             self.slow_window = params['slow_window']
 
-        self.rsi_value = 0
         self.rsi_long = 0
         self.rsi_short = 0
         self.fast_ma = 0
@@ -134,7 +93,6 @@ class MultiTimeframeStrategy(BaseStrategy):
         self.bg15.update_bar(bar)
 
     def on_5min_bar(self, bar: BarData):
-        """"""
         self.cancel_all()
 
         self.am5.update_bar(bar)
@@ -144,26 +102,25 @@ class MultiTimeframeStrategy(BaseStrategy):
         if not self.ma_trend:
             return
 
-        self.rsi_value = self.am5.rsi(self.rsi_window)
+        rsi_value = self.am5.rsi(self.rsi_window)
 
         if self.pos == 0:
-            if self.ma_trend > 0 and self.rsi_value >= self.rsi_long:
-                self.buy(bar.close_price, self.volume * 2.5)
-            elif self.ma_trend < 0 and self.rsi_value <= self.rsi_short:
-                self.short(bar.close_price, self.volume * 2.5)
+            if self.ma_trend > 0 and rsi_value >= self.rsi_long:
+                self.buy(bar.close_price, self.volume(2.5))
+            elif self.ma_trend < 0 and rsi_value <= self.rsi_short:
+                self.short(bar.close_price, self.volume(2.5))
 
         elif self.pos > 0:
-            if self.ma_trend < 0 or self.rsi_value < 50:
+            if self.ma_trend < 0 or rsi_value < 50:
                 self.sell(bar.close_price, abs(self.pos))
 
         elif self.pos < 0:
-            if self.ma_trend > 0 or self.rsi_value > 50:
+            if self.ma_trend > 0 or rsi_value > 50:
                 self.cover(bar.close_price, abs(self.pos))
 
         self.put_event()
 
     def on_15min_bar(self, bar: BarData):
-        """"""
         self.am15.update_bar(bar)
         if not self.am15.inited:
             return
