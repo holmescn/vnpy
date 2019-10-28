@@ -97,6 +97,8 @@ class BacktesterEngine(BaseEngine):
                 elif filename.endswith(".pyd"):
                     strategy_module_name = ".".join(
                         [module_name, filename.split(".")[0]])
+                else:
+                    continue
 
                 self.load_strategy_class_from_module(strategy_module_name)
 
