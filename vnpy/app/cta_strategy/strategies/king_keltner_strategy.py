@@ -23,46 +23,46 @@ class KingKeltnerStrategy(BaseStrategy):
     parameters.extend(['kk_length', 'kk_dev', 'trailing_percent'])
 
     symbol_parameters = {
-        'BTCUSDT.OKEX': {
-            'kk_length': 9,
-            'kk_dev': 0.1,
-            'trailing_percent': 0.2,
-        },
-        'BCHUSDT.OKEX': {
-            'kk_length': 10,
-            'kk_dev': 1.0,
-            'trailing_percent': 0.3,
-        },
-        'BSVUSDT.OKEX': {
-            'kk_length': 16,
-            'kk_dev': 2.9,
-            'trailing_percent': 0.5,
-        },
-        'ETHUSDT.OKEX': {
-            'kk_length': 8,
-            'kk_dev': 0.3,
-            'trailing_percent': 0.2,
-        },
-        'ETCUSDT.OKEX': {
-            'kk_length': 11,
-            'kk_dev': 0.8,
-            'trailing_percent': 0.2,
-        },
-        'EOSUSDT.OKEX': {
-            'kk_length': 13,
-            'kk_dev': 1.4,
-            'trailing_percent': 0.7,
-        },
-        'LTCUSDT.OKEX': {
-            'kk_length': 8.0,
-            'kk_dev': 5.9,
-            'trailing_percent': 4.6,
-        },
-        'DASHUSDT.OKEX': {
-            'kk_length': 19,
-            'kk_dev': 8.5,
-            'trailing_percent': 3.2,
-        }
+        # 'BTCUSDT.OKEX': {
+        #     'kk_length': 9,
+        #     'kk_dev': 0.1,
+        #     'trailing_percent': 0.2,
+        # },
+        # 'BCHUSDT.OKEX': {
+        #     'kk_length': 10,
+        #     'kk_dev': 1.0,
+        #     'trailing_percent': 0.3,
+        # },
+        # 'BSVUSDT.OKEX': {
+        #     'kk_length': 16,
+        #     'kk_dev': 2.9,
+        #     'trailing_percent': 0.5,
+        # },
+        # 'ETHUSDT.OKEX': {
+        #     'kk_length': 8,
+        #     'kk_dev': 0.3,
+        #     'trailing_percent': 0.2,
+        # },
+        # 'ETCUSDT.OKEX': {
+        #     'kk_length': 11,
+        #     'kk_dev': 0.8,
+        #     'trailing_percent': 0.2,
+        # },
+        # 'EOSUSDT.OKEX': {
+        #     'kk_length': 13,
+        #     'kk_dev': 1.4,
+        #     'trailing_percent': 0.7,
+        # },
+        # 'LTCUSDT.OKEX': {
+        #     'kk_length': 8.0,
+        #     'kk_dev': 5.9,
+        #     'trailing_percent': 4.6,
+        # },
+        # 'DASHUSDT.OKEX': {
+        #     'kk_length': 19,
+        #     'kk_dev': 8.5,
+        #     'trailing_percent': 3.2,
+        # }
     }
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
@@ -116,7 +116,7 @@ class KingKeltnerStrategy(BaseStrategy):
         if self.pos == 0:
             self.intra_trade_high = bar.high_price
             self.intra_trade_low = bar.low_price
-            self.send_oco_order(kk_up, kk_down, self.volume * 2.5)
+            self.send_oco_order(kk_up, kk_down, self.volume(2.5))
 
         elif self.pos > 0:
             self.intra_trade_high = max(self.intra_trade_high, bar.high_price)

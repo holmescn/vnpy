@@ -12,10 +12,9 @@ from vnpy.trader.object import Offset, Direction, Status
 from vnpy.app.cta_strategy.base_strategy import BaseStrategy
 
 
-class BollChannelCciStrategy(BaseStrategy):
-    model_id = "m15_02_BollChannel-CCI_v1.0"
+class BollCciM15Strategy(BaseStrategy):
+    model_id = "m15_02_BOLL-CCI-ATR_v1.0"
 
-    time_frame = 15
     boll_window = 18
     boll_dev = 3.4
     cci_window = 10
@@ -28,66 +27,74 @@ class BollChannelCciStrategy(BaseStrategy):
         "atr_window", "sl_multiplier"
     ])
     symbol_parameters = {
+        # 2019-09-01 2019-10-25 32.78%
         'BTCUSDT.OKEX': {
-            'atr_window': 15,
-            'boll_dev': 5,
-            'boll_window': 35,
-            'cci_window': 30,
-            'sl_multiplier': 3.7
-        },
-        'BCHUSDT.OKEX': {
-            'atr_window': 5,
-            'boll_dev': 5,
-            'boll_window': 35,
-            'cci_window': 30,
-            'sl_multiplier': 4.8
-        },
-        'BSVUSDT.OKEX': {
-            'atr_window': 30,
-            'boll_dev': 5,
-            'boll_window': 5,
+            'atr_window': 40,
+            'boll_dev': 1.7,
+            'boll_window': 25,
             'cci_window': 10,
             'sl_multiplier': 4.1
         },
-        'ETHUSDT.OKEX': {
-            'atr_window': 10,
-            'boll_dev': 5,
-            'boll_window': 15,
+        # 2019-09-01 2019-10-25 46.47%
+        'BCHUSDT.OKEX': {
+            'atr_window': 50,
+            'boll_dev': 2.3,
+            'boll_window': 5,
             'cci_window': 5,
-            'sl_multiplier': 4.8
+            'sl_multiplier': 4.9
         },
-        'ETCUSDT.OKEX': {
-            'atr_window': 20,
-            'boll_dev': 5,
+        # 2019-09-01 2019-10-25 40.63%
+        'BSVUSDT.OKEX': {
+            'atr_window': 40,
+            'boll_dev': 4.5,
             'boll_window': 5,
             'cci_window': 10,
-            'sl_multiplier': 1.4
+            'sl_multiplier': 3.8
         },
-        'EOSUSDT.OKEX': {
+        # 2019-09-01 2019-10-25 35.91%
+        'ETHUSDT.OKEX': {
             'atr_window': 15,
-            'boll_dev': 5,
+            'boll_dev': 2.4,
             'boll_window': 35,
-            'cci_window': 30,
-            'sl_multiplier': 4.5
+            'cci_window': 40,
+            'sl_multiplier': 2.7
         },
+        # 2019-09-01 2019-10-25 51.25%
+        'ETCUSDT.OKEX': {
+            'atr_window': 50,
+            'boll_dev': 1.3000000000000003,
+            'boll_window': 5,
+            'cci_window': 15,
+            'sl_multiplier': 1
+        },
+        # 2019-09-01 2019-10-25 36.22%
+        'EOSUSDT.OKEX': {
+            'atr_window': 60,
+            'boll_dev': 1.1,
+            'boll_window': 20,
+            'cci_window': 30,
+            'sl_multiplier': 2.8
+        },
+        # 2019-09-01 2019-10-25 26.45%
         'LTCUSDT.OKEX': {
             'atr_window': 5,
-            'boll_dev': 5,
-            'boll_window': 15,
-            'cci_window': 20,
-            'sl_multiplier': 3.7
-        },
-        'DASHUSDT.OKEX': {
-            'atr_window': 20,
-            'boll_dev': 5,
+            'boll_dev': 2.8,
             'boll_window': 30,
-            'cci_window': 15,
-            'sl_multiplier': 0.8
+            'cci_window': 35,
+            'sl_multiplier': 2.6
+        },
+        # 2019-09-01 2019-10-25 11.73%
+        'DASHUSDT.OKEX': {
+            'atr_window': 55,
+            'boll_dev': 1.6,
+            'boll_window': 35,
+            'cci_window': 5,
+            'sl_multiplier': 4.1
         }
     }
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
-        super(BollChannelCciStrategy, self).__init__(
+        super(BollCciM15Strategy, self).__init__(
             cta_engine, strategy_name, vt_symbol, setting
         )
 
@@ -115,7 +122,7 @@ class BollChannelCciStrategy(BaseStrategy):
         """
         Callback of new bar data update.
         """
-        super(BollChannelCciStrategy, self).on_bar(bar)
+        super(BollCciM15Strategy, self).on_bar(bar)
         self.bg.update_bar(bar)
 
     def on_15min_bar(self, bar: BarData):

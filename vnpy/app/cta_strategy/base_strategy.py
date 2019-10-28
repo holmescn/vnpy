@@ -43,24 +43,13 @@ class BaseStrategy(CtaTemplate):
         self.vol_list = []
         self.trade_records = []
 
-    @property
-    def avg_vol(self):
-        return sum(self.vol_list) / len(self.vol_list) if self.vol_list else 0.0
-
     def volume(self, multiplier=1.0):
+        avg_vol = sum(self.vol_list) / len(self.vol_list) if self.vol_list else 0.0
         if self.bar:
-            vol_ubound = self.balance / self.bar.close_price
-            vol = min(max(self.bar.volume, self.avg_vol) * multiplier, vol_ubound)
-            if vol > 5000:
-                vol = round(vol / 1000, 1) * 1000
-            elif vol > 500:
-                vol = round(vol / 100, 1) * 100
-            elif vol > 10:
-                vol = round(vol / 10, 0) * 10
-            elif vol > 1:
-                vol = round(vol, 0)
-            return vol
-        return self.avg_vol
+            vol_ubound = self.balance * 0.9 / self.bar.close_price
+            vol = min(avg_vol * multiplier, vol_ubound)
+            return round(vol, 2)
+        return avg_vol
 
     def submit_trade(self, trade: TradeData):
         direction = "buy" if trade.direction == Direction.LONG else 'sell'

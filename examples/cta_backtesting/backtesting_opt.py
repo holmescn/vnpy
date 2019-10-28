@@ -2,8 +2,11 @@ from pprint import pprint
 from sys import argv
 from vnpy.app.cta_strategy.backtesting import BacktestingEngine, OptimizationSetting
 from vnpy.app.cta_strategy.strategies.atr_adx_sma_m1_strategy import AtrAdxSmaM1Strategy
-from vnpy.app.cta_strategy.strategies.boll_channel_cci_strategy import BollChannelCciStrategy
+from vnpy.app.cta_strategy.strategies.boll_cci_m15_strategy import BollCciM15Strategy
 from vnpy.app.cta_strategy.strategies.dual_thrust_strategy import DualThrustStrategy
+
+from vnpy.app.cta_strategy.strategies.king_keltner_strategy import KingKeltnerStrategy
+from vnpy.app.cta_strategy.strategies.multi_timeframe_strategy import MultiTimeframeStrategy
 from datetime import datetime
 
 def optimize(vt_symbol):
@@ -20,7 +23,7 @@ def optimize(vt_symbol):
         capital=200_000,
     )
 
-    engine.add_strategy(AtrAdxSmaM1Strategy, {})
+    engine.add_strategy(KingKeltnerStrategy, {})
     # engine.load_data()
     # engine.run_backtesting()
     # engine.calculate_result()
@@ -29,12 +32,9 @@ def optimize(vt_symbol):
     setting = OptimizationSetting()
     setting.set_target("total_return")
 
-    setting.add_parameter('atr_length', 5, 60, 5)
-    setting.add_parameter('atr_ma_length', 5, 30, 5)
-    setting.add_parameter('adx_length', 5, 30, 5)
-    setting.add_parameter('adx_entry_point', 20, 40, 5)
-    setting.add_parameter('sma_window', 5, 30, 1)
-    setting.add_parameter('trailing_percent', 0.1, 5, 0.1)
+    setting.add_parameter('kk_length', 5, 60, 5)
+    setting.add_parameter('kk_dev', 0.1, 5, 0.1)
+    setting.add_parameter('trailing_percent', 0.1, 2, 0.1)
 
     return engine.run_ga_optimization(setting, population_size=20, ngen_size=1000)
 

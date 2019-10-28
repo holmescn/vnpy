@@ -24,6 +24,7 @@ class AtrAdxSmaM1Strategy(BaseM1Strategy):
     parameters.extend(['atr_length', 'atr_ma_length', 'adx_length', 'adx_entry_point', 'sma_window'])
 
     symbol_parameters = {
+        # 2019-09-01 2019-10-25 30.61%
         'BTCUSDT.OKEX': {
             'adx_entry_point': 25,
             'adx_length': 25,
@@ -32,6 +33,7 @@ class AtrAdxSmaM1Strategy(BaseM1Strategy):
             'sma_window': 15,
             'trailing_percent': 1
         },
+        # 2019-09-01 2019-10-25 28.53%
         'BCHUSDT.OKEX': {
             'adx_entry_point': 15,
             'adx_length': 25,
@@ -40,6 +42,7 @@ class AtrAdxSmaM1Strategy(BaseM1Strategy):
             'sma_window': 5,
             'trailing_percent': 1
         },
+        # 2019-09-01 2019-10-25 38.34%
         'BSVUSDT.OKEX': {
             'adx_entry_point': 25,
             'adx_length': 5,
@@ -48,6 +51,7 @@ class AtrAdxSmaM1Strategy(BaseM1Strategy):
             'sma_window': 12,
             'trailing_percent': 0.4
         },
+        # 2019-09-01 2019-10-25 64.23%
         'ETHUSDT.OKEX': {
             'adx_entry_point': 25,
             'adx_length': 15,
@@ -56,6 +60,7 @@ class AtrAdxSmaM1Strategy(BaseM1Strategy):
             'sma_window': 7,
             'trailing_percent': 1
         },
+        # 2019-09-01 2019-10-25 35.00%
         'ETCUSDT.OKEX': {
             'adx_entry_point': 20,
             'adx_length': 5,
@@ -64,6 +69,7 @@ class AtrAdxSmaM1Strategy(BaseM1Strategy):
             'sma_window': 15,
             'trailing_percent': 0.2
         },
+        # 2019-09-01 2019-10-25 58.0%
         'EOSUSDT.OKEX': {
             'adx_entry_point': 20,
             'adx_length': 5,
@@ -72,6 +78,7 @@ class AtrAdxSmaM1Strategy(BaseM1Strategy):
             'sma_window': 29,
             'trailing_percent': 1.1
         },
+        # 2019-09-01 2019-10-25 29.46%
         'LTCUSDT.OKEX': {
             'adx_entry_point': 35,
             'adx_length': 30,
@@ -80,6 +87,7 @@ class AtrAdxSmaM1Strategy(BaseM1Strategy):
             'sma_window': 22,
             'trailing_percent': 4.8
         },
+        # 2019-09-01 2019-10-25 14.96%
         'DASHUSDT.OKEX': {
             'adx_entry_point': 25,
             'adx_length': 30,
