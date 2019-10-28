@@ -23,41 +23,49 @@ class KingKeltnerStrategy(BaseStrategy):
     parameters.extend(['kk_length', 'kk_dev', 'trailing_percent'])
 
     symbol_parameters = {
-        # 'BTCUSDT.OKEX': {
-        #     'kk_length': 9,
-        #     'kk_dev': 0.1,
-        #     'trailing_percent': 0.2,
-        # },
-        # 'BCHUSDT.OKEX': {
-        #     'kk_length': 10,
-        #     'kk_dev': 1.0,
-        #     'trailing_percent': 0.3,
-        # },
+        # 2019-09-01 2019-10-25 58.09%
+        'BTCUSDT.OKEX': {
+            'kk_dev': 0.1,
+            'kk_length': 10,
+            'trailing_percent': 0.2
+        },
+        # 2019-09-01 2019-10-25 49.86%
+        'BCHUSDT.OKEX': {
+            'kk_dev': 0.6,
+            'kk_length': 55,
+            'trailing_percent': 0.4
+        },
+        # 2019-09-01 2019-10-25 
         # 'BSVUSDT.OKEX': {
         #     'kk_length': 16,
         #     'kk_dev': 2.9,
         #     'trailing_percent': 0.5,
         # },
+        # 2019-09-01 2019-10-25 
         # 'ETHUSDT.OKEX': {
         #     'kk_length': 8,
         #     'kk_dev': 0.3,
         #     'trailing_percent': 0.2,
         # },
+        # 2019-09-01 2019-10-25 
         # 'ETCUSDT.OKEX': {
         #     'kk_length': 11,
         #     'kk_dev': 0.8,
         #     'trailing_percent': 0.2,
         # },
+        # 2019-09-01 2019-10-25 
         # 'EOSUSDT.OKEX': {
         #     'kk_length': 13,
         #     'kk_dev': 1.4,
         #     'trailing_percent': 0.7,
         # },
+        # 2019-09-01 2019-10-25 
         # 'LTCUSDT.OKEX': {
         #     'kk_length': 8.0,
         #     'kk_dev': 5.9,
         #     'trailing_percent': 4.6,
         # },
+        # 2019-09-01 2019-10-25 
         # 'DASHUSDT.OKEX': {
         #     'kk_length': 19,
         #     'kk_dev': 8.5,

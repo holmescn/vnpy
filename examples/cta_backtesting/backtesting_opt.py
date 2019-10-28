@@ -4,8 +4,8 @@ from vnpy.app.cta_strategy.backtesting import BacktestingEngine, OptimizationSet
 from vnpy.app.cta_strategy.strategies.atr_adx_sma_m1_strategy import AtrAdxSmaM1Strategy
 from vnpy.app.cta_strategy.strategies.boll_cci_m15_strategy import BollCciM15Strategy
 from vnpy.app.cta_strategy.strategies.dual_thrust_strategy import DualThrustStrategy
-
 from vnpy.app.cta_strategy.strategies.king_keltner_strategy import KingKeltnerStrategy
+
 from vnpy.app.cta_strategy.strategies.multi_timeframe_strategy import MultiTimeframeStrategy
 from datetime import datetime
 
