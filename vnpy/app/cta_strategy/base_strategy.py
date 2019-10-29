@@ -90,7 +90,6 @@ class BaseStrategy(CtaTemplate):
             for open_trade in trade_list:
                 close_trade = copy(current_trade)
                 close_trade['close_trade_id'] = open_trade['trade_id']
-                self.update_balance(open_trade, close_trade)
                 if close_trade['volume'] > open_trade['volume']:
                     close_trade['volume'] = open_trade['volume']
                     current_trade['volume'] -= open_trade['volume']
@@ -109,11 +108,6 @@ class BaseStrategy(CtaTemplate):
 
         # if self.enable_submit_trade_data:
         #     submit_trade_data(send_list)
-
-    def update_balance(self, open_trade, close_trade):
-        vol = open_trade['volume']
-        k_type = 1 if open_trade['direction'] == 'buy' else -1
-        return k_type * (close_trade['price'] - open_trade['price']) * vol
 
     def print_trade(self, trade):
         action = '{} {}'.format(trade.offset.value, trade.direction.value)
@@ -140,6 +134,11 @@ class BaseStrategy(CtaTemplate):
         pass
 
     def on_trade(self, trade: TradeData):
+        if trade.offset == Offset.OPEN:
+            self.balance -= trade.volume * trade.price
+        elif trade.offset in (Offset.CLOSE, Offset.CLOSETODAY, Offset.CLOSEYESTERDAY):
+            self.balance += trade.volume * trade.price
+
         self.submit_trade(trade)
         self.print_trade(trade)
         self.put_event()
