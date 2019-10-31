@@ -13,6 +13,7 @@ from vnpy.app.cta_strategy.base_strategy import BaseStrategy
 
 
 class KingKeltnerStrategy(BaseStrategy):
+    # model_id = "m5_02_KingKeltner_v1.0"
     model_id = "m1_02_KingKeltner_v1.0"
 
     kk_length = 11
@@ -74,16 +75,9 @@ class KingKeltnerStrategy(BaseStrategy):
     }
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
-        """"""
         super(KingKeltnerStrategy, self).__init__(
             cta_engine, strategy_name, vt_symbol, setting
         )
-
-        if vt_symbol in self.symbol_parameters:
-            params = self.symbol_parameters[vt_symbol]
-            self.kk_length = params['kk_length']
-            self.kk_dev = params['kk_dev']
-            self.trailing_percent = params['trailing_percent']
 
         self.intra_trade_high = 0
         self.intra_trade_low = 0

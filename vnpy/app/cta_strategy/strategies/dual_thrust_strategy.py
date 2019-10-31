@@ -69,11 +69,6 @@ class DualThrustStrategy(BaseStrategy):
         super(DualThrustStrategy, self).__init__(
             cta_engine, strategy_name, vt_symbol, setting
         )
-        if vt_symbol in self.symbol_parameters:
-            params = self.symbol_parameters[vt_symbol]
-            self.k1 = params['k1']
-            self.k2 = params['k2']
-
         self.last_bar = None
 
         self.day_open = 0

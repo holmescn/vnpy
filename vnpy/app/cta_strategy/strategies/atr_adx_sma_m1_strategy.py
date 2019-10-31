@@ -103,15 +103,6 @@ class AtrAdxSmaM1Strategy(BaseM1Strategy):
             cta_engine, strategy_name, vt_symbol, setting
         )
 
-        if vt_symbol in self.symbol_parameters:
-            params = self.symbol_parameters[vt_symbol]
-            self.atr_length = params['atr_length']
-            self.atr_ma_length = params['atr_ma_length']
-            self.adx_length = params['adx_length']
-            self.adx_entry_point = params['adx_entry_point']
-            self.sma_window = params['sma_window']
-            self.trailing_percent = params['trailing_percent']
-
     def check_entry(self, bar: BarData):
         atr_array = self.am.atr(self.atr_length, array=True)
         adx_array = self.am.adx(self.adx_length, array=True)

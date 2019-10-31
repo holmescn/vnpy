@@ -24,12 +24,20 @@ class MultiTimeframeStrategy(BaseStrategy):
     parameters.extend(["rsi_signal", "rsi_window", "fast_window", "slow_window"])
 
     symbol_parameters = {
-        # 2019-09-01 2019-10-25
-        # 'BTCUSDT.OKEX': {
-        # },
-        # 2019-09-01 2019-10-25
-        # 'BCHUSDT.OKEX': {
-        # },
+        # 2019-09-01 2019-10-25 17.63%
+        'BTCUSDT.OKEX': {
+            'fast_window': 5,
+            'rsi_signal': 15,
+            'rsi_window': 30,
+            'slow_window': 20
+        },
+        # 2019-09-01 2019-10-25 22.04%
+        'BCHUSDT.OKEX': {
+            'fast_window': 15,
+            'rsi_signal': 5,
+            'rsi_window': 10,
+            'slow_window': 20
+        },
         # 2019-09-01 2019-10-25
         # 'BSVUSDT.OKEX': {
         # },

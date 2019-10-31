@@ -25,9 +25,13 @@ class BaseStrategy(CtaTemplate):
     model_id = ''
 
     parameters = []
+    symbol_parameters = {}
     variables = ["buy_trade_list", "sell_trade_list", "balance"]
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
+        if vt_symbol in self.symbol_parameters:
+            setting.update(self.symbol_parameters[vt_symbol])
+
         super(BaseStrategy, self).__init__(
             cta_engine, strategy_name, vt_symbol, setting
         )

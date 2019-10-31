@@ -98,14 +98,6 @@ class BollCciM15Strategy(BaseStrategy):
             cta_engine, strategy_name, vt_symbol, setting
         )
 
-        if vt_symbol in self.symbol_parameters:
-            params = self.symbol_parameters[vt_symbol]
-            self.boll_window = params['boll_window']
-            self.boll_dev = params['boll_dev']
-            self.cci_window = params['cci_window']
-            self.atr_window = params['atr_window']
-            self.sl_multiplier = params['sl_multiplier']
-
         self.intra_trade_high = 0
         self.intra_trade_low = 0
 
