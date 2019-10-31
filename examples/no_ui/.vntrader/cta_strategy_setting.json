@@ -6,8 +6,22 @@
             "reverse": false
         }
     },
-    "BTC-USDT.OKEX m1_02_BollChannel-CCI_v1.0": {
-        "class_name": "BollChannelCciStrategy",
+    "BTC-USDT.OKEX m15_02_BOLL-CCI-ATR_v1.0": {
+        "class_name": "BollCciM15Strategy",
+        "vt_symbol": "BTC-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "BTC-USDT.OKEX m1_02_DualThrust_v1.0": {
+        "class_name": "DualThrustStrategy",
+        "vt_symbol": "BTC-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "BTC-USDT.OKEX m1_02_KingKeltner_v1.0": {
+        "class_name": "KingKeltnerStrategy",
         "vt_symbol": "BTC-USDT.OKEX",
         "setting": {
             "reverse": false
@@ -20,8 +34,22 @@
             "reverse": false
         }
     },
-    "BCH-USDT.OKEX m1_02_BollChannel-CCI_v1.0": {
-        "class_name": "BollChannelCciStrategy",
+    "BCH-USDT.OKEX m15_02_BOLL-CCI-ATR_v1.0": {
+        "class_name": "BollCciM15Strategy",
+        "vt_symbol": "BCH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "BCH-USDT.OKEX m1_02_DualThrust_v1.0": {
+        "class_name": "DualThrustStrategy",
+        "vt_symbol": "BCH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "BCH-USDT.OKEX m1_02_KingKeltner_v1.0": {
+        "class_name": "KingKeltnerStrategy",
         "vt_symbol": "BCH-USDT.OKEX",
         "setting": {
             "reverse": false
@@ -34,8 +62,22 @@
             "reverse": false
         }
     },
-    "BSV-USDT.OKEX m1_02_BollChannel-CCI_v1.0": {
-        "class_name": "BollChannelCciStrategy",
+    "BSV-USDT.OKEX m15_02_BOLL-CCI-ATR_v1.0": {
+        "class_name": "BollCciM15Strategy",
+        "vt_symbol": "BSV-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "BSV-USDT.OKEX m1_02_DualThrust_v1.0": {
+        "class_name": "DualThrustStrategy",
+        "vt_symbol": "BSV-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "BSV-USDT.OKEX m1_02_KingKeltner_v1.0": {
+        "class_name": "KingKeltnerStrategy",
         "vt_symbol": "BSV-USDT.OKEX",
         "setting": {
             "reverse": false
@@ -48,8 +90,22 @@
             "reverse": false
         }
     },
-    "LTC-USDT.OKEX m1_02_BollChannel-CCI_v1.0": {
-        "class_name": "BollChannelCciStrategy",
+    "LTC-USDT.OKEX m15_02_BOLL-CCI-ATR_v1.0": {
+        "class_name": "BollCciM15Strategy",
+        "vt_symbol": "LTC-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "LTC-USDT.OKEX m1_02_DualThrust_v1.0": {
+        "class_name": "DualThrustStrategy",
+        "vt_symbol": "LTC-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "LTC-USDT.OKEX m1_02_KingKeltner_v1.0": {
+        "class_name": "KingKeltnerStrategy",
         "vt_symbol": "LTC-USDT.OKEX",
         "setting": {
             "reverse": false
@@ -62,8 +118,22 @@
             "reverse": false
         }
     },
-    "ETH-USDT.OKEX m1_02_BollChannel-CCI_v1.0": {
-        "class_name": "BollChannelCciStrategy",
+    "ETH-USDT.OKEX m15_02_BOLL-CCI-ATR_v1.0": {
+        "class_name": "BollCciM15Strategy",
+        "vt_symbol": "ETH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "ETH-USDT.OKEX m1_02_DualThrust_v1.0": {
+        "class_name": "DualThrustStrategy",
+        "vt_symbol": "ETH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "ETH-USDT.OKEX m1_02_KingKeltner_v1.0": {
+        "class_name": "KingKeltnerStrategy",
         "vt_symbol": "ETH-USDT.OKEX",
         "setting": {
             "reverse": false
@@ -76,8 +146,22 @@
             "reverse": false
         }
     },
-    "ETC-USDT.OKEX m1_02_BollChannel-CCI_v1.0": {
-        "class_name": "BollChannelCciStrategy",
+    "ETC-USDT.OKEX m15_02_BOLL-CCI-ATR_v1.0": {
+        "class_name": "BollCciM15Strategy",
+        "vt_symbol": "ETC-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "ETC-USDT.OKEX m1_02_DualThrust_v1.0": {
+        "class_name": "DualThrustStrategy",
+        "vt_symbol": "ETC-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "ETC-USDT.OKEX m1_02_KingKeltner_v1.0": {
+        "class_name": "KingKeltnerStrategy",
         "vt_symbol": "ETC-USDT.OKEX",
         "setting": {
             "reverse": false
@@ -90,8 +174,22 @@
             "reverse": false
         }
     },
-    "EOS-USDT.OKEX m1_02_BollChannel-CCI_v1.0": {
-        "class_name": "BollChannelCciStrategy",
+    "EOS-USDT.OKEX m15_02_BOLL-CCI-ATR_v1.0": {
+        "class_name": "BollCciM15Strategy",
+        "vt_symbol": "EOS-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "EOS-USDT.OKEX m1_02_DualThrust_v1.0": {
+        "class_name": "DualThrustStrategy",
+        "vt_symbol": "EOS-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "EOS-USDT.OKEX m1_02_KingKeltner_v1.0": {
+        "class_name": "KingKeltnerStrategy",
         "vt_symbol": "EOS-USDT.OKEX",
         "setting": {
             "reverse": false
@@ -104,8 +202,22 @@
             "reverse": false
         }
     },
-    "DASH-USDT.OKEX m1_02_BollChannel-CCI_v1.0": {
-        "class_name": "BollChannelCciStrategy",
+    "DASH-USDT.OKEX m15_02_BOLL-CCI-ATR_v1.0": {
+        "class_name": "BollCciM15Strategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "DASH-USDT.OKEX m1_02_DualThrust_v1.0": {
+        "class_name": "DualThrustStrategy",
+        "vt_symbol": "DASH-USDT.OKEX",
+        "setting": {
+            "reverse": false
+        }
+    },
+    "DASH-USDT.OKEX m1_02_KingKeltner_v1.0": {
+        "class_name": "KingKeltnerStrategy",
         "vt_symbol": "DASH-USDT.OKEX",
         "setting": {
             "reverse": false

@@ -107,15 +107,15 @@ class BaseStrategy(CtaTemplate):
             self.buy_trade_list = [t for t in self.buy_trade_list if t['volume'] > 0]
             self.sell_trade_list = [t for t in self.sell_trade_list if t['volume'] > 0]
 
-            # with open(f'tradedata/{self.vt_modelid}.pkl', 'wb') as f:
-            #     pickle.dump(self.trade_records, f)
+            with open(f'tradedata/{self.vt_modelid}.pkl', 'wb') as f:
+                pickle.dump(self.trade_records, f)
 
         # if self.enable_submit_trade_data:
         #     submit_trade_data(send_list)
 
     def print_trade(self, trade):
         action = '{} {}'.format(trade.offset.value, trade.direction.value)
-        self.write_log("成交：{} {:.2f} x {} {}".format(action, trade.price, trade.volume, trade.tradeid))
+        self.write_log("成交：{} {:.2f} x {} {} {:.2f}".format(action, trade.price, trade.volume, trade.tradeid, self.balance))
 
     def on_init(self):
         self.load_bar(1)
