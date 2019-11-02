@@ -8,10 +8,10 @@ from vnpy.app.cta_strategy import (
     ArrayManager,
 )
 from vnpy.trader.object import Offset, Direction, Status
-from vnpy.app.cta_strategy.base_strategy import BaseM1Strategy
+from vnpy.app.cta_strategy.base_strategy import BaseStrategy
 
 
-class AtrAdxSmaM1Strategy(BaseM1Strategy):
+class AtrAdxSmaStrategy(BaseStrategy):
     model_id = "m1_02_ATR-ADX-SMA_v1.0"
 
     atr_length = 10
@@ -20,7 +20,7 @@ class AtrAdxSmaM1Strategy(BaseM1Strategy):
     adx_entry_point = 25
     sma_window = 25
 
-    parameters = list(BaseM1Strategy.parameters)
+    parameters = list(BaseStrategy.parameters)
     parameters.extend(['atr_length', 'atr_ma_length', 'adx_length', 'adx_entry_point', 'sma_window'])
 
     symbol_parameters = {
@@ -99,19 +99,55 @@ class AtrAdxSmaM1Strategy(BaseM1Strategy):
     }
 
     def __init__(self, cta_engine, strategy_name, vt_symbol, setting):
-        super(AtrAdxSmaM1Strategy, self).__init__(
+        super(AtrAdxSmaStrategy, self).__init__(
             cta_engine, strategy_name, vt_symbol, setting
         )
+        self.intra_trade_high = 0
+        self.intra_trade_low = 0
 
-    def check_entry(self, bar: BarData):
-        atr_array = self.am.atr(self.atr_length, array=True)
-        adx_array = self.am.adx(self.adx_length, array=True)
-        sma_array = self.am.sma(self.sma_window, array=True)
-        atr_value = atr_array[-1]
-        atr_ma = atr_array[-self.atr_ma_length:].mean()
+        self.bg = BarGenerator(self.on_bar)
+        self.am = ArrayManager()
 
-        if atr_value > atr_ma and adx_array[-1] > adx_array[-2] > self.adx_entry_point:
-            if sma_array[-3] < sma_array[-2] < sma_array[-1]:
-                self.buy(bar.close_price, self.volume(1.5))
-            elif sma_array[-3] > sma_array[-2] > sma_array[-1]:
-                self.short(bar.close_price, self.volume(1.5))
+    def on_tick(self, tick: TickData):
+        super(AtrAdxSmaStrategy, self).on_tick(tick)
+        self.bg.update_tick(tick)
+
+    def on_bar(self, bar: BarData):
+        super(AtrAdxSmaStrategy, self).on_bar(bar)
+        self.cancel_all()
+
+        self.am.update_bar(bar)
+        if not self.am.inited:
+            return
+
+        if self.pos == 0:
+            self.intra_trade_high = bar.high_price
+            self.intra_trade_low = bar.low_price
+
+            atr_array = self.am.atr(self.atr_length, array=True)
+            adx_array = self.am.adx(self.adx_length, array=True)
+            sma_array = self.am.sma(self.sma_window, array=True)
+            atr_value = atr_array[-1]
+            atr_ma = atr_array[-self.atr_ma_length:].mean()
+
+            if atr_value > atr_ma and adx_array[-1] > adx_array[-2] > self.adx_entry_point:
+                if sma_array[-3] < sma_array[-2] < sma_array[-1]:
+                    self.buy(bar.close_price, self.volume(1.5))
+                elif sma_array[-3] > sma_array[-2] > sma_array[-1]:
+                    self.short(bar.close_price, self.volume(1.5))
+
+        elif self.pos > 0:
+            self.intra_trade_high = max(self.intra_trade_high, bar.high_price)
+            self.intra_trade_low = bar.low_price
+
+            long_stop = self.intra_trade_high * (1 - self.trailing_percent / 100)
+            self.sell(long_stop, abs(self.pos), stop=True)
+
+        elif self.pos < 0:
+            self.intra_trade_high = bar.high_price
+            self.intra_trade_low = min(self.intra_trade_low, bar.low_price)
+
+            short_stop = self.intra_trade_low * (1 + self.trailing_percent / 100)
+            self.cover(short_stop, abs(self.pos), stop=True)
+
+        self.put_event()

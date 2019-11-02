@@ -7,7 +7,10 @@ from logging import INFO
 from vnpy.trader.setting import SETTINGS
 from vnpy.app.cta_strategy.backtesting import BacktestingEngine
 from vnpy.app.cta_strategy.strategies.atr_adx_sma_m1_strategy import (
-    AtrAdxSmaM1Strategy,
+    AtrAdxSmaStrategy,
+)
+from vnpy.app.cta_strategy.strategies.atr_sma_strategy import (
+    AtrSmaStrategy,
 )
 # from vnpy.app.cta_strategy.strategies.cci_atr_strategy import (
 #     CciAtrStrategy,
@@ -81,8 +84,8 @@ def main():
 
     # 5
     strategy_classes = [
-        AtrAdxSmaM1Strategy, BollCciM15Strategy,
-        BollRsiAtrM15rStrategy,
+        AtrAdxSmaStrategy, AtrSmaStrategy,
+        BollCciM15Strategy, BollRsiAtrM15rStrategy,
         DualThrustStrategy, KingKeltnerStrategy,
         RBreakerM1Strategy
     ]

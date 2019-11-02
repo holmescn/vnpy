@@ -1,6 +1,11 @@
 {
   "BTC-USDT.OKEX m1_02_ATR-ADX-SMA_v1.0": {
-    "class_name": "AtrAdxSmaM1Strategy",
+    "class_name": "AtrAdxSmaStrategy",
+    "vt_symbol": "BTC-USDT.OKEX",
+    "setting": {}
+  },
+  "BTC-USDT.OKEX m1_02_ATR-SMA_r_v1.0": {
+    "class_name": "AtrSmaStrategy",
     "vt_symbol": "BTC-USDT.OKEX",
     "setting": {}
   },
@@ -30,7 +35,12 @@
     "setting": {}
   },
   "BCH-USDT.OKEX m1_02_ATR-ADX-SMA_v1.0": {
-    "class_name": "AtrAdxSmaM1Strategy",
+    "class_name": "AtrAdxSmaStrategy",
+    "vt_symbol": "BCH-USDT.OKEX",
+    "setting": {}
+  },
+  "BCH-USDT.OKEX m1_02_ATR-SMA_r_v1.0": {
+    "class_name": "AtrSmaStrategy",
     "vt_symbol": "BCH-USDT.OKEX",
     "setting": {}
   },
@@ -60,7 +70,12 @@
     "setting": {}
   },
   "BSV-USDT.OKEX m1_02_ATR-ADX-SMA_v1.0": {
-    "class_name": "AtrAdxSmaM1Strategy",
+    "class_name": "AtrAdxSmaStrategy",
+    "vt_symbol": "BSV-USDT.OKEX",
+    "setting": {}
+  },
+  "BSV-USDT.OKEX m1_02_ATR-SMA_r_v1.0": {
+    "class_name": "AtrSmaStrategy",
     "vt_symbol": "BSV-USDT.OKEX",
     "setting": {}
   },
@@ -90,7 +105,12 @@
     "setting": {}
   },
   "ETH-USDT.OKEX m1_02_ATR-ADX-SMA_v1.0": {
-    "class_name": "AtrAdxSmaM1Strategy",
+    "class_name": "AtrAdxSmaStrategy",
+    "vt_symbol": "ETH-USDT.OKEX",
+    "setting": {}
+  },
+  "ETH-USDT.OKEX m1_02_ATR-SMA_r_v1.0": {
+    "class_name": "AtrSmaStrategy",
     "vt_symbol": "ETH-USDT.OKEX",
     "setting": {}
   },
@@ -120,7 +140,12 @@
     "setting": {}
   },
   "ETC-USDT.OKEX m1_02_ATR-ADX-SMA_v1.0": {
-    "class_name": "AtrAdxSmaM1Strategy",
+    "class_name": "AtrAdxSmaStrategy",
+    "vt_symbol": "ETC-USDT.OKEX",
+    "setting": {}
+  },
+  "ETC-USDT.OKEX m1_02_ATR-SMA_r_v1.0": {
+    "class_name": "AtrSmaStrategy",
     "vt_symbol": "ETC-USDT.OKEX",
     "setting": {}
   },
@@ -150,7 +175,12 @@
     "setting": {}
   },
   "EOS-USDT.OKEX m1_02_ATR-ADX-SMA_v1.0": {
-    "class_name": "AtrAdxSmaM1Strategy",
+    "class_name": "AtrAdxSmaStrategy",
+    "vt_symbol": "EOS-USDT.OKEX",
+    "setting": {}
+  },
+  "EOS-USDT.OKEX m1_02_ATR-SMA_r_v1.0": {
+    "class_name": "AtrSmaStrategy",
     "vt_symbol": "EOS-USDT.OKEX",
     "setting": {}
   },
@@ -180,7 +210,12 @@
     "setting": {}
   },
   "LTC-USDT.OKEX m1_02_ATR-ADX-SMA_v1.0": {
-    "class_name": "AtrAdxSmaM1Strategy",
+    "class_name": "AtrAdxSmaStrategy",
+    "vt_symbol": "LTC-USDT.OKEX",
+    "setting": {}
+  },
+  "LTC-USDT.OKEX m1_02_ATR-SMA_r_v1.0": {
+    "class_name": "AtrSmaStrategy",
     "vt_symbol": "LTC-USDT.OKEX",
     "setting": {}
   },
@@ -210,7 +245,12 @@
     "setting": {}
   },
   "DASH-USDT.OKEX m1_02_ATR-ADX-SMA_v1.0": {
-    "class_name": "AtrAdxSmaM1Strategy",
+    "class_name": "AtrAdxSmaStrategy",
+    "vt_symbol": "DASH-USDT.OKEX",
+    "setting": {}
+  },
+  "DASH-USDT.OKEX m1_02_ATR-SMA_r_v1.0": {
+    "class_name": "AtrSmaStrategy",
     "vt_symbol": "DASH-USDT.OKEX",
     "setting": {}
   },
