@@ -105,15 +105,9 @@ class BollCciM15Strategy(BaseStrategy):
         self.am = ArrayManager()
 
     def on_tick(self, tick: TickData):
-        """
-        Callback of new tick data update.
-        """
         self.bg.update_tick(tick)
 
     def on_bar(self, bar: BarData):
-        """
-        Callback of new bar data update.
-        """
         super(BollCciM15Strategy, self).on_bar(bar)
         self.bg.update_bar(bar)
 

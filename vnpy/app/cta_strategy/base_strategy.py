@@ -107,8 +107,8 @@ class BaseStrategy(CtaTemplate):
             self.buy_trade_list = [t for t in self.buy_trade_list if t['volume'] > 0]
             self.sell_trade_list = [t for t in self.sell_trade_list if t['volume'] > 0]
 
-            with open(f'tradedata/{self.vt_modelid}.pkl', 'wb') as f:
-                pickle.dump(self.trade_records, f)
+            # with open(f'tradedata/{self.vt_modelid}.pkl', 'wb') as f:
+            #     pickle.dump(self.trade_records, f)
 
         # if self.enable_submit_trade_data:
         #     submit_trade_data(send_list)

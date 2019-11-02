@@ -7,16 +7,15 @@ from deap import base, creator, tools
 from deap.algorithms import varAnd, varOr
 from vnpy.app.cta_strategy.backtesting import BacktestingEngine, OptimizationSetting
 
-from vnpy.app.cta_strategy.strategies.r_breaker_m1_strategy import RBreakerM1Strategy
+from vnpy.app.cta_strategy.strategies.test_strategy import BollCciM15Strategy
 
 opt_setting = OptimizationSetting()
 opt_setting.set_target("total_return")
 
-opt_setting.add_parameter('setup_coef', 0.05, 1, 0.05)
-opt_setting.add_parameter('break_coef', 0.05, 1, 0.05)
-opt_setting.add_parameter('enter_coef1', 0.5, 1.5, 0.05)
-opt_setting.add_parameter('enter_coef2', 0.05, 1, 0.05)
-opt_setting.add_parameter('trailing_percent', 0.1, 10, 0.1)
+opt_setting.add_parameter('donchian_window', 5, 60, 5)
+opt_setting.add_parameter('cci_window', 20, 60, 5)
+opt_setting.add_parameter('atr_window', 5, 60, 5)
+opt_setting.add_parameter('sl_multiplier', 1, 5, 0.1)
 
 
 def evaluate(individual, vt_symbol):
@@ -29,15 +28,15 @@ def evaluate(individual, vt_symbol):
         rate=0.0,
         slippage=0.0,
         size=1,
-        pricetick=0.01,
+        pricetick=0.001,
         capital=200_000,
     )
     engine.output = lambda m: None
 
     engine.load_data()
-    engine.add_strategy(RBreakerM1Strategy, {
+    engine.add_strategy(BollCciM15Strategy, {
         k: round(v, 2) for k, v in individual.items()
-    })    
+    })
     engine.run_backtesting()
     engine.calculate_result()
     results = engine.calculate_statistics(output=False)
@@ -70,7 +69,7 @@ def mutate(individual, indpb):
 
 def main(args):
     pop_size = 50
-    n_gen = 100
+    n_gen = 200
     vt_symbol = f"{args.symbol}USDT.OKEX"
 
     creator.create("FitnessMax", base.Fitness, weights=(1.0,))
@@ -106,7 +105,7 @@ def main(args):
     for g in range(n_gen):
         # Select the next generation individuals
         offspring = map(toolbox.clone, toolbox.select(pop, len(pop)))
-        
+
         # Apply crossover and mutation on the offspring
         offspring = varAnd(offspring, toolbox, cxpb=0.5, mutpb=0.2)
 

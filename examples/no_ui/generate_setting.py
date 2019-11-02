@@ -49,67 +49,49 @@ from vnpy.app.cta_strategy.strategies.atr_adx_sma_m1_strategy import (
 from vnpy.app.cta_strategy.strategies.boll_cci_m15_strategy import (
     BollCciM15Strategy,
 )
+from vnpy.app.cta_strategy.strategies.boll_rsi_m15r_strategy import (
+    BollRsiAtrM15rStrategy,
+)
 from vnpy.app.cta_strategy.strategies.dual_thrust_strategy import (
     DualThrustStrategy,
 )
 from vnpy.app.cta_strategy.strategies.king_keltner_strategy import (
     KingKeltnerStrategy,
 )
+from vnpy.app.cta_strategy.strategies.r_breaker_m1_strategy import (
+    RBreakerM1Strategy,
+)
 # from vnpy.app.cta_strategy.strategies.multi_timeframe_strategy import (
 #     MultiTimeframeStrategy,
 # )
 
-def make_pair(it, s, reverse):
-    key = '{} {}{}'.format(it['vt_symbol'], s.model_id, ' REV' if reverse else '')
+def make_pair(sym, s):
+    vt_symbol = f'{sym}-USDT.OKEX'
+    key = '{} {}'.format(vt_symbol, s.model_id)
     value = {
         "class_name": s.__name__,
-        # "vt_symbol": it['vt_symbol'].replace('-', ''),
-        "vt_symbol": it['vt_symbol'],
-        "setting": {
-            "reverse": reverse,
-        }
+        "vt_symbol": vt_symbol,
+        "setting": {}
     }
     return key, value
 
 
 def main():
-    instruments = [{
-        'vt_symbol': 'BTC-USDT.OKEX',
-        'price_tick': 0.01,
-    }, {
-        'vt_symbol': 'BCH-USDT.OKEX',
-        'price_tick': 0.01,
-    }, {
-        'vt_symbol': 'BSV-USDT.OKEX',
-        'price_tick': 0.01,
-    }, {
-        'vt_symbol': 'LTC-USDT.OKEX',
-        'price_tick': 0.001,
-    }, {
-        'vt_symbol': 'ETH-USDT.OKEX',
-        'price_tick': 0.001,
-    }, {
-        'vt_symbol': 'ETC-USDT.OKEX',
-        'price_tick': 0.001,
-    }, {
-        'vt_symbol': 'EOS-USDT.OKEX',
-        'price_tick': 0.001,
-    }, {
-        'vt_symbol': 'DASH-USDT.OKEX',
-        'price_tick': 0.001,
-    }]
+    symbols = ['BTC', 'BCH', 'BSV', 'ETH', 'ETC', 'EOS', 'LTC', 'DASH']
 
-    #
+    # 5
     strategy_classes = [
         AtrAdxSmaM1Strategy, BollCciM15Strategy,
-        DualThrustStrategy, KingKeltnerStrategy
+        BollRsiAtrM15rStrategy,
+        DualThrustStrategy, KingKeltnerStrategy,
+        RBreakerM1Strategy
     ]
 
     settings = dict()
-    # 4 * 8 = 32
-    for it in instruments:
+    # 5 * 8 = 40
+    for sym in symbols:
         for s in strategy_classes:
-            k, v = make_pair(it, s, False)
+            k, v = make_pair(sym, s)
             settings[k] = v
 
     print(f"Total {len(settings)} strategies")
