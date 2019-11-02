@@ -115,7 +115,7 @@ class BaseStrategy(CtaTemplate):
 
     def print_trade(self, trade):
         action = '{} {}'.format(trade.offset.value, trade.direction.value)
-        self.write_log("成交：{} {:.2f} x {} {} {:.2f}".format(action, trade.price, trade.volume, trade.tradeid, self.balance))
+        self.write_log("成交：{} {:.2f} x {} {:.2f} {}".format(action, trade.price, trade.volume, self.balance, trade.tradeid))
 
     def on_init(self):
         self.load_bar(1)
@@ -140,7 +140,7 @@ class BaseStrategy(CtaTemplate):
     def on_trade(self, trade: TradeData):
         if trade.offset == Offset.OPEN:
             self.balance -= trade.volume * trade.price
-        elif trade.offset in (Offset.CLOSE, Offset.CLOSETODAY, Offset.CLOSEYESTERDAY):
+        else:
             self.balance += trade.volume * trade.price
 
         self.submit_trade(trade)
